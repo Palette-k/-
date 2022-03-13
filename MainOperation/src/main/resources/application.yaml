@@ -27,6 +27,7 @@ mybatis-plus:
       id-type: auto #主键自增
   type-aliases-package: com.gdufe.cs.entities
 
+
   #management是所有 actuator的配置
 management:
   endpoints:
