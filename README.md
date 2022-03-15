@@ -1,4 +1,4 @@
-# hello-vue
+# myvue
 
 ## Project setup
 ```
