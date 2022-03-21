@@ -21,5 +21,4 @@ public class CommonResult<T> {
         this(code,msg,null);
     }
 
-
 }

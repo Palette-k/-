@@ -3,9 +3,7 @@
   <div>
     <p>
 
-
-      <router-link to="/layout"></router-link>
-      <router-link to="/ex"></router-link>
+     <router-link to="/layout"></router-link>
     </p>
     <router-view></router-view>
   </div>
@@ -16,7 +14,10 @@
 
 
 export default {
+
+
   name: 'App',
+
 
 }
 </script>

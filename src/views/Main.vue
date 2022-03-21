@@ -1,10 +1,18 @@
 <template>
-    <div></div>
+
+   <div>首页</div>
+
 </template>
 
 <script>
-    export default {
-        name: "Main-1"
+
+
+
+   export default {
+        name: "Main-1",
+
+
+
     }
 </script>
 
