@@ -3,9 +3,9 @@
         <el-container
         style="width: 100%">
             <!--头部菜单-->
-            <el-header >
+           <el-header>
           <menu1></menu1>
-            </el-header>
+           </el-header>
             <!--轮播图-->
        <el-main
        style="margin: 2cm 0cm 2cm 0cm">

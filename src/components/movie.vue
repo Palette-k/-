@@ -48,7 +48,6 @@
                     {id: 2, value:ref(4),idviews: require('../assets/gallery/image3.jpg')},
                     {id: 3,value:ref(2), idviews: require('../assets/gallery/image4.jpg')},
                     {id: 4, value:ref(4),idviews: require('../assets/gallery/image1.jpg')},],
-                message:["1.xx",'2.xx','3.xxx',]
 
 
             }

@@ -18,6 +18,12 @@
     export default {
         name: "side-sort",
         components:mrightside,
+        data(){
+            return{
+                message:["1. xx",'2. xx','3. xxx','4. xxx','5. xxx','6. xx','7. xx','8. xx','9. xxx','10. xx']
+            }
+        }
+
     }
 </script>
 
