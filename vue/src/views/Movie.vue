@@ -81,7 +81,7 @@
         </el-col>
         <el-col :span="8">
           <div class="bodyr">
-        <Paihang></Paihang>
+        <moviesidesort></moviesidesort>
       </div>
         </el-col>
       </el-row>
@@ -90,7 +90,8 @@
 </template>
 <script>
 import Star1 from "@/components/Star1";
-import Paihang from "@/components/Paihang";
+import moviesidesort from "@/components/moviesidesort";
+
 export default {
   name: "Movie",
   /*这里的data只是显示用，可以全注释掉*/
@@ -135,7 +136,7 @@ export default {
 
     }
   },
-  components: {Paihang, Star1}
+  components: {moviesidesort, Star1}
 }
 </script>
 

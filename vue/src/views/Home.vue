@@ -9,16 +9,16 @@
     </p>
   </div>
   </div>
-    <a href="/main" target="_self">Start</a>
+    <a href="/layout" target="_self">Start</a>
   </div>
 </template>
 
 <script>
 
-import Menu from "@/components/Menu";
+
 export default {
   name: "Home",
-  components: {Menu},
+
   data() {
     return {
       msg: "一个可以给书籍、电影、音乐打分评论的网站",
