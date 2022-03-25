@@ -63,7 +63,7 @@
 <script>
 
 
-   import carousel from "../components/carousel";
+   import carousel from "../components/Carousel";
    import menu1 from "../components/menu1";
    import movie from "../components/movie";
    import sidepart from "../components/moviesidepart";
@@ -98,7 +98,6 @@
     }
 
      .el-container .el-container .el-main {
-
         padding: 0;
        border-left: solid 1px #e6e6e6;
     }
