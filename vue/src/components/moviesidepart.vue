@@ -2,7 +2,7 @@
     <h1 style="font-family: 楷体;
                               font-size: x-large;
                               text-align: center;
-                              ">影片分区</h1>
+                              color: #c45656">影片分区</h1>
     <div style="text-align: center ;margin: 10px 0 10px 0">
         <el-link href="https://element.eleme.io" target="_blank"
                  style="margin: 2px 2px 2px 2px">科幻</el-link>

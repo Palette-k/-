@@ -1,6 +1,5 @@
 <template>
     <div style="text-align: center">
-        <span class="demonstration">首页</span>
         <el-carousel style="
                     margin: 0 auto;
                     height: 50%;

@@ -1,15 +1,15 @@
 <template>
     <div class="common-layout">
         <el-container
-        style="width: 100%">
+      >
             <!--头部菜单-->
            <el-header>
-          <menu1></menu1>
+          <menu1 style="width: 100%"></menu1>
            </el-header>
             <!--轮播图-->
        <el-main
-       style="margin: 2cm 0cm 2cm 0cm">
-           <carousel></carousel>
+       style="margin: 2cm 0cm 2cm 0cm ;">
+           <carousel style="margin:0 auto;width: 80%"></carousel>
             </el-main>
             <!--电影区-->
             <el-container>
@@ -88,18 +88,14 @@
 
 <style scoped>
 .common-layout {
-  width: 80%;
+
   margin: 0 auto;
 }
-      .el-header {
-        position: relative;
 
-        color: var(--el-text-color-primary);
-    }
 
      .el-container .el-container .el-main {
         padding: 0;
-       border-left: solid 1px #e6e6e6;
+
     }
 .el-aside{
         width: 20%;
@@ -115,7 +111,7 @@
          width: 20%;
          color: var(--el-text-color-primary);
          background: #fff !important;
-         border-left: solid 1px #e6e6e6;
+
          box-sizing: border-box;
          text-align: center;
 
@@ -123,7 +119,7 @@
       .el-aside-2{
           width: 240px;
 
-          border-left: solid 1px #e6e6e6;
+
 
         text-align: center;
       }
@@ -131,7 +127,7 @@
           width: 240px;
           color: var(--el-text-color-primary);
           background: #fff !important;
-          border-left: solid 1px #e6e6e6;
+
 
           text-align: center;
 

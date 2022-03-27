@@ -1,6 +1,6 @@
 <template>
     <div class="demo-image">
-        <el-row>
+        <el-row style="margin-top: 10%">
             <el-col v-for="it in pictureurls"
             :key="it.id"
             :span="6"
@@ -20,7 +20,7 @@
             </el-col>
         </el-row>
 
-        <el-row style="margin:2cm 0 2cm 0">
+        <el-row style="margin-top: 10%">
             <el-col v-for="it in pictureurls"
                     :key="it.id"
                     :span="6"

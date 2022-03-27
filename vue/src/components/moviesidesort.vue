@@ -4,7 +4,7 @@
 
     <div v-for="sort in message" :key="sort">
         <el-link href="https://element.eleme.io" target="_blank"
-                 style="border-bottom:  solid 2px #e6e6e6;
+                 style="border-bottom:  solid 1px #e6e6e6;
                  margin: 10px 10px 10px 10px" >{{sort}}</el-link>
 
 
