@@ -67,6 +67,7 @@ a{
   color: #fff;
   border-radius: 50px;
   z-index: 1;
+  animation: sun 12s infinite;
 }
 a::before{
   content: "";

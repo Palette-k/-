@@ -1,4 +1,5 @@
 <template>
+  <menu1></menu1>
   <div class="body">
     <!--    电影名-->
     <h2>{{movieName}}</h2>
@@ -70,7 +71,7 @@
 
         <div class="part4">
           <h3>{{movieName}}的评论· · · · · ·</h3>
-
+          <Comment></Comment>
         </div>
 
         <div class="part5">
@@ -91,6 +92,8 @@
 <script>
 import Star1 from "@/components/Star1";
 import moviesidesort from "@/components/moviesidesort";
+import Comment from "@/components/Comment";
+import Menu1 from "@/components/menu1";
 
 export default {
   name: "Movie",
@@ -136,13 +139,13 @@ export default {
 
     }
   },
-  components: {moviesidesort, Star1}
+  components: {Menu1, Comment, moviesidesort, Star1}
 }
 </script>
 
 <style scoped>
 .body {
-  width: 70%;
+  width: 75%;
   margin: 0 auto;
 }
 
