@@ -3,9 +3,9 @@
 // import VueRouter from 'vue-router';
 import {createRouter,createWebHistory} from "vue-router";
 //导入组件
-import Main from "../views/Main";
+import Layout from "../views/Layout";
 import Login from "../views/Login";
-import Register from "@/components/Register";
+import Register from "@/views/Register";
 //import Login1 from "@/components/Login1";
 //使用
 // Vue.use(VueRouter);
@@ -13,11 +13,11 @@ import Register from "@/components/Register";
 // export default new VueRouter({
 const routes=[
         {
-            //登录页
-            path: '/main',
-            component: Main
+            //首页
+            path: '/layout',
+            component: Layout
         },
-        //首页
+        //登录页
         {
             path: '/login',
             component: Login

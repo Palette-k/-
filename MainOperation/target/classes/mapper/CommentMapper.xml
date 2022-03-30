@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdufe.cs.mapper.CommentMapper">
+
+    <update id="incCommentCount" parameterType="comment">
+        update comment
+        set comment_count = comment_count + #{commentCount}
+        where id = #{id}
+    </update>
+
+    <update id="incLikeCount" parameterType="comment">
+        update comment
+        set like_count = like_count + #{likeCount}
+        where id = #{id}
+    </update>
+
+
+</mapper>

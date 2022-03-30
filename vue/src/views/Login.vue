@@ -36,7 +36,7 @@
 
 <script>
 import request from "@/utils/request";
-
+import cookie from 'js-cookie';
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Login",
@@ -62,11 +62,12 @@ export default {
       //为表单绑定验证功能
      this.$refs[formName].validate((valid)=>{
         if(valid){
-           request.post("/user/login",this.user).then(res=> {
+           request.post("/member/user/login",this.user).then(res=> {
             if (res.code === 200) {
               console.log(res);
+              this.setCookies(res.data.username,res.data.token);
               //使用vue-router路由到指定界面，该方式称为编程式导航
-              this.$router.push('/main');
+              this.$router.push('/layout');
             } else {
               console.log(res);
               this.$message.error("用户名或密码错误")
@@ -80,8 +81,20 @@ export default {
     },
     register() {
       this.$router.push('/register');
-    }
-  }
+    },
+    setCookies(username, token) {
+      cookie.set('token', token, { domain: 'localhost' })
+      cookie.set('username', username, { domain: 'localhost' })
+      window.location.reload()
+    },
+
+
+
+
+
+  },
+
+
 }
 </script>
 

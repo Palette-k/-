@@ -1,0 +1,47 @@
+server:
+  port: 8002
+
+spring:
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+  datasource:
+    url: jdbc:mysql:///commentsystem
+
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  application:
+    name: cs-member
+
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto #主键自增
+  type-aliases-package: com.gdufe.cs.entities
+
+
+  #management是所有 actuator的配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' #以web方式暴露所有端点
+    enabled-by-default: true  #默认开启所有监控端点
+    #显示每个端点的详细信息
+  endpoint:
+    health:
+      show-details: always

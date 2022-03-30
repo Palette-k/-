@@ -7,7 +7,7 @@
 
 <script>
 
-import Menu from "@/components/Menu";
+import Menu from "@/components/menu1";
 
 export default {
   name: 'App',

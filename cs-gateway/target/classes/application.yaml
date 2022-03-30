@@ -1,0 +1,40 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+#        - id: test_route
+#          uri: https://www.baidu.com
+#          predicates:
+#            - Query=url,baidu
+
+        - id: admin_route
+          uri: lb://MainOperation
+          predicates:
+            - Path=/api/mainoperation/**
+        #前端项目，/api前缀的都先路由到 MainOperation
+          filters:
+            - RewritePath=/api(?<segment>/?.*), $\{segment}
+
+        - id: works_route
+          uri: lb://cs-works #负载均衡到服务名
+          predicates:
+            - Path=/api/works/**
+          filters:
+            - RewritePath=/api(?<segment>/?.*), $\{segment}
+
+        - id: member_route
+          uri: lb://cs-member #负载均衡到服务名
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=/api(?<segment>/?.*), $\{segment}
+
+
+  application:
+    name: cs-gateway
+server:
+  port: 88
+
