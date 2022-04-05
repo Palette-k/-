@@ -3,9 +3,11 @@ const axios = require("axios");
 window.onload=function (){
     var vue = new Vue({
         el:"#loginSubmit",
-        data:{
+        data:function() {
+return {
           user:{}
-        },
+        };
+},
         methods:{
             getUser:function (){
                 axios({

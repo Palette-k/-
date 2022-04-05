@@ -49,7 +49,7 @@ public class IndexController {
     * 注册
     * */
     @PostMapping(value = "/register")
-    public CommonResult register(@RequestBody User user, Model model){
+    public CommonResult register(@RequestBody User user){
 
         if(user.getUsername()!=null && user.getPassword()!=null){
             userService.save(user);

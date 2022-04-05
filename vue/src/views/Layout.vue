@@ -1,4 +1,5 @@
 <template>
+
   <div class="common-layout">
     <el-container
     >
@@ -88,7 +89,7 @@ export default {
 
 <style scoped>
 .common-layout {
-
+  width: 80%;
   margin: 0 auto;
 }
 

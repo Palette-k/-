@@ -127,6 +127,7 @@
 </template>
 
 <script>
+var tp ;
 export default {
   name: "Comment",
   data() {
@@ -329,7 +330,12 @@ export default {
     },
 
     showReplyInput(i,name,id) {
-      /*关闭父评论回复框，没解决*/
+      /*关闭父评论回复框*/
+      if(tp || tp==0) {
+        this.comments[tp].inputShow= false
+        console.log(tp)
+      }
+      tp = i
 
       /*关闭子评论回复框*/
       this.comments[i].inputShow =false
