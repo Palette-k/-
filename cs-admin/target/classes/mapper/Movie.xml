@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-mybatis.org//OTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdufe.cs.admin.mapper.MovieMapper">
+    <update id="update">
+        update movie
+        <set>
+            <if test="movie_name != null">
+                movie_name=#{movie_name},
+            </if>
+            <if test="movie_intro != null">
+                movie_intro=#{movie_intro},
+            </if>
+            <if test="movie_cry != null">
+                movie_cry=#{movie_cry},
+            </if>
+            <if test="movie_time != null">
+                movie_time=#{movie_time},
+            </if>
+            <if test="movie_score != null">
+                movie_score=#{movie_score},
+            </if>
+            <if test="movie_did != null">
+                movie_did=#{movie_did},
+            </if>
+            <if test="comment_count != null">
+                comment_count=#{comment_count},
+            </if>
+            <if test="like_count != null">
+                like_count=#{like_count}
+            </if>
+        </set>
+        <where>
+            movie_id=#{movie_id}
+        </where>
+    </update>
+</mapper>

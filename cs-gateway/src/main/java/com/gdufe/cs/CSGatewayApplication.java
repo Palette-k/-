@@ -12,7 +12,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *   （配置nacos的注册中心地址）
  * @DateTime: 2022/3/26 17:05
  **/
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @EnableDiscoveryClient
 public class CSGatewayApplication {
     public static void main(String[] args) {

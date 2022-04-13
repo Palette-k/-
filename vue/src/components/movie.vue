@@ -7,13 +7,13 @@
                 :key="it.movieId"
                 :span="6"
                 :offset="it.movieId>0?2:0">
-          <el-card :body-style="{ padding: '70px' }">
-            <template>
+          <el-card :body-style="{ padding: '30px' }">
+
             <img
                 :src="getImage(it.moviePath)"
                 class="block"
             />
-            </template>
+
             <span class="demonstration">{{it.movieName}} </span>
 
                   <!--评分条-->
@@ -81,7 +81,7 @@
       methods:{
         getInfo(){      //首页展示影片
 
-       request.get("/works/movie/indexshow?pageCurrent=" + this.currentPage + "&pageSize=" + this.pageSize).then(data =>{
+       request.get("/works/works/indexshow?pageCurrent=" + this.currentPage + "&pageSize=" + this.pageSize).then(data =>{
             //console.log(data.data);
             const res = data.data;
             const movieURL = res.movies;

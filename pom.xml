@@ -8,12 +8,12 @@
     <artifactId>CommentSystem</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>MainOperation</module>
         <module>API-Common</module>
         <module>cs-gateway</module>
         <module>cs-works</module>
         <module>cs-search</module>
         <module>cs-member</module>
+        <module>cs-thirdparty</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -102,11 +102,12 @@
                 <scope>runtime</scope>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+            <!-- mybatis-plus-boot-starter  -->
+            <!--注意版本必须在 3.4.0 以下 否则网关部分报错-->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.4.3</version>
+                <version>3.4.0</version>
             </dependency>
 
 

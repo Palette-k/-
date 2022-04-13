@@ -4,13 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdufe.cs.dto.CommentDTO;
 import com.gdufe.cs.entities.Comment;
-import com.gdufe.cs.entities.Movie;
+import com.gdufe.cs.entities.Works;
 import com.gdufe.cs.entities.Notification;
 import com.gdufe.cs.entities.User;
 import com.gdufe.cs.works.enums.CommentTypeEnum;
 import com.gdufe.cs.works.feign.MemberFeignService;
 import com.gdufe.cs.works.mapper.CommentMapper;
-import com.gdufe.cs.works.mapper.MovieMapper;
+import com.gdufe.cs.works.mapper.WorksMapper;
 import com.gdufe.cs.works.service.CommentService;
 import com.gdufe.cs.enums.NotificationStatusEnum;
 import com.gdufe.cs.enums.NotificationTypeEnum;
@@ -39,7 +39,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     private CommentMapper commentMapper;
 
     @Autowired
-    private MovieMapper movieMapper;
+    private WorksMapper worksMapper;
 
     @Autowired
     private MemberFeignService memberFeignService;
@@ -66,8 +66,8 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
             }
 
             //影评
-            Movie movie = movieMapper.selectById(dbComment.getParentId());
-            if(movie == null){  //找不到电影
+            Works works = worksMapper.selectById(dbComment.getParentId());
+            if(works == null){  //找不到电影
                 throw new CustomizeException(CustomizeErrorCode.MOVIE_NOT_FOUND);
             }
 
@@ -81,21 +81,21 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
 
             //创建通知
             createNotify(comment, dbComment.getCommentator(),commentator.getUsername(),
-                    movie.getMovieName(),NotificationTypeEnum.REPLY,movie.getMovieId());
+                    works.getName(),NotificationTypeEnum.REPLY, works.getPid());
 
 
         }else if(comment.getType() == CommentTypeEnum.MOVIE.getType()){
             //影评
-            Movie movie = movieMapper.selectById(comment.getParentId());
-            if(movie == null){  //找不到电影
+            Works works = worksMapper.selectById(comment.getParentId());
+            if(works == null){  //找不到电影
                 throw new CustomizeException(CustomizeErrorCode.MOVIE_NOT_FOUND);
             }
 
             comment.setCommentCount(0);
             commentMapper.insert(comment); //插入评论成功
 
-            movie.setCommentCount(1);
-            movieMapper.incCommentCount(movie); //插入电影对应的 评论数
+            works.setCommentCount(1);
+            worksMapper.incCommentCount(works); //插入电影对应的 评论数
 
 
         }

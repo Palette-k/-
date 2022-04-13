@@ -10,7 +10,7 @@ spring:
 #          predicates:
 #            - Query=url,baidu
 
-        - id: admin_route
+        - id: MainOperation_route
           uri: lb://MainOperation
           predicates:
             - Path=/api/mainoperation/**
@@ -31,6 +31,33 @@ spring:
             - Path=/api/member/**
           filters:
             - RewritePath=/api(?<segment>/?.*), $\{segment}
+
+        - id: thirdparty_route
+          uri: lb://cs-thirdparty #负载均衡到服务名
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api(?<segment>/?.*), $\{segment}
+
+        - id: admin_route
+          uri: lb://cs-admin #负载均衡到服务名
+          predicates:
+            - Path=/api/admin/**
+          filters:
+            - RewritePath=/api(?<segment>/?.*), $\{segment}
+
+        - id: search_route
+          uri: lb://cs-search #负载均衡到服务名
+          predicates:
+            - Path=/api/search/**
+          filters:
+            - RewritePath=/api(?<segment>/?.*), $\{segment}
+
+
+#        - id: host_route
+#          uri: lb://cs-works #负载均衡到服务名
+#          predicates:
+#            - Host=**.commentsystem.com,commentsystem.com
 
 
   application:

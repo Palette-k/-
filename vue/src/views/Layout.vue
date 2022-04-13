@@ -64,7 +64,7 @@
 
 
    import carousel from "../components/Carousel";
- //  import menu1 from "../components/menu1";
+   import menu1 from "../components/menu1";
    import movie from "../components/movie";
    import sidepart from "../components/moviesidepart";
    import sidesort from "../components/moviesidesort";
@@ -74,11 +74,13 @@
    import book from "../components/book";
    import booksidepart from "../components/book-sidepart";
    import booksidesort from "../components/book-sidesort"
+   import Movie from "@/views/Movie";
     export default {
         name: "layout-1",
         components: {
+          Movie,
 
-            movie,sidesort,sidepart,carousel,music,musicsidepart,
+            menu1,movie,sidesort,sidepart,carousel,music,musicsidepart,
            musicsidesort,book,booksidepart,booksidesort}
 
 

@@ -40,9 +40,9 @@ public class IndexController {
         Map<String,Object> map = new HashMap<>();
         if(user1 != null){
 
-            String token = JwtHelper.createToken(user.getId(), user.getUsername());
+           /* String token = JwtHelper.createToken(user.getId(), user.getUsername());
             map.put("username",user.getUsername());
-            map.put("token",token);
+            map.put("token",token);*/
 
             return new CommonResult(200,"登录成功",map);
         }else{
@@ -60,9 +60,9 @@ public class IndexController {
         Map<String,Object> map = new HashMap<>();
         if(user.getUsername()!=null && user.getPassword()!=null){
             userService.save(user);
-            String token = JwtHelper.createToken(user.getId(), user.getUsername());
+         /*   String token = JwtHelper.createToken(user.getId(), user.getUsername());
             map.put("username",user.getUsername());
-            map.put("token",token);
+            map.put("token",token);*/
            return new CommonResult(200,"注册成功",map);
         }else{
            // model.addAttribute("msg","用户名和密码不能为空！");

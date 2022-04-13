@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-mybatis.org//OTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdufe.cs.admin.mapper.CommentMapper">
+    <update id="update">
+        update comment
+        <set>
+            <if test="parent_id != null">
+                parentId=#{parentId},
+            </if>
+            <if test="type != null">
+                type=#{type},
+            </if>
+            <if test="commentator != null">
+                commentator=#{commentator},
+            </if>
+            <if test="gmt_create != null">
+                gmtCreate=#{gmtCreate},
+            </if>
+            <if test="gmt_modified != null">
+                gmtModified=#{gmtModified},
+            </if>
+            <if test="like_count != null">
+                likeCount=#{likeCount},
+            </if>
+            <if test="comment_count != null">
+                commentCount=#{commentCount}
+            </if>
+            <if test="content != null">
+                content=#{content}
+            </if>
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+</mapper>
+

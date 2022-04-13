@@ -1,5 +1,6 @@
 package com.gdufe.cs.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -13,7 +14,10 @@ public class Comment {
     private Long parentId; //父类id 即对应的电影、书籍id
     private Integer type;  //父类类型
     private  Long commentator; //评论人id
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Long gmtCreate; //创建时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Long gmtModified; //更新时间
     private Integer likeCount; //点赞数
     private Integer commentCount;  //评论数

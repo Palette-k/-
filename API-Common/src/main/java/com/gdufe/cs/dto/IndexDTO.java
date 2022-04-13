@@ -1,6 +1,6 @@
 package com.gdufe.cs.dto;
 
-import com.gdufe.cs.entities.Movie;
+import com.gdufe.cs.entities.Works;
 import lombok.Data;
 
 import java.util.List;
@@ -13,10 +13,18 @@ import java.util.List;
 @Data
 public class IndexDTO {
 
- //  private Page<Movie> moviePage;
+
     private Integer pageCurrent;
     private Integer pageSize;
-    private Long pageTotal;
-    private Long pages;
-   private List<Movie> movies;
+    private Long movieTotal;
+    private Long moviePages;
+   private List<Works> movie;
+
+    private Long bookTotal;
+    private Long bookPages;
+    private List<Works> book;
+
+    private Long musicTotal;
+    private Long musicPages;
+    private List<Works> music;
 }

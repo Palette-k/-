@@ -19,7 +19,7 @@ import java.util.List;
  * @DateTime: 2022/3/15 16:02
  **/
 @RestController
-@RequestMapping("/works")
+@RequestMapping("/works/auth")
 public class CommentController {
     @Autowired
     private CommentService commentService;

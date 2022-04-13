@@ -32,7 +32,7 @@ export default {
 .background {
   width: 100%;
   height: 100%;
-  background-image: url("../image/画板 1.png");
+  background-image: url("../image/画板.png");
   background-size: cover;
   position: absolute;
   z-index: -1;

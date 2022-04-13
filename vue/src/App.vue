@@ -1,20 +1,20 @@
 <template >
   <div id="app">
-    <Menu></Menu>
+<!--    <Menu></Menu>-->
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 
-import Menu from "@/components/menu1";
+
 
 export default {
   name: 'App',
-  components:{
+ /* components:{
     // eslint-disable-next-line vue/no-unused-components
-    Menu,
-  }
+    Layout,
+  }*/
 }
 </script>
 

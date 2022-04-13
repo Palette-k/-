@@ -12,10 +12,10 @@ spring:
       max-request-size: 100MB
 
   datasource:
-    url: jdbc:mysql:///commentsystem
+    url: jdbc:mysql://192.168.170.10:3306/cs_user
 
     username: root
-    password: 123456
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   cloud:
     nacos:

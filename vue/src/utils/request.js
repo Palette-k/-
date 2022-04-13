@@ -1,8 +1,8 @@
 import axios from 'axios'
-
+import cookie from 'js-cookie'
 const request = axios.create({
     baseURL: 'http://localhost:88/api',  // 注意！！ 这里是全局统一加上了 后端接口前缀 前缀，后端必须进行跨域配置！
-    timeout: 5000
+    timeout: 8000
 })
 
 // request 拦截器
@@ -11,17 +11,31 @@ const request = axios.create({
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
 
-    // config.headers['token'] = user.token;  // 设置请求头
+    //如果有token值
+    if(cookie.get('token')) {
+        //token值放到cookie里面
+        config.headers['token']=cookie.get('token')
+    }
+
     return config
 }, error => {
     return Promise.reject(error)
 });
+
+
 
 // response 拦截器
 // 可以在接口响应后统一处理结果
 request.interceptors.response.use(
     response => {
         let res = response.data;
+
+        if(res.code === 406) {
+            //去登录页面
+            this.$router.push('/login');
+            return
+        }
+
         // 如果是返回的文件
         if (response.config.responseType === 'blob') {
             return res

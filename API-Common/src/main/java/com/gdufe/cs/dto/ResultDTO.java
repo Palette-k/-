@@ -15,6 +15,26 @@ public class ResultDTO<T> {
     private String message;
     private T data;
 
+    protected static <T> ResultDTO<T> build(T data) {
+        ResultDTO<T> result = new ResultDTO<T>();
+        if (data != null)
+            result.setData(data);
+        return result;
+    }
+
+    public static <T> ResultDTO<T> build(T body, CustomizeErrorCode resultCodeEnum) {
+        ResultDTO<T> result = build(body);
+        result.setCode(resultCodeEnum.getCode());
+        result.setMessage(resultCodeEnum.getMessage());
+        return result;
+    }
+
+    public static <T> ResultDTO<T> build(Integer code, String message) {
+        ResultDTO<T> result = build(null);
+        result.setCode(code);
+        result.setMessage(message);
+        return result;
+    }
 
     public static ResultDTO error(Integer code, String message) {
         ResultDTO resultDTO = new ResultDTO();
