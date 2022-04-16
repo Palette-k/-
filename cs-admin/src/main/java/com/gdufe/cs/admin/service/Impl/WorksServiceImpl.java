@@ -2,17 +2,22 @@ package com.gdufe.cs.admin.service.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.gdufe.cs.admin.cache.TagCache;
+
 import com.gdufe.cs.admin.dto.AdminTagDTO;
 import com.gdufe.cs.admin.dto.AdminWorksDTO;
+import com.gdufe.cs.admin.feign.searchFeignService;
 import com.gdufe.cs.admin.mapper.*;
 import com.gdufe.cs.admin.service.WorksService;
 import com.gdufe.cs.entities.*;
-import org.apache.commons.lang3.StringUtils;
+import com.gdufe.cs.enums.WorksStatusEnum;
+import com.gdufe.cs.es.esModel;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +43,10 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
 
     @Autowired
     private WorkscategoryMapper workscategoryMapper;
+
+
+   @Autowired
+   private searchFeignService searchFeignService;
 
     private Long catelogId = null;
 
@@ -68,9 +77,9 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
         works.setLikeCount(0);
         works.setScore(0);
         works.setCatelogId(catelogId);
-       // works.setWorkscateId(adminWorksDTO.getWorkscateId());
+        works.setWorkscateId(adminWorksDTO.getWorkscateId());
         works.setPath(adminWorksDTO.getPath());
-
+        works.setStatus(WorksStatusEnum.NEW.getCode());
 
         //给作品表插入一条数据
         int worksInsert = worksMapper.insert(works);
@@ -132,7 +141,128 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
         return adminTagDTO;
     }
 
+    @Override
+    public void up(Long worksId)  {
+        Works works = worksMapper.selectById(worksId);
 
+        /* 查出该作品的形式 */
+        Long catelogId = works.getCatelogId();
+        Long workscateId = works.getWorkscateId();
+        QueryWrapper<Workscategory> queryWrapper1 = new QueryWrapper<>();
+        queryWrapper1.eq("id", workscateId);
+        Workscategory workscategory = workscategoryMapper.selectOne(queryWrapper1);
+        String catelogName = workscategory.getCatelogName();
+
+        /* 查出作品的标签 */
+        QueryWrapper<Attr> queryWrapper2 = new QueryWrapper<>();
+        queryWrapper2.eq("works_id",worksId);
+        List<Attr> attrs = attrMapper.selectList(queryWrapper2);
+        List<Long> tagIds = attrs.stream().map(attr -> attr.getTagId()).collect(Collectors.toList());
+
+        List<Tagcategory> tagcategories1 = new ArrayList<>();
+        for (Long tagId : tagIds) {
+            QueryWrapper<Tagcategory> queryWrapper3 = new QueryWrapper<>();
+            queryWrapper3.eq("id",tagId);
+            Tagcategory tagcategory = tagcategoryMapper.selectOne(queryWrapper3);
+
+            tagcategories1.add(tagcategory);
+        }
+
+        List<esModel.Tagcategory> tagcategories =
+                tagcategories1.stream().map(item -> {
+                    esModel.Tagcategory tagcategory = new esModel.Tagcategory();
+                    tagcategory.setId(item.getId());
+                    tagcategory.setTagName(item.getTagName());
+                    return tagcategory;
+                }).collect(Collectors.toList());
+
+        QueryWrapper<Producer> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id",works.getPid());
+        Producer producer = producerMapper.selectOne(queryWrapper);
+        String producerName = producer.getName();
+
+
+        esModel esModel = new esModel();
+        esModel.setCountry(works.getCountry());
+        esModel.setImg(works.getPath());
+        esModel.setCreateTime(works.getCreateTime());
+        esModel.setWorksId(worksId);
+        esModel.setWorksName(works.getName());
+        esModel.setCatelogId(works.getCatelogId());
+        esModel.setTagList(tagcategories);
+        esModel.setWorkscateId(workscateId);
+        esModel.setCatelogName(catelogName);
+        esModel.setScore(works.getScore());
+        esModel.setHotScore(0L);
+        esModel.setProducerName(producerName);
+
+        //把封装好的数据发送给es进行保存，作品发布成功
+        CommonResult result = searchFeignService.worksStatusUp(esModel);
+        if(result.getCode() == 200){
+            //更新作品发布状态
+            worksMapper.updateStatus(worksId, WorksStatusEnum.UP.getCode());
+        }
+
+    }
+
+    @Override
+    public List<AdminWorksDTO> selectWorks() {
+
+        List<AdminWorksDTO> adminWorksDTOList = new ArrayList<>();
+
+        List<Works> worksList = worksMapper.selectList(null);
+        for (Works works : worksList) {
+            AdminWorksDTO adminWorksDTO = new AdminWorksDTO();
+            adminWorksDTO.setId(works.getId());
+            adminWorksDTO.setName(works.getName());
+            adminWorksDTO.setCreateTime(works.getCreateTime());
+            adminWorksDTO.setWorkscateId(works.getWorkscateId());
+            adminWorksDTO.setPath(works.getPath());
+            adminWorksDTO.setIntro(works.getIntro());
+
+            if(works.getCatelogId() != null){
+                adminWorksDTO.setCatelogId(works.getCatelogId());
+                Tagcategory tagcategory = tagcategoryMapper.selectById(works.getCatelogId());
+                adminWorksDTO.setTagName(tagcategory.getTagName());
+            }
+
+
+            if(works.getWorkscateId()!=null){
+                adminWorksDTO.setWorkscateId(works.getWorkscateId());
+                Workscategory workscategory = workscategoryMapper.selectById(works.getWorkscateId());
+                adminWorksDTO.setCatelogName(workscategory.getCatelogName());
+            }
+
+            if(works.getPid() != null){
+                adminWorksDTO.setPid(works.getPid());
+                Producer producer = producerMapper.selectById(works.getPid());
+                adminWorksDTO.setProducerName(producer.getName());
+            }
+
+
+            adminWorksDTO.setStatus(works.getStatus());
+
+            QueryWrapper<Attr> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("works_id",works.getId());
+            List<Attr> attrs = attrMapper.selectList(queryWrapper);
+            List<Long> tagIds = attrs.stream().map(attr -> attr.getTagId()).collect(Collectors.toList());
+
+            List<String> tagList = new ArrayList<>();
+            for (Long tagId : tagIds) {
+                QueryWrapper<Tagcategory> queryWrapper1 = new QueryWrapper<>();
+                queryWrapper1.eq("id",tagId);
+                Tagcategory tagcategory1 = tagcategoryMapper.selectOne(queryWrapper1);
+                String tagName = tagcategory1.getTagName();
+                tagList.add(tagName);
+            }
+
+            adminWorksDTO.setTagList(tagList);
+
+            adminWorksDTOList.add(adminWorksDTO);
+        }
+
+        return adminWorksDTOList;
+    }
 
     private List<Tagcategory> getParent_cid(List<Tagcategory> selectList,Long catelogId){
         List<Tagcategory> tagcategoryList =

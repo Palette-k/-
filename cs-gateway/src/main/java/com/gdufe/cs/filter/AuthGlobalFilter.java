@@ -24,7 +24,7 @@ import java.util.List;
  * @Description: 网关整合用户认证
  * @DateTime: 2022/3/30 18:56
  **/
-//@Component
+@Component
 public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
@@ -78,6 +78,8 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
      */
     private Long getUserId(ServerHttpRequest request) {
         String token = "";
+
+        //TODO nginx配置域名后丢失请求头问题
         List<String> tokenList = request.getHeaders().get("token");
         if(null  != tokenList) {
             token = tokenList.get(0);

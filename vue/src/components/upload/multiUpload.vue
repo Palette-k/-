@@ -25,9 +25,10 @@ import { policy } from "./policy";
 import { getUUID } from '@/utils'
 export default {
   name: "multiUpload",
+  emits: ['update:modelValue'],
   props: {
     //图片属性数组
-    value: Array,
+    modelValue: Array,
     //最大上传图片数量
     maxCount: {
       type: Number,
@@ -61,8 +62,8 @@ export default {
   computed: {
     fileList() {
       let fileList = [];
-      for (let i = 0; i < this.value.length; i++) {
-        fileList.push({ url: this.value[i] });
+      for (let i = 0; i < this.modelValue.length; i++) {
+        fileList.push({ url: this.modelValue[i] });
       }
 
       return fileList;

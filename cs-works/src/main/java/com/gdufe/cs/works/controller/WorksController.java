@@ -108,7 +108,7 @@ public class WorksController {
 
     //查找标签下的作品
     @GetMapping("/showWorksByTag/{tagId}")
-    public CommonResult showWorksByTag(@PathVariable("tagId")long tagId,
+    public CommonResult showWorksByTag(@PathVariable("tagId")Long tagId,
                                        @RequestParam(value = "pageCurrent",defaultValue = "1")int pageCurrent,
                                        @RequestParam(value = "pageSize",defaultValue = "10")int pageSize){
 
@@ -117,5 +117,7 @@ public class WorksController {
 
         return new CommonResult(200,"查找标签下的作品成功",worksList);
     }
+
+
 
 }

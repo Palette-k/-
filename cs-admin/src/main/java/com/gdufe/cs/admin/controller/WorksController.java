@@ -9,10 +9,9 @@ import com.gdufe.cs.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+
 
 /**
  * @Author: wzq
@@ -66,6 +65,26 @@ public class WorksController {
 
         return new CommonResult(400,"查询作品形式失败");
 
+    }
+
+    @GetMapping("/selectWorks")
+     public CommonResult selectWorks(){
+        List<AdminWorksDTO> adminWorksDTOList = worksService.selectWorks();
+        if(adminWorksDTOList != null){
+            return new CommonResult(200,"作品查询成功",adminWorksDTOList);
+        }
+        return new CommonResult(400,"作品查询失败");
+     }
+
+    /*
+    * 发布作品
+    * */
+    @PostMapping("/up/{worksId}")
+    public CommonResult up(@PathVariable("worksId") Long worksId)  {
+
+        worksService.up(worksId);
+
+        return new CommonResult(200,"作品上架成功");
     }
 
 }

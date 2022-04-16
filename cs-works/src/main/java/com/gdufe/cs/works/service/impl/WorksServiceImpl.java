@@ -4,21 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.gdufe.cs.dto.AttrDTO;
-import com.gdufe.cs.dto.IndexDTO;
-import com.gdufe.cs.dto.ProducerDTO;
-import com.gdufe.cs.dto.WorksDTO;
-import com.gdufe.cs.entities.Attr;
-import com.gdufe.cs.entities.Producer;
-import com.gdufe.cs.entities.Tagcategory;
-import com.gdufe.cs.entities.Works;
+import com.gdufe.cs.dto.*;
+import com.gdufe.cs.entities.*;
+import com.gdufe.cs.es.esModel;
 import com.gdufe.cs.works.cache.TagCache;
-import com.gdufe.cs.works.mapper.AttrMapper;
-import com.gdufe.cs.works.mapper.ProducerMapper;
-import com.gdufe.cs.works.mapper.TagcategoryMapper;
-import com.gdufe.cs.works.mapper.WorksMapper;
+import com.gdufe.cs.works.mapper.*;
 import com.gdufe.cs.works.service.TagcategoryService;
 import com.gdufe.cs.works.service.WorksService;
+import com.gdufe.cs.works.service.WorkscategoryService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +40,8 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
     @Autowired
     private AttrMapper attrMapper;
 
+    @Autowired
+    private WorkscategoryMapper workscategoryMapper;
 
     @Override
     public IndexDTO indexPage(Integer pageCurrent,Integer pageSize) {
@@ -106,6 +101,8 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
        return worksList;
 
     }
+
+
 
     private List<Tagcategory> getParent_cid(List<Tagcategory> selectList,Long catelogId){
         List<Tagcategory> tagcategoryList =

@@ -10,7 +10,8 @@ import lombok.Data;
 @Data
 public class SearchParam {
     private String keyword; //搜索词（关键字）
-    private Long catelog3Id; //三级分类id（类型）
+    private Long tagcatelogId; //基本类型id
+    private Long workscateId; //作品形式id
     private String country; //地区
     private String createTime; //时间、年代
     /*
@@ -25,6 +26,6 @@ public class SearchParam {
     * 评分筛选*/
     private String scoreSection;
 
-    private Integer pageNum; //页码
+    private Integer pageNum = 1; //页码
 
 }

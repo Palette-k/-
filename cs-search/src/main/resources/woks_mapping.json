@@ -1,0 +1,53 @@
+//PUT cs_works
+{
+  "mappings": {
+    "properties": {
+      "worksId": {
+        "type": "long"
+      },
+      "worksName": {
+        "type": "text",
+        "analyzer": "ik_smart"
+      },
+      "producerName": {
+        "type": "text",
+        "analyzer": "ik_smart"
+      },
+      "createTime": {
+        "type": "keyword"
+      },
+      "img": {
+        "type": "keyword"
+      },
+      "country": {
+        "type": "keyword"
+      },
+      "catelogId": {
+        "type": "long"
+      },
+      "hotScore": {
+        "type": "long"
+      },
+      "score": {
+        "type": "keyword"
+      },
+      "catelogName": {
+        "type": "keyword"
+      },
+      "workscateId": {
+        "type": "long"
+      },
+      "tagList": {
+        "type": "nested",
+        "properties": {
+          "id": {
+            "type": "long"
+          },
+          "tagName": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  }
+}

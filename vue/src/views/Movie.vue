@@ -79,7 +79,7 @@
         </el-form-item>
         <el-form-item label="海报">
 <!--          <el-input  autocomplete="off"></el-input>-->
-       <single-upload v-model:value="form.path"></single-upload>
+       <single-upload v-model="form.path"></single-upload>
         </el-form-item>
         <el-form-item label="制作国家">
           <el-input v-model="form.country" autocomplete="off"></el-input>
@@ -219,7 +219,7 @@ export default {
     //查询出作品类型下的作品形式
     handleCommand2 (value){
         console.log("进入选择作品形式方法");
-      this.form.catelogName = value;
+      this.form.worksCate = value;
       request.post("/admin/works/selectWorksCate?WorkscateName=" + this.form.worksCate).then(res =>{
        // res = res.data;
          console.log(res);

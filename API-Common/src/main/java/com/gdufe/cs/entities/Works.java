@@ -24,7 +24,7 @@ public class Works {
     private Long workscateId; //作品类型id
     public String country; //制作国家
     private Long createTime;
-
+    private Integer status;
     private Integer score; //评分
     private Long pid; //作者id
 

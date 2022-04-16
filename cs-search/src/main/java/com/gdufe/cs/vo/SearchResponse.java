@@ -16,6 +16,7 @@ public class SearchResponse {
     //查询到的所有作品信息
     private List<Works> worksList;
 
+
     /*
     * 分页信息
     * */
@@ -23,6 +24,8 @@ public class SearchResponse {
     private Long total; //总数
     private Integer totalPages;//总页数
 
+
+    private List<workscatelogVo> workscatelogVos; //作品形式
     private List<tagcatelogVo> tagcatelogVos; //分类信息
 
     @Data
@@ -30,4 +33,11 @@ public class SearchResponse {
         private Long tagId;
         private String tagName;
     }
+
+    @Data
+    public static class workscatelogVo{
+        private Long workscateId;
+        private String workscateName;
+    }
+
 }

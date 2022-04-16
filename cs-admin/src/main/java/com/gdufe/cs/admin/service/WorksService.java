@@ -8,6 +8,7 @@ import com.gdufe.cs.entities.Tagcategory;
 import com.gdufe.cs.entities.Works;
 import com.gdufe.cs.entities.Workscategory;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -19,4 +20,8 @@ public interface WorksService extends IService<Works> {
 
     public int saveWorksList(AdminWorksDTO adminWorksDTO);
     public AdminTagDTO selectTag(String tagName);
+
+    void up(Long worksId);
+
+    List<AdminWorksDTO> selectWorks();
 }
