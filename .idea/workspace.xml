@@ -5,8 +5,159 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdc65ec0-4f87-4977-b2ff-9c19189af53a" name="Changes" comment="用户登录、注册功能实现,并和前端页面对接">
-      <change beforePath="$PROJECT_DIR$/MainOperation/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/MainOperation/target/classes/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainOperation/target/classes/com/gdufe/cs/entities/User.class" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/entity/Works.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cs-member/src/main/java/com/gdufe/cs/member/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cs-member/src/main/java/com/gdufe/cs/member/dto/MemberUserDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/src/views/User.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/API-Common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/src/main/java/com/gdufe/cs/entities/Works.java" beforeDir="false" afterPath="$PROJECT_DIR$/API-Common/src/main/java/com/gdufe/cs/entities/Works.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/config/SwaggerConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/dto/AttrDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/dto/CommentDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/dto/IndexDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/dto/MovieDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/dto/NotificationDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/dto/ProducerDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/dto/ResultDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/dto/TagDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/dto/TagcategoryDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/dto/UserDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/dto/WorksDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/entities/Attr.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/entities/Author.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/entities/Book.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/entities/Comment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/entities/CommonResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/entities/Director.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/entities/Movie.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/entities/Notification.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/entities/Producer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/entities/Tagcategory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/entities/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/entities/Works.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/entities/Workscategory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/enums/CommentTypeEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/enums/NotificationStatusEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/enums/NotificationTypeEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/exception/CustomizeErrorCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/exception/CustomizeException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/exception/ICustomizeErrorCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API-Common/target/classes/com/gdufe/cs/helper/JwtHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/controller/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/controller/WorksController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/controller/WorksController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/dto/AdminWorksDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/dto/AdminWorksDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/entity/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/entity/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/mapper/WorksMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/mapper/WorksMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/service/Impl/WorksServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/service/Impl/WorksServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/service/WorksService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cs-admin/src/main/java/com/gdufe/cs/admin/service/WorksService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cs-admin/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/src/test/java/com/gdufe/cs/admin/DemoApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/bootstrap.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/AdminApplication9090.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/cache/TagCache.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/config/MybatisPlusConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/config/SwaggerConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/controller/CommentController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/controller/DirectorController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/controller/MovieController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/controller/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/controller/WorksController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/dto/AdminCommentDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/dto/AdminDirectorDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/dto/AdminMovieDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/dto/AdminTagDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/dto/AdminUserDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/dto/AdminWorksDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/entity/Comment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/entity/Director.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/entity/Movie.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/entity/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/mapper/AttrMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/mapper/CommentMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/mapper/DirectorMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/mapper/MovieMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/mapper/ProducerMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/mapper/TagcategoryMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/mapper/UserMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/mapper/WorksMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/mapper/WorkscategoryMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/service/CommentService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/service/DirectorService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/service/Impl/TagcategoryServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/service/Impl/WorksServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/service/Impl/WorkscategoryImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/service/MovieService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/service/TagcategoryService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/service/WorksService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/com/gdufe/cs/admin/service/WorkscategoryService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/mapper/Comment.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/mapper/Director.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/mapper/Movie.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/classes/mapper/User.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-admin/target/test-classes/com/gdufe/cs/admin/DemoApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-gateway/target/classes/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-gateway/target/classes/bootstrap.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-gateway/target/classes/com/gdufe/cs/CSGatewayApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-gateway/target/classes/com/gdufe/cs/config/CorsConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-gateway/target/classes/com/gdufe/cs/filter/AuthGlobalFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-member/src/main/java/com/gdufe/cs/member/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cs-member/src/main/java/com/gdufe/cs/member/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-member/src/main/java/com/gdufe/cs/member/service/impl/UserServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-member/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cs-member/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-member/target/classes/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-member/target/classes/bootstrap.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-member/target/classes/com/gdufe/cs/member/controller/IndexController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-member/target/classes/com/gdufe/cs/member/controller/NotificationController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-member/target/classes/com/gdufe/cs/member/controller/ProfileController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-member/target/classes/com/gdufe/cs/member/csMemberApplication8002.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-member/target/classes/com/gdufe/cs/member/mapper/NotificationMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-member/target/classes/com/gdufe/cs/member/mapper/UserMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-member/target/classes/com/gdufe/cs/member/service/NotificationService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-member/target/classes/com/gdufe/cs/member/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-member/target/classes/com/gdufe/cs/member/service/impl/NotificationServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-member/target/classes/com/gdufe/cs/member/service/impl/UserServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-search/src/main/java/com/gdufe/cs/config/csElasticSearchConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/cs-search/src/main/java/com/gdufe/cs/config/csElasticSearchConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-search/src/test/java/com/gdufe/cs/csSearchApplicationTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-search/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-search/target/classes/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-search/target/classes/com/gdufe/cs/config/csElasticSearchConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-search/target/classes/com/gdufe/cs/controller/SearchController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-search/target/classes/com/gdufe/cs/csSearchApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-search/target/classes/com/gdufe/cs/service/SearchService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-search/target/classes/com/gdufe/cs/service/impl/SearchServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-search/target/classes/com/gdufe/cs/vo/SearchParam.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-search/target/classes/com/gdufe/cs/vo/SearchResponse$tagcatelogVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-search/target/classes/com/gdufe/cs/vo/SearchResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-search/target/test-classes/com/gdufe/cs/csSearchApplicationTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-thirdparty/target/classes/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-thirdparty/target/classes/bootstrap.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-thirdparty/target/classes/com/gdufe/cs/controller/ossController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs-thirdparty/target/classes/com/gdufe/cs/csThirdPartyApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/dist/assets/js/chunk-vendors.7a5fe1b3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/dist/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/vue/dist/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/vue/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/node_modules/clone/clone.iml" beforeDir="false" afterPath="$PROJECT_DIR$/vue/node_modules/clone/clone.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/node_modules/encoding/node_modules/iconv-lite/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/vue/node_modules/encoding/node_modules/iconv-lite/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/node_modules/encoding/node_modules/iconv-lite/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/vue/node_modules/encoding/node_modules/iconv-lite/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/node_modules/encoding/node_modules/iconv-lite/.idea/iconv-lite.iml" beforeDir="false" afterPath="$PROJECT_DIR$/vue/node_modules/encoding/node_modules/iconv-lite/.idea/iconv-lite.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/node_modules/encoding/node_modules/iconv-lite/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/vue/node_modules/encoding/node_modules/iconv-lite/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/node_modules/encoding/node_modules/iconv-lite/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/vue/node_modules/encoding/node_modules/iconv-lite/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/node_modules/encoding/node_modules/iconv-lite/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/vue/node_modules/encoding/node_modules/iconv-lite/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/vue/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/vue/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/components/Aside.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/components/Aside.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/components/Header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/components/Header.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/views/Comment.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/views/Comment.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/views/Movie.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/views/Movie.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +168,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="Vue Single File Component" />
         <option value="Class" />
       </list>
     </option>
@@ -29,18 +181,29 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/cs-admin/pom.xml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pom.xml" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="$PROJECT_DIR$/../../Download/apache-maven-3.6.3" />
+        <option name="localRepository" value="D:\maven\maven-repository" />
+        <option name="mavenHome" value="D:/maven/apache-maven-3.6.3" />
+        <option name="useMavenConfig" value="true" />
+        <option name="userSettingsFile" value="D:\maven\apache-maven-3.6.3\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
   </component>
   <component name="MavenRunner">
+    <option name="delegateBuildToMaven" value="true" />
     <option name="skipTests" value="true" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="1" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2668BQuIQSuSnebwWynqwUJ9QKN" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -50,29 +213,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="ChangesTree.GroupingKeys" value="module&#10;directory" />
-    <property name="RequestMappingsPanelOrder0" value="0" />
-    <property name="RequestMappingsPanelOrder1" value="1" />
-    <property name="RequestMappingsPanelWidth0" value="75" />
-    <property name="RequestMappingsPanelWidth1" value="75" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SpringCloudDemo" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs_interpreter_path" value="$PROJECT_DIR$/../../Download/developsoftware/nodejs/node" />
-    <property name="nodejs_package_manager_path" value="D:\Download\developsoftware\nodejs\node_modules\npm" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.22183909" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Sameen/Desktop/coding/demo&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.29425287&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;d67b25feffbe93a900b9e224165ffff3&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\IDEA\CommentSystem\MainOperation\src\main\resources" />
@@ -87,7 +250,14 @@
       <recent name="com.gdufe.cs" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.OperationMain8082">
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="npm.backspace1">
     <configuration name="UserTest.test01" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MainOperation" />
       <option name="PACKAGE_NAME" value="com.gdufe.cs" />
@@ -114,6 +284,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AdminApplication9090" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="cs-admin" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gdufe.cs.admin.AdminApplication9090" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CSGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="cs-gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gdufe.cs.CSGatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CSWorks8001" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="cs-works" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gdufe.cs.works.CSWorks8001" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="OperationMain8082" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="MainOperation" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.gdufe.cs.OperationMain8082" />
@@ -121,8 +312,39 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
+    <configuration name="csMemberApplication8002" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="cs-member" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gdufe.cs.member.csMemberApplication8002" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="csSearchApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="cs-search" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gdufe.cs.csSearchApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="csThirdPartyApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="cs-thirdparty" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gdufe.cs.csThirdPartyApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="backspace1" type="js.build_tools.npm" temporary="true">
+      <package-json value="$PROJECT_DIR$/vue/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="serve" />
+      </scripts>
+      <node-interpreter value="node" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="build" type="js.build_tools.npm" temporary="true">
+      <package-json value="$PROJECT_DIR$/vue/package-lock.json" />
       <command value="run" />
       <scripts>
         <script value="build" />
@@ -141,21 +363,11 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="serve" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/vue/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="serve" />
-      </scripts>
-      <node-interpreter value="$PROJECT_DIR$/../../Download/developsoftware/nodejs/node" />
-      <envs />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.serve" />
-        <item itemvalue="npm.lint" />
+        <item itemvalue="npm.backspace1" />
         <item itemvalue="npm.build" />
+        <item itemvalue="npm.lint" />
         <item itemvalue="JUnit.UserTest.test02" />
         <item itemvalue="JUnit.UserTest.test01" />
       </list>
@@ -176,6 +388,47 @@
       <workItem from="1647136287364" duration="5273000" />
       <workItem from="1647160134990" duration="18758000" />
       <workItem from="1647185043971" duration="73000" />
+      <workItem from="1650177812404" duration="925000" />
+      <workItem from="1650178790705" duration="869000" />
+      <workItem from="1650179679844" duration="939000" />
+      <workItem from="1650180639304" duration="1132000" />
+      <workItem from="1650181792558" duration="179000" />
+      <workItem from="1650181986580" duration="348000" />
+      <workItem from="1650182351026" duration="203000" />
+      <workItem from="1650182586977" duration="374000" />
+      <workItem from="1650182980925" duration="1108000" />
+      <workItem from="1650184122512" duration="526000" />
+      <workItem from="1650184668126" duration="328000" />
+      <workItem from="1650185015446" duration="445000" />
+      <workItem from="1650185479099" duration="182000" />
+      <workItem from="1650185679635" duration="1112000" />
+      <workItem from="1650187345221" duration="52000" />
+      <workItem from="1650192321497" duration="3045000" />
+      <workItem from="1650195727196" duration="68000" />
+      <workItem from="1650195810431" duration="780000" />
+      <workItem from="1650198556480" duration="137000" />
+      <workItem from="1650198952571" duration="664000" />
+      <workItem from="1650200007282" duration="1742000" />
+      <workItem from="1650266025754" duration="4486000" />
+      <workItem from="1650276470470" duration="1475000" />
+      <workItem from="1650278337564" duration="1398000" />
+      <workItem from="1650300600216" duration="1109000" />
+      <workItem from="1650345011855" duration="19108000" />
+      <workItem from="1650380887815" duration="160000" />
+      <workItem from="1650381417092" duration="1303000" />
+      <workItem from="1650436768784" duration="1983000" />
+      <workItem from="1650439073299" duration="16081000" />
+      <workItem from="1650468078383" duration="3188000" />
+      <workItem from="1650471338842" duration="649000" />
+      <workItem from="1650525038282" duration="6878000" />
+      <workItem from="1650540556662" duration="135000" />
+      <workItem from="1650540846174" duration="2557000" />
+      <workItem from="1650543446221" duration="7324000" />
+      <workItem from="1650556130359" duration="5534000" />
+      <workItem from="1650565621955" duration="511000" />
+      <workItem from="1650703901738" duration="2960000" />
+      <workItem from="1650707208915" duration="402000" />
+      <workItem from="1650707627134" duration="3352000" />
     </task>
     <task id="LOCAL-00001" summary="用户登录、注册功能实现">
       <created>1646814558584</created>
@@ -215,7 +468,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/main" />
+                        <option value="origin/dev" />
                       </list>
                     </value>
                   </entry>
@@ -226,7 +479,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
@@ -235,6 +487,17 @@
     <MESSAGE value="用户登录、注册功能实现" />
     <MESSAGE value="用户登录、注册功能实现,并和前端页面对接" />
     <option name="LAST_COMMIT_MESSAGE" value="用户登录、注册功能实现,并和前端页面对接" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/vue/src/components/Aside.vue</url>
+          <line>14</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

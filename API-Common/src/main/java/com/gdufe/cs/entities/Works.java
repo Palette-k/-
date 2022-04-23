@@ -1,6 +1,5 @@
 package com.gdufe.cs.entities;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,4 +29,5 @@ public class Works {
 
     private Integer commentCount; //评论数
     private Integer likeCount; //收藏数
+    private Integer scoreCount;
 }

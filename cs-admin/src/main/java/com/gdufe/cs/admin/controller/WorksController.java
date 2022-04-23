@@ -1,7 +1,14 @@
 package com.gdufe.cs.admin.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.gdufe.cs.admin.dto.AdminCommentDTO;
 import com.gdufe.cs.admin.dto.AdminTagDTO;
 import com.gdufe.cs.admin.dto.AdminWorksDTO;
+import com.gdufe.cs.admin.entity.Comment;
+import com.gdufe.cs.admin.entity.Works;
+import com.gdufe.cs.admin.mapper.WorksMapper;
 import com.gdufe.cs.admin.mapper.WorkscategoryMapper;
 import com.gdufe.cs.admin.service.WorksService;
 import com.gdufe.cs.admin.service.WorkscategoryService;
@@ -40,6 +47,21 @@ public class WorksController {
         }
         return new CommonResult(400,"插入作品数据失败");
     }
+    //修改数据
+    @PostMapping("/update")
+    public CommonResult update(@RequestBody AdminWorksDTO adminWorksDTO){
+
+        adminWorksDTO.setWorkscateId(workscateId);
+        worksService.update(adminWorksDTO);
+
+            return new CommonResult(200,"作品修改成功");
+
+    }
+
+
+
+
+
 
     @PostMapping("/selectTag")
     public CommonResult selectTag(@RequestParam String tagName){
@@ -85,6 +107,14 @@ public class WorksController {
         worksService.up(worksId);
 
         return new CommonResult(200,"作品上架成功");
+    }
+    //删除作品
+    @GetMapping("/del/{worksId}")
+    public CommonResult del(@PathVariable("worksId") Long worksId)  {
+
+        worksService.del(worksId);
+
+        return new CommonResult(200,"作品删除成功");
     }
 
 }

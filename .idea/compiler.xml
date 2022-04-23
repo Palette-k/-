@@ -7,7 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="cs-thirdparty" />
+        <module name="cs-admin" />
         <module name="API-Common" />
+        <module name="cs-gateway" />
+        <module name="cs-search" />
+        <module name="cs-works" />
+        <module name="cs-member" />
         <module name="MainOperation" />
       </profile>
     </annotationProcessing>

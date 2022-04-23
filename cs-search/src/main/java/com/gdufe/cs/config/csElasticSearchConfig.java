@@ -29,7 +29,7 @@ public class csElasticSearchConfig {
     @Bean
     public RestHighLevelClient esRestClient(){
         RestHighLevelClient client = new RestHighLevelClient(
-                RestClient.builder(new HttpHost("192.168.170.10", 9200, "http")));
+                RestClient.builder(new HttpHost("172.28.145.6", 9201, "http")));
         return  client;
     }
 }

@@ -44,7 +44,9 @@ const routes = [
         children: [
             {path: '/admin/home', name: '首页', component: Home1},
             {path: '/admin/comment', name: '历史评论', component: Comment},
+            {path: '/admin/user', name: '个人资料', component: () => import('../views/User.vue')},
             {path: '/admin/movie', name: '详细信息', component: AdminMovie},
+
 
         ]
     },

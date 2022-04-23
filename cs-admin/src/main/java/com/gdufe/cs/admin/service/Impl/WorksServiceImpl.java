@@ -2,21 +2,20 @@ package com.gdufe.cs.admin.service.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import com.gdufe.cs.admin.dto.AdminTagDTO;
 import com.gdufe.cs.admin.dto.AdminWorksDTO;
 import com.gdufe.cs.admin.feign.searchFeignService;
 import com.gdufe.cs.admin.mapper.*;
 import com.gdufe.cs.admin.service.WorksService;
+import com.gdufe.cs.dto.WorksDTO;
 import com.gdufe.cs.entities.*;
 import com.gdufe.cs.enums.WorksStatusEnum;
 import com.gdufe.cs.es.esModel;
-
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,6 +80,7 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
         works.setPath(adminWorksDTO.getPath());
         works.setStatus(WorksStatusEnum.NEW.getCode());
 
+
         //给作品表插入一条数据
         int worksInsert = worksMapper.insert(works);
         //判断是否插入了一条数据
@@ -112,6 +112,8 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
 
         return 1;
     }
+
+    
 
     @Override
     public AdminTagDTO selectTag(String tagName) {
@@ -264,9 +266,29 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
         return adminWorksDTOList;
     }
 
+    @Override
+    public void del(Long id){
+        worksMapper.deleteById(id);
+    }
+
+    @Override
+    public void update(AdminWorksDTO dto){
+        Works works=new Works();
+        BeanUtils.copyProperties(dto,works);
+        worksMapper.updateById(works);
+    }
+
     private List<Tagcategory> getParent_cid(List<Tagcategory> selectList,Long catelogId){
         List<Tagcategory> tagcategoryList =
                 selectList.stream().filter(item -> item.getCatelogId().equals(catelogId)).collect(Collectors.toList());
         return tagcategoryList;
     }
+
+
+
+
+
+
+
+
 }

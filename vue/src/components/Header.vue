@@ -8,15 +8,21 @@
        </el-breadcrumb>
    </div>
 
-   <el-dropdown style="width: 70px; cursor: pointer">
-     <span>管理员</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
-     <template #dropdown>
-     <el-dropdown-menu slot="dropdown" >
-       <el-dropdown-item style="font-size: 14px; padding: 5px 0">个人信息</el-dropdown-item>
-       <el-dropdown-item style="font-size: 14px; padding: 5px 0">退出</el-dropdown-item>
-     </el-dropdown-menu>
-     </template>
-   </el-dropdown>
+   <el-header style="text-align: right; font-size: 12px">
+     <div class="toolbar">
+       <el-dropdown>
+         <el-icon style="margin-right: 8px; margin-top: 23px"
+         ><setting
+         /></el-icon>
+         <template #dropdown>
+           <el-dropdown-menu>
+             <el-dropdown-item>退出</el-dropdown-item>
+           </el-dropdown-menu>
+         </template>
+       </el-dropdown>
+       <span>管理员</span>
+     </div>
+   </el-header>
  </div>
 </template>
 

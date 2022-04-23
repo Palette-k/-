@@ -12,10 +12,10 @@ spring:
       max-request-size: 100MB
 
   datasource:
-    url: jdbc:mysql://192.168.170.10:3306/cs_user
+    url: jdbc:mysql://172.28.145.6:3301/cs_user?serverTimezone=GMT%2b8
 
-    username: root
-    password: root
+    username: WJL
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
   cloud:
     nacos:

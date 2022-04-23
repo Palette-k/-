@@ -1,19 +1,16 @@
-package com.gdufe.cs.admin.dto;
+package com.gdufe.cs.admin.entity;
 
-import com.gdufe.cs.dto.CommentDTO;
-import com.gdufe.cs.entities.Producer;
-import com.gdufe.cs.entities.Works;
+
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-/**
- * @Author: wzq
- * @Description: 作品新增、查询、更新的传输数据
- * @DateTime: 2022/4/7 16:03
- **/
 @Data
-public class AdminWorksDTO {
+@TableName(value = "work")
+public class Works {
     private Long id;
     private String name;
     private String path;
@@ -25,13 +22,10 @@ public class AdminWorksDTO {
     private String country; //制作国家
     private Long createTime;
     private Integer status;
-    private double score;
 
     private String producerName; //创作者名字
     private Long pid; //作者id
 
 
-   private List<String> tagList; //作品分区
-
-
+    private List<String> tagList; //作品分区
 }

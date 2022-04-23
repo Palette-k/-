@@ -5,5 +5,19 @@
     <file url="file://$PROJECT_DIR$/API-Common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/MainOperation/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/MainOperation/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cs-admin/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cs-admin/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cs-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cs-gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cs-member/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cs-member/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cs-search/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cs-search/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cs-thirdparty/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cs-thirdparty/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cs-works/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cs-works/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>
 </project>

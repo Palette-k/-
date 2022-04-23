@@ -33,6 +33,7 @@ public class CommentController {
         return CommentService.list();
     }
 
+
     @DeleteMapping("/{id}")
     public boolean delete(@PathVariable Integer id) {
 
