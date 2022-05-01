@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form status-icon ref="RegisterForm" :model="user" :rules="rules" label-width="80px" class="register-box">
-      <h2 class="register-title">注册</h2>
+<!--      <h2 class="register-title">注册</h2>-->
       <el-form-item label="账号申请" prop="account">
         <el-input type="text" placeholder="请输入邮箱/手机号" v-model="user.account"/>
       </el-form-item>
@@ -14,15 +14,15 @@
       <el-form-item label="确认密码" prop="checkPass">
         <el-input v-model="user.checkPass" type="password"  autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-col :span="6"><el-button type="warning" @click="registerSubmit('RegisterForm')" style="width:100%;">注册</el-button></el-col>
-          <el-col :span="11" :offset="7">
+
+        <button class="bt" @click="registerSubmit('RegisterForm')" >注册</button>
+<!--          <el-col :span="11" :offset="7">
             <el-link href="/login" target= "_self"
                      type="primary" fontsize="small"  :underline="false">
             已有账号>>请登录
             </el-link>
-          </el-col>
-      </el-form-item>
+          </el-col>-->
+
     </el-form>
 
   </div>
@@ -126,9 +126,9 @@ export default {
 
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 /*样式还没写*/
-.register-box{
+/*.register-box{
   border:1px solid #DCDFE6;
   width: 350px;
   margin:180px auto;
@@ -142,7 +142,22 @@ export default {
   text-align:center;
   margin: 0 auto 40px auto;
   color: #2955ad;
+}*/
+@color:#7058a3;
+.bt {
+  width: 85%;
+  margin-left: 21px;
+  text-align: center;
+  height: 36px;
+  background-color: white;
+  border: 1px solid @color;
+  margin-top: 10px;
+  color:@color ;
+  font-size: 15px;
 }
-
+.bt:hover {
+  color: white;
+  background-color: @color;
+}
 
 </style>

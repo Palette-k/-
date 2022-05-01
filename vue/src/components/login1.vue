@@ -10,8 +10,8 @@
             <el-input type="password" placeholder="请输入密码" show-password v-model="user1.password"/>
           </el-form-item>
 
-          <el-button  class="bt" @click="onSubmit('loginForm')">登录</el-button>
-          <el-link class="forgett" type="info" fontsize="small"  :underline="false">忘记密码？</el-link>
+            <el-button  class="bt" @click="onSubmit('loginForm')">登录</el-button>
+           <el-link class="forgett" type="info" fontsize="small"  :underline="false">忘记密码？</el-link>
         </el-form>
 
 
@@ -32,7 +32,7 @@
             <el-input v-model="user2.checkPass" type="password"  autocomplete="off"></el-input>
           </el-form-item>
 
-          <el-button class="bt" @click="registerSubmit('RegisterForm')" >注册</el-button>
+            <el-button class="bt" @click="registerSubmit('RegisterForm')" >注册</el-button>
 
         </el-form>
 
@@ -40,15 +40,15 @@
     </el-tabs>
 
 
-    <!--    <el-dialog title="温馨提示" v-model:visible="dialogVisiable" width="30%" :before-close="handleClose">
-          <span>请输入账号和密码</span>
-          <template #footer>
-          <span class="dialog-footer">
-            <el-button @click="dialogVisible = false">取消</el-button>
-            <el-button id="loginSubmit" type="primary" @click="dialogVisible = false">确定</el-button>
-          </span>
-          </template>
-        </el-dialog>-->
+<!--    <el-dialog title="温馨提示" v-model:visible="dialogVisiable" width="30%" :before-close="handleClose">
+      <span>请输入账号和密码</span>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button id="loginSubmit" type="primary" @click="dialogVisible = false">确定</el-button>
+      </span>
+      </template>
+    </el-dialog>-->
   </div>
 </template>
 
@@ -61,14 +61,14 @@ export default {
   name: "login1",
   data(){
     const validateCheckPass =(rule, value,callback) => {
-      if(!value){
-        callback(new Error("请再次输入密码"));
-      }else if(value !== this.user2.password) {
-        callback(new Error("两次输入的密码不一致"));
-      }else {
-        callback();
-      }
-    }
+          if(!value){
+            callback(new Error("请再次输入密码"));
+          }else if(value !== this.user2.password) {
+            callback(new Error("两次输入的密码不一致"));
+          }else {
+            callback();
+          }
+        }
     return{
       user1:{},
       //表单验证，需要在 el-form-item 元素中增加prop属性
@@ -120,10 +120,10 @@ export default {
   methods:{
     onSubmit(formName){
       //为表单绑定验证功能
-      this.$refs[formName].validate((valid)=>{
+     this.$refs[formName].validate((valid)=>{
         if(valid){
           console.log(this.user1)
-          request.post("/member/user/login",this.user1).then(res=> {
+           request.post("/member/user/login",this.user1).then(res=> {
             if (res.code === 200) {
               console.log(res);
 

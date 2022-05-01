@@ -78,7 +78,7 @@ export default {
   methods:{
     getInfo(){      //首页展示影片
 
-      request.get("/works/movie/indexshow?pageCurrent=" + this.currentPage + "&pageSize=" + this.pageSize).then(data =>{
+      request.get("/works/indexshow?pageCurrent=" + this.currentPage + "&pageSize=" + this.pageSize).then(data =>{
         //console.log(data.data);
         const res = data.data;
         const movieURL = res.movies;
