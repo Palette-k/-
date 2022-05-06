@@ -33,7 +33,7 @@ public class esModel {
 
     private Long hotScore;
 
-    private Integer score;
+    private double score;
 
     private String producerName;
 

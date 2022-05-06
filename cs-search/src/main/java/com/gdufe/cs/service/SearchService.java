@@ -1,7 +1,7 @@
 package com.gdufe.cs.service;
 
 import com.gdufe.cs.vo.SearchParam;
-import com.gdufe.cs.vo.SearchResponse;
+import com.gdufe.cs.vo.SearchResult;
 
 /**
  * @Author: wzq
@@ -9,5 +9,5 @@ import com.gdufe.cs.vo.SearchResponse;
  * @DateTime: 2022/4/10 20:31
  **/
 public interface SearchService {
-    SearchResponse search(SearchParam searchParam);
+    SearchResult search(SearchParam searchParam);
 }

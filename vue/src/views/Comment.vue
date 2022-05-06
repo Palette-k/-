@@ -13,15 +13,15 @@
    <div style="margin: 10px 0">
      <el-button type="primary" @click="handleAdd">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
      <el-popconfirm
-         class="ml-5"
-         confirm-button-text='确定'
-         cancel-button-text='我再想想'
-         icon="el-icon-info"
+         confirm-button-text="确定"
+         cancel-button-text="我再想想"
          icon-color="red"
          title="您确定批量删除这些数据吗？"
          @confirm="delBatch"
-     >
-       <el-button type="danger" slot="reference">批量删除 <i class="el-icon-remove-outline"></i></el-button>
+     ><info-filled></info-filled>
+       <template #reference>
+         <el-button type="danger">批量删除</el-button>
+       </template>
      </el-popconfirm>
      <el-button type="primary" class="ml-5">导入 <i class="el-icon-bottom"></i></el-button>
      <el-button type="primary">导出 <i class="el-icon-top"></i></el-button>
@@ -33,24 +33,24 @@
      <el-table-column prop="commentator" label="用户名" width="140"></el-table-column>
      <el-table-column prop="type" label="评论类型" width="120"></el-table-column>
      <el-table-column label="评论时间">
-       <template slot-scope="scope">
+       <template v-slot="scope">
          {{timestampToTime(scope.row.gmtCreate)}}
        </template>
      </el-table-column>
      <el-table-column prop="content" label="评论内容"></el-table-column>
      <el-table-column label="操作"  width="200" align="center">
-       <template slot-scope="scope">
+       <template v-slot="scope">
          <el-button type="success" @click="handleEdit(scope.row)">编辑 <i class="el-icon-edit"></i></el-button>
          <el-popconfirm
-             class="ml-5"
-             confirm-button-text='确定'
-             cancel-button-text='我再想想'
-             icon="el-icon-info"
+             confirm-button-text="确定"
+             cancel-button-text="我再想想"
              icon-color="red"
-             title="您确定删除吗？"
-             @confirm="del(scope.row.id)"
-         >
-           <el-button type="danger" slot="reference">删除 <i class="el-icon-remove-outline"></i></el-button>
+             title="您确定删除这些数据吗？"
+             @confirm="del(scope.row)"
+         ><info-filled></info-filled>
+           <template #reference>
+             <el-button type="danger">删除</el-button>
+           </template>
          </el-popconfirm>
        </template>
      </el-table-column>
@@ -67,7 +67,7 @@
      </el-pagination>
    </div>
 
-   <el-dialog title="评论信息" :visible.sync="dialogFormVisible" width="30%" >
+   <el-dialog title="评论信息" v-model="dialogFormVisible" width="30%" >
      <el-form label-width="80px" size="small">
        <el-form-item label="用户名">
          <el-input v-model="form.commentator" autocomplete="off"></el-input>
@@ -82,6 +82,7 @@
          <el-input v-model="form.content" autocomplete="off"></el-input>
        </el-form-item>
      </el-form>
+     <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
      <div slot="footer" class="dialog-footer">
        <el-button @click="dialogFormVisible = false">取 消</el-button>
        <el-button type="primary" @click="save">确 定</el-button>
@@ -96,6 +97,7 @@
 import request from "@/utils/request";
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "Comment",
   data(){
     return{
@@ -104,6 +106,7 @@ export default {
       pageNum: 1,
       pageSize: 10,
       form: {},
+      id:"",
       commentator:"",
       type:"",
       gmtCreate:"",
@@ -134,8 +137,8 @@ export default {
       return strDate;
     },
     load() {
-      fetch("http://localhost:9090/comment/page?pageNum="+this.pageNum+"&pageSize=" + this.pageSize )
-          .then(res => res.json()).then(res => {
+      request.get("/admin/comment/page?pageNum="+this.pageNum+"&pageSize=" + this.pageSize )
+          .then(res => {
         console. log(res)
         console.log(res.records);
         this.tableData = res.records
@@ -143,7 +146,7 @@ export default {
       })
     },
     save() {
-      request.post("http://localhost:9090/comment/", this.form).then(res => {
+      request.post("/admin/comment/", this.form).then(res => {
         if (res) {
           this.$message.success("保存成功")
           this.dialogFormVisible = false
@@ -161,8 +164,8 @@ export default {
       this.form = row
       this.dialogFormVisible = true
     },
-    del(id) {
-      request.delete("http://localhost:9090/comment/" + id).then(res => {
+    del(row) {
+      request.delete("/admin/comment/" + row.id).then(res => {
         if (res) {
           this.$message.success("删除成功")
           this.load()
@@ -177,7 +180,7 @@ export default {
     },
     delBatch() {
       let ids = this.multipleSelection.map(v => v.id)  // [{}, {}, {}] => [1,2,3]
-      request.post("http://localhost:9090/comment/del/batch", ids).then(res => {
+      request.post("/admin/comment/del/batch", ids).then(res => {
         if (res) {
           this.$message.success("批量删除成功")
           this.load()
@@ -188,7 +191,6 @@ export default {
     },
     reset() {
       this.commentator = ""
-      this.parentId = ""
       this.load()
     },
     handleSizeChange(pageSize) {

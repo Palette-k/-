@@ -1,10 +1,8 @@
 package com.gdufe.cs.controller;
 
-import com.gdufe.cs.dto.WorksDTO;
-import com.gdufe.cs.entities.Works;
 import com.gdufe.cs.service.SearchService;
 import com.gdufe.cs.vo.SearchParam;
-import com.gdufe.cs.vo.SearchResponse;
+import com.gdufe.cs.vo.SearchResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +21,9 @@ public class SearchController {
     SearchService searchService;
 
     @GetMapping("/listPage")
-    public SearchResponse listPage(SearchParam searchParam){
-        SearchResponse result  = searchService.search(searchParam);
+    public SearchResult listPage(SearchParam searchParam){
+        SearchResult result  = searchService.search(searchParam);
 
-        return null;
+        return result;
     }
 }

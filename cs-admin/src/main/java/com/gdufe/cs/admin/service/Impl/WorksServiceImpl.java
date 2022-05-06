@@ -55,15 +55,22 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
     @Transactional(rollbackFor = Exception.class)
     public int saveWorksList(AdminWorksDTO adminWorksDTO) {
 
-        Producer producer = new Producer();
-        producer.setName(adminWorksDTO.getProducerName());
+
+        QueryWrapper<Producer> queryWrapper1 = new QueryWrapper<>();
+        queryWrapper1.eq("name",adminWorksDTO.getProducerName());
+        Producer producer = producerMapper.selectOne(queryWrapper1);
+        if(null == producer){
+
+            producer.setName(adminWorksDTO.getProducerName());
 
 
-        //给创作者表插入一条数据
-        int producerInsert = producerMapper.insert(producer);
-        if(producerInsert != 1){
-            throw new RuntimeException("producer插入失败");
+            //给创作者表插入一条数据
+            int producerInsert = producerMapper.insert(producer);
+            if(producerInsert != 1){
+                throw new RuntimeException("producer插入失败");
+            }
         }
+
 
 
         Works works = new Works();
@@ -80,6 +87,7 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
         works.setWorkscateId(adminWorksDTO.getWorkscateId());
         works.setPath(adminWorksDTO.getPath());
         works.setStatus(WorksStatusEnum.NEW.getCode());
+        works.setScoreCount(0);
 
         //给作品表插入一条数据
         int worksInsert = worksMapper.insert(works);
@@ -219,6 +227,7 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
             adminWorksDTO.setWorkscateId(works.getWorkscateId());
             adminWorksDTO.setPath(works.getPath());
             adminWorksDTO.setIntro(works.getIntro());
+            adminWorksDTO.setCountry(works.getCountry());
 
             if(works.getCatelogId() != null){
                 adminWorksDTO.setCatelogId(works.getCatelogId());
@@ -262,6 +271,13 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
         }
 
         return adminWorksDTOList;
+    }
+
+    @Override
+    public void postScore(Long worksId) {
+
+        
+
     }
 
     private List<Tagcategory> getParent_cid(List<Tagcategory> selectList,Long catelogId){

@@ -29,8 +29,15 @@ public class JwtHelper {
         if(StringUtils.isEmpty(token)) return null;
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey(tokenSignKey).parseClaimsJws(token);
         Claims claims = claimsJws.getBody();
-        Integer userId = (Integer)claims.get("userId");
-        return userId.longValue();
+
+        if( Integer.class.isInstance(claims.get("userId")) == true){
+            Integer userId = (Integer) claims.get("userId");
+            return userId.longValue();
+        }else if(Long.class.isInstance(claims.get("userId")) == true){
+            Long userId = (Long) claims.get("userId");
+            return userId;
+        }
+       return null;
     }
     public static String getUserName(String token) {
         if(StringUtils.isEmpty(token)) return "";

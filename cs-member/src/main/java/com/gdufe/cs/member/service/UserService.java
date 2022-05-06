@@ -1,7 +1,10 @@
 package com.gdufe.cs.member.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+
 import com.gdufe.cs.entities.User;
+
+import java.util.Map;
 
 /**
  * @Author: wzq
@@ -10,5 +13,7 @@ import com.gdufe.cs.entities.User;
  **/
 public interface UserService extends IService<User> {
 
+
+    Map<String, Object> login(User user);
 
 }

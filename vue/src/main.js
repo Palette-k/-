@@ -1,5 +1,8 @@
 import { createApp } from 'vue'
+import { store } from '@/store'
 import App from './App.vue'
+import'lib-flexible/flexible.js'
+import '@/utils/rem'
 
 //配置路由
 import {router} from "@/router";
@@ -16,4 +19,5 @@ const app = createApp(App)
     }
     app.use(router)
     app.use(ElementPlus)
+    app.use(store)
     app.mount('#app')

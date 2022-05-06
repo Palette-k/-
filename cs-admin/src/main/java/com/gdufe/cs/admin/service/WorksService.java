@@ -24,4 +24,7 @@ public interface WorksService extends IService<Works> {
     void up(Long worksId);
 
     List<AdminWorksDTO> selectWorks();
+
+    void postScore(Long worksId);
+
 }

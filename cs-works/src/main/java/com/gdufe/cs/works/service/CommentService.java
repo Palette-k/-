@@ -15,8 +15,11 @@ import java.util.List;
  * @DateTime: 2022/3/15 16:02
  **/
 public interface CommentService extends IService<Comment> {
-    public void insert(Comment comment, User commentator); //插入评论
+    public void insert(Comment comment, Long userId); //插入评论
     public List<CommentDTO> listByTargetId(Long id, CommentTypeEnum type); //罗列评论
-    public void createNotify(Comment comment, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType, Long commentId);
-    public void like(Comment comment,User commentator);
+    public boolean createNotify(Comment comment, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType, Long commentId);
+
+    boolean deleteComment(Long commentId);
+
+
 }

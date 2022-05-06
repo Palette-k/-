@@ -13,4 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface CommentMapper extends BaseMapper<Comment> {
     int incCommentCount(Comment record); //增加评论数
     int incLikeCount(Comment record); //增加点赞数
+
+    int decCommentCount(Comment parentComment);
+
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -30,4 +31,10 @@ public interface MemberFeignService {
 
     @RequestMapping("/member/user/selectuserlist")
     public List<User> selectUserList(QueryWrapper<User> queryWrapper);
+
+    @RequestMapping("/member/user/finduserId")
+    public Long finduserId(@RequestParam("username") String username);
+
+    @RequestMapping("/member/user/findUserById")
+    public User findUserById(@RequestParam("userId")Long userId);
 }

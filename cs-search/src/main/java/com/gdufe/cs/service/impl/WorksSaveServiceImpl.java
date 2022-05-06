@@ -11,9 +11,11 @@ import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.reindex.UpdateByQueryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,5 +55,15 @@ public class WorksSaveServiceImpl implements WorksSaveService {
         if(index.getShardInfo().getSuccessful() == 1) hasFailure = false; //作品上架成功
 
         return hasFailure;
+    }
+    //更新评分字段
+    @Override
+    public boolean postScore(Long worksId) throws IOException {
+        UpdateRequest updateRequest = new UpdateRequest();
+
+
+        esRestClient.update(updateRequest,csElasticSearchConfig.COMMON_OPTIONS);
+
+        return false;
     }
 }

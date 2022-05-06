@@ -1,6 +1,7 @@
 package com.gdufe.cs.vo;
 
-import com.gdufe.cs.entities.Works;
+
+import com.gdufe.cs.es.esModel;
 import lombok.Data;
 
 import java.util.List;
@@ -11,10 +12,10 @@ import java.util.List;
  * @DateTime: 2022/4/10 21:07
  **/
 @Data
-public class SearchResponse {
+public class SearchResult {
 
     //查询到的所有作品信息
-    private List<Works> worksList;
+    private List<esModel> worksList;
 
 
     /*
@@ -27,6 +28,8 @@ public class SearchResponse {
 
     private List<workscatelogVo> workscatelogVos; //作品形式
     private List<tagcatelogVo> tagcatelogVos; //分类信息
+    private List<String> country;
+    private List<String> createTime;
 
     @Data
     public static class tagcatelogVo{

@@ -1,4 +1,4 @@
-//PUT cs_works
+
 {
   "mappings": {
     "properties": {
@@ -48,6 +48,7 @@
           }
         }
       }
+
     }
   }
 }

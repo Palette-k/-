@@ -3,19 +3,18 @@ package com.gdufe.cs.works.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdufe.cs.dto.CommentDTO;
-import com.gdufe.cs.entities.Comment;
-import com.gdufe.cs.entities.Works;
-import com.gdufe.cs.entities.Notification;
-import com.gdufe.cs.entities.User;
+import com.gdufe.cs.entities.*;
 import com.gdufe.cs.works.enums.CommentTypeEnum;
 import com.gdufe.cs.works.feign.MemberFeignService;
 import com.gdufe.cs.works.mapper.CommentMapper;
+import com.gdufe.cs.works.mapper.PostImgsMapper;
 import com.gdufe.cs.works.mapper.WorksMapper;
 import com.gdufe.cs.works.service.CommentService;
 import com.gdufe.cs.enums.NotificationStatusEnum;
 import com.gdufe.cs.enums.NotificationTypeEnum;
 import com.gdufe.cs.exception.CustomizeErrorCode;
 import com.gdufe.cs.exception.CustomizeException;
+import com.gdufe.cs.works.service.PostImgsService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,10 +43,13 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     @Autowired
     private MemberFeignService memberFeignService;
 
+    @Autowired
+    private PostImgsMapper postImgsMapper;
+
     //插入评论
     @Override
     @Transactional
-    public void insert(Comment comment,User commentator){
+    public void insert(Comment comment,Long userId){
         if(comment.getParentId() == null || comment.getParentId() == 0){
             //没找到对应的 书影音 对象
             throw new CustomizeException(CustomizeErrorCode.TARGET_NOT_FOUND);
@@ -79,9 +81,16 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
             parentComment.setCommentCount(1);
             commentMapper.incCommentCount(parentComment);
 
+            User user = memberFeignService.findUserById(userId);
+
+
+
             //创建通知
-            createNotify(comment, dbComment.getCommentator(),commentator.getUsername(),
-                    works.getName(),NotificationTypeEnum.REPLY, works.getPid());
+            boolean notify = createNotify(comment, dbComment.getCommentator(), user.getUsername(),
+                    comment.getContent(), NotificationTypeEnum.REPLY, works.getPid());
+            if(notify == false){
+                throw new CustomizeException(CustomizeErrorCode.CREATE_NOTIFY_ERROR);
+            }
 
 
         }else if(comment.getType() == CommentTypeEnum.MOVIE.getType()){
@@ -102,24 +111,36 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     }
 
     //给一级评论点赞
-    @Override
-    public void like(Comment comment,User commentator){
+  /*  @Override
+    @Transactional
+    public void like(Comment comment,Long userId){
 
         comment.setLikeCount(1);
-        commentMapper.incLikeCount(comment);
+        int i = commentMapper.incLikeCount(comment);
+        Integer likeCount = comment.getLikeCount();
+        if(i != 1){
+            throw new CustomizeException(CustomizeErrorCode.INC_LIKE_COUNT_ERROR);
+        }
+
+        User user = memberFeignService.findUserById(userId);
+
 
         //创建通知
-        createNotify(comment,comment.getCommentator() ,commentator.getUsername(),
-                comment.getContent(),NotificationTypeEnum.LIKE,comment.getId());
-    }
+        boolean notify = createNotify(comment, comment.getCommentator(), user.getUsername(),
+                comment.getContent(), NotificationTypeEnum.LIKE, comment.getId());
+        if(notify != true){
+            throw new CustomizeException(CustomizeErrorCode.CREATE_NOTIFY_ERROR);
+        }
+
+    }*/
 
     //创建通知
     @Override
-    public void createNotify(Comment comment, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType, Long outerId) {
+    public boolean createNotify(Comment comment, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType, Long outerId) {
 
-        if (receiver == comment.getCommentator()) {
-            return;
-        }
+       /* if (receiver == comment.getCommentator()) {
+            return false;
+        }*/
 
         Notification notification = new Notification();
         notification.setGmtCreate(System.currentTimeMillis());
@@ -130,14 +151,64 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         notification.setReceiver(receiver);
         notification.setNotifierName(notifierName);
         notification.setOuterTitle(outerTitle);
-        memberFeignService.insertNotification(notification);
+        boolean b = memberFeignService.insertNotification(notification);
+        if(b==true) return true;
+
+        return false;
     }
+
+    @Override
+    @Transactional
+    public boolean deleteComment(Long commentId) {
+
+
+        Comment comment = commentMapper.selectById(commentId);
+
+        if(comment.getType() == 1){
+            //作品下的评论数-1
+            Works works = worksMapper.selectById(comment.getParentId());
+            works.setCommentCount(-1);
+            int decCommentCount = worksMapper.decCommentCount(works);
+            if(decCommentCount != 1){
+                throw new CustomizeException(CustomizeErrorCode.DEC_WORKS_COMMENTCOUNT_ERROR);
+            }
+            //该评论的二级评论全部删除
+            QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("parent_id",commentId);
+            List<Comment> comments = commentMapper.selectList(queryWrapper);
+            if(null != comments){
+                List<Long> delCommentIds = comments.stream().map(comment1 ->
+                        comment1.getId()).collect(Collectors.toList());
+                int deleteBatchIds = commentMapper.deleteBatchIds(delCommentIds);
+                if(deleteBatchIds != 1){
+                    throw new CustomizeException(CustomizeErrorCode.DELETE_BATCH_COMMENT_ERROR);
+                }
+            }
+
+        }else{
+            //父评论的评论数-1
+            Comment parentComment = commentMapper.selectById(comment.getParentId());
+            parentComment.setCommentCount(-1);
+            int decCommentCount = commentMapper.decCommentCount(parentComment);
+            if(decCommentCount != 1){
+                throw new CustomizeException(CustomizeErrorCode.DEC_COMMENTCOUNT_ERROR);
+            }
+        }
+
+        int i = commentMapper.deleteById(commentId);
+        if(i != 1){
+            throw new CustomizeException(CustomizeErrorCode.DELETE_COMMENT_ERROR);
+        }
+
+        return true;
+    }
+
 
     @Override
     public List<CommentDTO> listByTargetId(Long id, CommentTypeEnum type) { //罗列评论
         QueryWrapper<Comment> queryWrapper = new QueryWrapper();
         queryWrapper.orderByDesc("gmt_create"); //时间倒序排列
-        queryWrapper.eq("parent_id",id);
+        queryWrapper.eq("parent_id",id).eq("type",type.getType());
         List<Comment> comments = commentMapper.selectList(queryWrapper); //获取二级评论
 
         if(comments.size() == 0){

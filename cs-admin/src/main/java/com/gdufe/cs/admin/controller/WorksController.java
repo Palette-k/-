@@ -87,4 +87,15 @@ public class WorksController {
         return new CommonResult(200,"作品上架成功");
     }
 
+    /*
+    * 开分
+    * */
+    @PostMapping("/postScore/{worksId}")
+    public CommonResult postScore(@PathVariable("worksId")Long worksId){
+
+        worksService.postScore(worksId);
+
+        return new CommonResult(200,"作品开分成功");
+    }
+
 }

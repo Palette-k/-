@@ -5,25 +5,27 @@
 <mapper namespace="com.gdufe.cs.works.mapper.WorksMapper">
 
 
-
     <update id="incCommentCount" parameterType="works">
         update works
         set comment_count = comment_count + #{commentCount}
         where id = #{id}
     </update>
 
-    <select id="selectRelated" parameterType="works" resultType="works">
-        select * from works
-        <where>
-            <if test="id != null">
-                and id != #{id}
-            </if>
-            <if test="tag != null and tag != ''">
-                and tag regexp #{tag}
-            </if>
-        </where>
-        order by gmt_create desc limit 20
-    </select>
+   <update id="addScoreCount" parameterType="works">
+       update works
+       set score_count = score_count + #{scoreCount}
+       where id = #{id}
+   </update>
+    <update id="updateScore" parameterType="works">
+        update works
+        set score = (score*(score_count) + #{score} ) /(score_count + 1)
+        where id = #{id}
+    </update>
+    <update id="decCommentCount" parameterType="works">
+        update works
+        set comment_count = comment_count + #{commentCount}
+        where id = #{id}
+    </update>
 
 
 </mapper>

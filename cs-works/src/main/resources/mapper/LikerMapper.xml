@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdufe.cs.works.mapper.LikerMapper">
+
+    <select id="findByLikedPostIdAndStatus" resultType="com.gdufe.cs.entities.Liker">
+        select *
+        from liker
+        where liked_post_id = #{likedPostId} and status = #{code}
+    </select>
+
+    <select id="findBylikedCommentIdAndStatus" resultType="com.gdufe.cs.entities.Liker">
+        select *
+        from liker
+        where liked_comment_id = #{likedCommentId} and  status = #{code}
+    </select>
+
+    <select id="findBylikedCommentIdAndLikedPostId" resultType="com.gdufe.cs.entities.Liker">
+        select *
+        from liker
+        where liked_comment_id = #{likedCommentId} and liked_post_id = #{likedPostId}
+    </select>
+</mapper>

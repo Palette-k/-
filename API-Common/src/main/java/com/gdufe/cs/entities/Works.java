@@ -25,9 +25,10 @@ public class Works {
     public String country; //制作国家
     private Long createTime;
     private Integer status;
-    private Integer score; //评分
+    private double score; //评分
     private Long pid; //作者id
 
     private Integer commentCount; //评论数
     private Integer likeCount; //收藏数
+    private Integer scoreCount; //评分数
 }

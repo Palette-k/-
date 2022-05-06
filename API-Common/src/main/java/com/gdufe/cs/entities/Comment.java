@@ -1,6 +1,8 @@
 package com.gdufe.cs.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 /**
@@ -10,6 +12,8 @@ import lombok.Data;
  **/
 @Data
 public class Comment {
+
+
     private Long id;
     private Long parentId; //父类id 即对应的电影、书籍id
     private Integer type;  //父类类型

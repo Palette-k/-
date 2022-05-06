@@ -2,6 +2,7 @@ package com.gdufe.cs.works;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import springfox.documentation.oas.annotations.EnableOpenApi;
@@ -12,6 +13,7 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
  * @DateTime: 2022/3/27 14:53
  **/
 @EnableOpenApi
+@EnableCaching
 @EnableFeignClients("com.gdufe.cs.works.feign")
 @EnableDiscoveryClient
 @SpringBootApplication

@@ -8,6 +8,7 @@ import com.gdufe.cs.entities.Attr;
 import com.gdufe.cs.entities.Producer;
 import com.gdufe.cs.entities.Works;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,8 +22,10 @@ public interface WorksMapper extends BaseMapper<Works> {
 
     int incCommentCount(Works record); //增加评论数
 
+    int addScoreCount(Works works);
+
+    int updateScore(Works works);
 
 
-
-    List<Works> selectRelated(Works works);
+    int decCommentCount(Works works);
 }

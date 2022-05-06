@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @Author: wzq
@@ -40,7 +41,7 @@ public class WorksController {
      * */
     @GetMapping("/indexshow")
     public CommonResult IndexShow(@RequestParam(value = "pageCurrent",defaultValue = "1")int pageCurrent,
-                                  @RequestParam(value = "pageSize",defaultValue = "10")int pageSize){
+                                  @RequestParam(value = "pageSize",defaultValue = "10")int pageSize) throws ExecutionException, InterruptedException {
 
         IndexDTO indexDTO = worksService.indexPage(pageCurrent, pageSize);
 
@@ -55,30 +56,20 @@ public class WorksController {
     }
 
 
-
     @ApiOperation(value = "展示作品详情")
     @GetMapping("/{id}")
-    public CommonResult movie(@PathVariable("id") Long id){
-
-        WorksDTO worksDTO = new WorksDTO();
-
-        Works works = worksService.getById(id);
-        List<CommentDTO> comments = commentService.listByTargetId(id, CommentTypeEnum.MOVIE);//罗列影评
+    public CommonResult movie(@PathVariable("id") Long id) throws ExecutionException, InterruptedException {
 
 
-        worksDTO.setPid(works.getPid());
-        worksDTO.setName(works.getName());
-        worksDTO.setPath(works.getPath());
-        worksDTO.setIntro(works.getIntro());
-        worksDTO.setCreatTime(works.getCreateTime());
-        worksDTO.setScore(works.getScore());
-        worksDTO.setCountry(works.getCountry());
-        worksDTO.setLikeCount(works.getLikeCount());
-        worksDTO.setCommentCount(works.getCommentCount());
-        worksDTO.setCommentDTOList(comments);
 
+        WorksDTO worksDTO = worksService.showTargetWorks(id);
 
-        return new CommonResult(200,"展示作品详情成功", worksDTO);
+       if(worksDTO != null){
+           return new CommonResult(200,"展示作品详情成功", worksDTO);
+       }
+
+     return  new CommonResult(400,"展示作品详情失败");
+
     }
 
     //展示侧边栏标签
@@ -86,15 +77,15 @@ public class WorksController {
     public CommonResult showTag(){
 
         QueryWrapper<Tagcategory> queryWrapper1 = new QueryWrapper<>();
-        queryWrapper1.eq("catelog_id",1);
+        queryWrapper1.eq("catelog_id",40);
         List<Tagcategory> movieTag = tagcategoryService.list(queryWrapper1);
 
         QueryWrapper<Tagcategory> queryWrapper2 = new QueryWrapper<>();
-        queryWrapper1.eq("catelog_id",2);
+        queryWrapper1.eq("catelog_id",41);
         List<Tagcategory> musicTag = tagcategoryService.list(queryWrapper2);
 
         QueryWrapper<Tagcategory> queryWrapper3 = new QueryWrapper<>();
-        queryWrapper1.eq("catelog_id",3);
+        queryWrapper1.eq("catelog_id",42);
         List<Tagcategory> bookTag = tagcategoryService.list(queryWrapper3);
 
         TagcategoryDTO tagcategoryDTO = new TagcategoryDTO();
@@ -106,18 +97,16 @@ public class WorksController {
         return new CommonResult(200,"展示标签成功",tagcategoryDTO);
     }
 
-    //查找标签下的作品
-    @GetMapping("/showWorksByTag/{tagId}")
-    public CommonResult showWorksByTag(@PathVariable("tagId")Long tagId,
-                                       @RequestParam(value = "pageCurrent",defaultValue = "1")int pageCurrent,
-                                       @RequestParam(value = "pageSize",defaultValue = "10")int pageSize){
 
 
-        List<Works> worksList = worksService.selectWorksByTagId(tagId,pageCurrent,pageSize);
+    //显示检索页的检索条件
+    @GetMapping("/showSearchParam/{catelogId}")
+    public CommonResult showSearchParam(@PathVariable("catelogId")Long catelogId) throws ExecutionException, InterruptedException {
 
-        return new CommonResult(200,"查找标签下的作品成功",worksList);
+        SearchParamDTO searchParamDTO = worksService.showSearchParam(catelogId);
+
+        return new CommonResult(200,"显示检索页的检索条件成功",searchParamDTO);
     }
-
 
 
 }

@@ -13,32 +13,43 @@
       <b style="color: white" v-show="logoTextShow">后台管理系统</b>
     </div>
     <el-menu-item index="/admin/home">
-      <template slot="title">
+      <template #title>
         <i class="el-icon-house"></i>
-        <span slot="title">主页</span>
+        <span>主页</span>
       </template>
     </el-menu-item>
-    <el-submenu index="1">
-      <template slot="title">
-        <i class="el-icon-message"></i>
-        <span slot="title">用户资料</span>
+    <el-sub-menu index="1">
+      <template #title>
+        <el-icon><message /></el-icon>用户资料
       </template>
-      <el-menu-item index="/admin/comment">历史评论</el-menu-item>
-      <el-menu-item index="1-2">历史评分</el-menu-item>
-      <el-menu-item index="/admin/user">个人资料</el-menu-item>
-
-    </el-submenu>
-    <el-submenu index="2">
-      <template slot="title">
-        <i class="el-icon-menu"></i>
-        <span slot="title">电影资料</span>
+      <el-menu-item-group>
+        <el-menu-item index="/admin/comment">历史评论</el-menu-item>
+        <el-menu-item index="1-2">历史评分</el-menu-item>
+      </el-menu-item-group>
+        <el-menu-item index="/admin/user">个人资料</el-menu-item>
+    </el-sub-menu>
+    <el-sub-menu index="2">
+      <template #title>
+        <el-icon><setting /></el-icon>作品资料
       </template>
-      <el-submenu index="2-4">
-        <template slot="title">电影详细信息</template>
-        <el-menu-item index="/admin/poster">海报</el-menu-item>
+      <el-menu-item-group>
+        <el-menu-item index="/admin/workscate">作品形式维护</el-menu-item>
+      </el-menu-item-group>
+      <el-menu-item-group>
+        <el-menu-item index="/admin/category">作品分类维护</el-menu-item>
+      </el-menu-item-group>
+      <el-menu-item-group>
         <el-menu-item index="/admin/movie">详细信息</el-menu-item>
-      </el-submenu>
-    </el-submenu>
+      </el-menu-item-group>
+    </el-sub-menu>
+    <el-sub-menu index="3">
+      <template #title>
+        <el-icon><bell-filled /></el-icon>公告管理
+      </template>
+      <el-menu-item-group>
+        <el-menu-item index="/admin/carousel">轮播图</el-menu-item>
+      </el-menu-item-group>
+    </el-sub-menu>
   </el-menu>
 </template>
 

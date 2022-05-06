@@ -1,0 +1,118 @@
+
+{
+  "query": {
+    "bool": {
+        "must": [
+          {
+          "match": {
+            "worksName": "鱿鱼游戏"
+          }
+        }
+      ],
+      "filter": [
+        {
+          "term": {
+            "catelogId": "40"
+          }
+        },
+        {
+          "term": {
+            "workscateId": "1"
+          }
+        },
+        {
+          "term": {
+            "country": "美国"
+          }
+        },
+        {
+          "term": {
+            "createTime": "2022"
+          }
+        },
+        {
+          "nested": {
+            "path": "tagList",
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "term": {
+                      "tagList.id": {
+                        "value": "12"
+                      }
+                    }
+                  },
+                  {
+                    "term": {
+                      "tagList.tagName": {
+                        "value": "剧情"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "catelog_agg": {
+      "terms": {
+        "field": "catelogId",
+        "size": 10
+      },
+      "aggs": {
+        "workscate_agg": {
+          "terms": {
+            "field": "workscateId",
+            "size": 100
+          },
+          "aggs": {
+            "workscate_name_agg": {
+              "terms": {
+                "field": "catelogName",
+                "size": 100
+              }
+            }
+          }
+        },
+        "country_agg": {
+          "terms": {
+            "field": "country",
+            "size": 100
+          }
+        },
+        "createTime_agg": {
+          "terms": {
+            "field": "createTime",
+            "size": 10
+          }
+        },
+        "tagcatelog_agg": {
+          "nested": {
+            "path": "tagList"
+          },
+          "aggs": {
+            "tagcatelog_id_agg": {
+              "terms": {
+                "field": "tagList.id",
+                "size": 100
+              },
+              "aggs": {
+                "tagcatelog_name_agg": {
+                  "terms": {
+                    "field": "tagList.tagName",
+                    "size": 100
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

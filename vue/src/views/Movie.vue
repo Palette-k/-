@@ -3,26 +3,25 @@
 
 
     <div style="margin: 10px 0">
-      <el-input style="width: 200px" placeholder="请输入电影名称" suffix-icon="el-icon-search" v-model="movieName"></el-input>
+      <el-input style="width: 200px" placeholder="请输入作品名称" suffix-icon="el-icon-search" v-model="movieName"></el-input>
       <el-button class="ml-5" type="primary" @click="load">搜索</el-button>
       <el-button type="warning" @click="reset">重置</el-button>
     </div>
 
 
-
     <div style="margin: 10px 0">
       <el-button type="primary" @click="handleAdd">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
-      <el-popconfirm
-          class="ml-5"
-          confirm-button-text='确定'
-          cancel-button-text='我再想想'
-          icon="el-icon-info"
-          icon-color="red"
-          title="您确定批量删除这些数据吗？"
-          @confirm="delBatch"
-      >
-        <el-button type="danger" slot="reference">批量删除 <i class="el-icon-remove-outline"></i></el-button>
-      </el-popconfirm>
+        <el-popconfirm
+            confirm-button-text="确定"
+            cancel-button-text="我再想想"
+            icon-color="red"
+            title="您确定批量删除这些数据吗？"
+            @confirm="delBatch"
+        ><info-filled></info-filled>
+          <template #reference>
+            <el-button type="danger">批量删除</el-button>
+          </template>
+        </el-popconfirm>
       <el-button type="primary" class="ml-5">导入 <i class="el-icon-bottom"></i></el-button>
       <el-button type="primary">导出 <i class="el-icon-top"></i></el-button>
     </div>
@@ -30,31 +29,52 @@
     <el-table :data="tableData" border stripe :header-cell-class-name="headerBg"  @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="id" width="80"></el-table-column>
-      <el-table-column prop="name" label="名称" width="140"></el-table-column>
-      <el-table-column prop="intro" label="简介" width="300"></el-table-column>
-      <el-table-column prop="path" label="海报" width="80">
+      <el-table-column prop="name" label="名称" width="120"></el-table-column>
+      <el-table-column prop="intro" label="简介" width="400" ></el-table-column>
+      <el-table-column prop="path" label="海报" width="200">
               <!--    显示图片   -->
+        <template #default="scope">
+          <el-image
+              style="width: 180px; height: 280px"
+              :src="scope.row.path"
+
+              fit="cover"
+          />
+<!--          :preview-src-list="[scope.row.path]"-->
+        </template>
+
       </el-table-column>
-      <el-table-column prop="country" label="制作国家" width="100"></el-table-column>
-      <el-table-column prop="createTime" label="发行时间" width="120"></el-table-column>
-      <el-table-column prop="catelogName" label="作品类型" width="120"></el-table-column>
+      <el-table-column prop="country" label="制作国家" width="90" align="center"></el-table-column>
+      <el-table-column prop="createTime" label="发行时间" width="90" align="center"></el-table-column>
+      <el-table-column prop="catelogName" label="作品形式" width="90"></el-table-column>
       <el-table-column prop="tagList" label="作品标签" width="120"></el-table-column>
-      <el-table-column prop="producerName" label="创作者" width="120"></el-table-column>
+      <el-table-column prop="producerName" label="创作者" width="90"></el-table-column>
+      <el-table-column prop="status" label="状态" width="100">
+        <template #default="scope">
+          <span v-if="scope.row.status === 0">未上架</span>
+          <span v-if="scope.row.status === 1">已上架</span>
+        </template>
+      </el-table-column>
+
       <el-table-column label="操作"   align="center">
-        <template slot-scope="scope">
+
+        <template v-slot="scope">
+          <el-button type="primary" @click="handleUp(scope.row)">上架</el-button>
           <el-button type="success" @click="handleEdit(scope.row)">编辑 <i class="el-icon-edit"></i></el-button>
           <el-popconfirm
-              class="ml-5"
-              confirm-button-text='确定'
-              cancel-button-text='我再想想'
-              icon="el-icon-info"
+              confirm-button-text="确定"
+              cancel-button-text="我再想想"
               icon-color="red"
-              title="您确定删除吗？"
-              @confirm="del(scope.row.id)"
-          >
-            <el-button type="danger" slot="reference">删除 <i class="el-icon-remove-outline"></i></el-button>
+              title="您确定删除这些数据吗？"
+              @confirm="del"
+          ><info-filled></info-filled>
+            <template #reference>
+              <el-button type="danger">删除</el-button>
+            </template>
           </el-popconfirm>
+
         </template>
+
       </el-table-column>
     </el-table>
     <div style="padding: 10px 0">
@@ -69,7 +89,7 @@
       </el-pagination>
     </div>
 
-    <el-dialog title="电影信息" v-model="dialogFormVisible" width="30%" >
+    <el-dialog title="作品信息" v-model="dialogFormVisible" width="30%" >
       <el-form label-width="80px" size="small">
         <el-form-item label="名称">
           <el-input v-model="form.name" autocomplete="off"></el-input>
@@ -108,6 +128,7 @@
                      @change="handleCommand2">
             <el-option
                 v-for="item in form.worksCate"
+                :key="item.label"
                 :label="item"
                 :value="item"
                 x
@@ -132,6 +153,7 @@
           <el-input v-model="form.producerName" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
+      <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button type="primary" @click="save">确 定</el-button>
@@ -144,9 +166,11 @@
 
 <script>
 import request from "@/utils/request";
-
+import { InfoFilled } from '@element-plus/icons-vue'
 import singleUpload from "@/components/upload/singleUpload";
+// eslint-disable-next-line no-unused-vars
 import {ref,reactive} from "vue";
+
 /*
 const form = reactive({
   name:'',
@@ -163,8 +187,9 @@ const form = reactive({
 
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "Movie",
-  components: {singleUpload},
+  components: {singleUpload,InfoFilled},
 
   setup() {
   /*  let msgFather = form.path;
@@ -186,6 +211,15 @@ export default {
       pageNum: 1,
       pageSize: 10,
       form: {},
+      id:"",
+      name:"",
+      intro:"",
+      path:"",
+      createTime:"",
+      catelogName:"",
+      tagList:"",
+      producerName:"",
+      country:"",
      // catelogName:"未选择",
       dialogFormVisible: false,
       multipleSelection: [],
@@ -226,33 +260,25 @@ export default {
 
       });
     },
-    timestampToTime(timestamp) {
-      var date = new Date(timestamp);
-      var Y = date.getFullYear() + '-';
-      var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-      var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ';
-      var h = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours()) + ':';
-      var m = (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes()) + ':';
-      var s = (date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds());
-
-      let strDate = Y+M+D+h+m+s;
-      return strDate;
-    },
     load() {
-      request.get("/admin/movie/page?pageNum="+this.pageNum+"&pageSize=" + this.pageSize )
+      request.get("/admin/works/selectWorks")
           .then(res => {
+            console.log(res)
+            console.log(res.data,'=========>>>>>>>>>');
+            this.tableData = res.data
+
        // console. log(res)
-        console.log(res.data);
-        res = res.data
-         this.tableData = res.records;
-        console.log(res.records);
-         this.total = res.total;
+       // console.log(res.data);
+       // res = res.data
+       //  this.tableData = res.records;
+       // console.log(res.records);
+       //  this.total = res.total;
       })
     },
     save() {
 
       request.post("/admin/works/insert", this.form).then(res => {
-        if (res.code === 200) {
+        if (res.code == 200) {
           this.$message.success("保存成功")
           this.dialogFormVisible = false
           this.load()
@@ -267,11 +293,27 @@ export default {
       this.form = {}
     },
     handleEdit(row) {
-      this.form = row
-      this.dialogFormVisible = true
+      request.post("/admin/works/update").then(res=>{
+        this.form = row
+        this.dialogFormVisible = true
+      })
+
+    },
+    //作品上架
+    handleUp(row){
+
+        request.post("/admin/works/up/"+ row.id).then(res=>{
+          if (res.code == 200) {
+            this.$message.success("上架成功")
+            this.dialogFormVisible = false
+            this.load()
+          } else {
+            this.$message.error("上架失败")
+          }
+        })
     },
     del(id) {
-      request.delete("admin/movie/" + id).then(res => {
+      request.delete("admin/works/del" + id).then(res => {
         if (res) {
           this.$message.success("删除成功")
           this.load()
@@ -286,7 +328,7 @@ export default {
     },
     delBatch() {
       let ids = this.multipleSelection.map(v => v.id)  // [{}, {}, {}] => [1,2,3]
-      request.post("admin/movie/del/batch", ids).then(res => {
+      request.post("admin/works/del/batch", ids).then(res => {
         if (res) {
           this.$message.success("批量删除成功")
           this.load()
@@ -315,7 +357,6 @@ export default {
 }
 
 </script>
-
 <style scoped>
 .example-showcase .el-dropdown-link {
   cursor: pointer;

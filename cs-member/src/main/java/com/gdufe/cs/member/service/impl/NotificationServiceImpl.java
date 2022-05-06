@@ -58,10 +58,6 @@ public class NotificationServiceImpl extends ServiceImpl<NotificationMapper, Not
 
     }
 
-  /*  @Override
-    public int insert(Notification notification) {
-      return  notificationMapper.insert(notification);
-    }
-*/
+
 
 }

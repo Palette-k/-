@@ -3,10 +3,14 @@ package com.gdufe.cs.member.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.gdufe.cs.dto.ResultDTO;
+
 import com.gdufe.cs.entities.CommonResult;
 import com.gdufe.cs.entities.User;
+import com.gdufe.cs.exception.CustomizeErrorCode;
 import com.gdufe.cs.helper.JwtHelper;
 import com.gdufe.cs.member.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,22 +37,18 @@ public class IndexController {
   * 登录
   * */
     @PostMapping("/user/login")
-    public CommonResult LoginToIndex(@RequestBody User user){
-        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(User::getUsername,user.getUsername()).eq(User::getPassword,user.getPassword());
-        User user1 = userService.getOne(queryWrapper);
-        Map<String,Object> map = new HashMap<>();
-        if(user1 != null){
+    public ResultDTO LoginToIndex(@RequestBody User user){
 
-           /* String token = JwtHelper.createToken(user.getId(), user.getUsername());
-            map.put("username",user.getUsername());
-            map.put("token",token);*/
-
-            return new CommonResult(200,"登录成功",map);
-        }else{
-
-            return new CommonResult(400,"账号或密码错误");
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", user.getUsername()).eq("password",user.getPassword());
+        User one = userService.getOne(queryWrapper);
+        if( null == one){
+            return ResultDTO.error(CustomizeErrorCode.USER_PARAM_FAULT);
         }
+
+        Map<String,Object> map = userService.login(user);
+
+        return ResultDTO.ok(map);
     }
 
 
@@ -56,17 +56,16 @@ public class IndexController {
     * 注册
     * */
     @PostMapping(value = "/user/register")
-    public CommonResult register(@RequestBody User user){
+    public ResultDTO register(@RequestBody User user){
         Map<String,Object> map = new HashMap<>();
-        if(user.getUsername()!=null && user.getPassword()!=null){
+        if(!StringUtils.isEmpty(user.getUsername()) && !StringUtils.isEmpty(user.getPassword())){
             userService.save(user);
-         /*   String token = JwtHelper.createToken(user.getId(), user.getUsername());
+            String token = JwtHelper.createToken(user.getId(), user.getUsername());
             map.put("username",user.getUsername());
-            map.put("token",token);*/
-           return new CommonResult(200,"注册成功",map);
+            map.put("token",token);
+           return ResultDTO.ok(map);
         }else{
-           // model.addAttribute("msg","用户名和密码不能为空！");
-            return new CommonResult(400,"用户名和密码不能为空！");
+            return ResultDTO.error(CustomizeErrorCode.NO_LOGIN);
         }
 
     }
@@ -75,7 +74,7 @@ public class IndexController {
    * 个人信息修改及保存
    * */
     @PostMapping(value = "/user/update")
-    public CommonResult update(User user){
+    public CommonResult update(@RequestBody User user){
 
         boolean b = userService.saveOrUpdate(user);
         if(b == true){
@@ -107,6 +106,24 @@ public class IndexController {
         List<User> users = userService.list(queryWrapper);
         return users;
     }
+
+    @RequestMapping("/user/finduserId")
+    public Long finduserId(@RequestParam("username") String username){
+
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username",username);
+        User user = userService.getOne(queryWrapper);
+        return user.getId();
+    }
+
+    @RequestMapping("/user/findUserById")
+    public User findUserById(@RequestParam("userId")Long userId){
+
+        User user = userService.getById(userId);
+        return user;
+    }
+
+
 
 
 }

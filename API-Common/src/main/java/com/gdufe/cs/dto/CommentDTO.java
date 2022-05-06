@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gdufe.cs.entities.User;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @Author: wzq
  * @Description: TODO
@@ -16,9 +18,11 @@ public class CommentDTO {
     private Long parentId;
     private Integer type;
     private Long commentator;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    //private List<String> imgPaths;
+    private Double score;
+
     private Long gmtCreate;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+
     private Long gmtModified;
     private Integer likeCount;
     private Integer commentCount;

@@ -9,5 +9,5 @@ public class EsConstant {
     //在es中的索引
     public static final String PRODUCT_INDEX = "cs_works";
 
-    public static final Integer PRODUCT_PAGESIZE = 2;  //利于开发先写2
+    public static final Integer PRODUCT_PAGESIZE = 9;  //利于开发先写2
 }

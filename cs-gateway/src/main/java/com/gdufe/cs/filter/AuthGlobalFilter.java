@@ -36,10 +36,10 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         System.out.println("==="+path);
 
         //内部服务接口，不允许外部访问
-        //if(antPathMatcher.match("/**/inner/**", path)) {
-        //    ServerHttpResponse response = exchange.getResponse();
-        //    return out(response, ResultCodeEnum.PERMISSION);
-        //}
+       /* if(antPathMatcher.match("/api/admin/**", path)) {
+            ServerHttpResponse response = exchange.getResponse();
+            return out(response, CustomizeErrorCode.PERMISSION);
+        }*/
 
         Long userId = this.getUserId(request);
         //api接口，异步请求，校验用户必须登录
@@ -79,12 +79,12 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
     private Long getUserId(ServerHttpRequest request) {
         String token = "";
 
-        //TODO nginx配置域名后丢失请求头问题
+        //nginx反向代理后丢失请求头问题 已解决
         List<String> tokenList = request.getHeaders().get("token");
         if(null  != tokenList) {
             token = tokenList.get(0);
         }
-        if(!StringUtils.isEmpty(token)) {
+        if(!StringUtils.isEmpty(token) || token != "undefined") {
             return JwtHelper.getUserId(token);
         }
         return null;

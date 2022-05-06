@@ -20,17 +20,21 @@ public class WorksDTO {
     private String path;
     private String intro; //简介
     private Long catelogId; //作品所属类型id
+
     public String country; //制作国家
     private Long creatTime;
 
-    private Integer score; //评分
+    private double score; //评分
     private Long pid; //作者id
+    private String producerName;
 
     private Integer commentCount; //评论数
     private Integer likeCount; //收藏数
 
     private List<CommentDTO> commentDTOList;
+    private List<ArticleDTO> articleDTOList;
 
     private List<Works> worksList;
+    private List<String> tagList;
 
 }

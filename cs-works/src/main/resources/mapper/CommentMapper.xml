@@ -15,6 +15,11 @@
         set like_count = like_count + #{likeCount}
         where id = #{id}
     </update>
+    <update id="decCommentCount" parameterType="comment">
+        update comment
+        set comment_count = comment_count + #{commentCount}
+        where id = #{id}
+    </update>
 
 
 </mapper>

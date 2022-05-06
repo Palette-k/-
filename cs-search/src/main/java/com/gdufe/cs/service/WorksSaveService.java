@@ -11,4 +11,7 @@ import java.io.IOException;
  **/
 public interface WorksSaveService {
     boolean worksStatusUp(esModel esModel) throws IOException;
+
+    boolean postScore(Long worksId) throws IOException;
+
 }

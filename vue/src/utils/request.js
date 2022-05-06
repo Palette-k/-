@@ -1,7 +1,8 @@
 import axios from 'axios'
 import cookie from 'js-cookie'
+import JSONBIG from 'json-bigint'
 const request = axios.create({
-    baseURL: 'http://localhost:88/api',  // 注意！！ 这里是全局统一加上了 后端接口前缀 前缀，后端必须进行跨域配置！
+    baseURL: 'http://511u188n49.zicp.vip/api/',  // 注意！！ 这里是全局统一加上了 后端接口前缀 前缀，后端必须进行跨域配置！
     timeout: 8000
 })
 
@@ -17,7 +18,7 @@ request.interceptors.request.use(config => {
         config.headers['token']=cookie.get('token')
     }
 
-    return config
+    return config;
 }, error => {
     return Promise.reject(error)
 });
@@ -30,12 +31,12 @@ request.interceptors.response.use(
     response => {
         let res = response.data;
 
-        if(res.code === 406) {
+       /* if(res.code === 406) {
             //去登录页面
             this.$router.push('/login');
             return
         }
-
+*/
         // 如果是返回的文件
         if (response.config.responseType === 'blob') {
             return res
@@ -51,6 +52,16 @@ request.interceptors.response.use(
         return Promise.reject(error)
     }
 )
+
+request.defaults.transformResponse = [
+    function (data) {
+        const json = JSONBIG({
+            storeAsString: true
+        })
+        const res = json.parse(data)
+        return res
+    }
+]
 
 
 export default request

@@ -1,5 +1,7 @@
 package com.gdufe.cs.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 /**
@@ -9,6 +11,8 @@ import lombok.Data;
  **/
 @Data
 public class Attr {
+
+
     private Long id;
     private Long tagId; //标签id
     private Long worksId; //作品id

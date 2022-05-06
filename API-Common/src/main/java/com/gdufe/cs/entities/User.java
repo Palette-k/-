@@ -21,4 +21,6 @@ public class User {
     private Integer gender;  //0代表男生，1代表女生
     private String  email;
     private Integer age;
+
+    private String img;
 }
