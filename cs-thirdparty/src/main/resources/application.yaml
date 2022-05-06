@@ -1,16 +1,2 @@
-spring:
-  cloud:
-    alicloud:
-      access-key: LTAI5tBiszrN2ye9RV58ULNC
-      secret-key: Qz34pQ57V2a9s6ANYwryKL8uToSy5A
-      oss:
-        endpoint: oss-cn-shenzhen.aliyuncs.com
-    nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848
 
-  application:
-    name: cs-thirdparty
-server:
-  port: 30000
 
