@@ -23,6 +23,7 @@ export default {
 .footer {
   width: 100%;
   color: #eeeff3;
+  margin-top: 20px;
   background-color: #7058a3;
   opacity: 50%;
   text-align: center;
