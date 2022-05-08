@@ -40,6 +40,8 @@ export default {
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   left: 35%;
   bottom: 20%;

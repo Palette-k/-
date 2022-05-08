@@ -12,7 +12,7 @@
 
       <el-main>
         <!--表示当前页面的子路由会在<router-view />里面展示-->
-        <router-view />
+        <router-view></router-view>
       </el-main>
 
     </el-container>
@@ -21,12 +21,14 @@
 
 <script>
 
-
-import Aside from "@/components/Aside";
-import Header from "@/components/Header";
-
+import Aside from "../../../../新建文件夹/CommentSystem-dev/vue/src/components/Aside";
+import Header from "../../../../新建文件夹/CommentSystem-dev/vue/src/components/Header";
 export default {
-  name: 'Home',
+  name: 'Manage',
+  components:{
+    Aside,
+    Header
+  },
   data() {
     return {
       collapseBtnClass: 'el-icon-s-fold',
@@ -35,10 +37,7 @@ export default {
       logoTextShow: true,
     }
   },
-  components: {
-    Aside,
-    Header
-  },
+
   methods: {
     collapse() {  // 点击收缩按钮触发
       this.isCollapse = !this.isCollapse
@@ -55,7 +54,4 @@ export default {
   }
 }
 </script>
-<style>
-
-</style>
 

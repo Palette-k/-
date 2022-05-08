@@ -1,13 +1,13 @@
 <template>
   <menu1></menu1>
   <div class="body" :id="id">
-    <!--    电影名-->
-    <h2>{{movieName}}</h2>
+
     <div class="by">
-      <el-row :gutter="20">
+      <el-row :gutter="24">
         <el-col :span="16">
          <div class="bodyl">
-
+           <!--    电影名-->
+           <h2>{{movieName}}</h2>
       <div class="part1">
 
         <el-row :gutter="20">
@@ -52,9 +52,11 @@
             </div>
             <div style="margin-right: 20px;float: left">
               <el-icon style="vertical-align: middle"><edit-pen /></el-icon>
-              <a href="/article" target="_blank">
+              <router-link  :to="{ path:'article', query:{ id: mid ,title:movieName}}" >
                 <span>写影评</span>
-              </a>
+              </router-link>
+
+
             </div>
             <div style="margin-right: 20px;float: left">
               <el-icon style="vertical-align: middle"><plus /></el-icon>
@@ -81,31 +83,35 @@
 
         <div class="part5">
           <h3>{{movieName}}的影评· · · · · ·</h3>
-
+          <article-list :articleList="articleList"></article-list>
         </div>
       </div>
         </el-col>
         <el-col :span="8">
-          <div class="bodyr">
+          <div class="bodyr" >
         <moviesidesort></moviesidesort>
       </div>
         </el-col>
       </el-row>
     </div>
   </div>
+  <Footer></Footer>
 </template>
 <script>
-import Star1 from "@/components/Star1";
+import Star1 from "@/components/Star/Star1";
 import moviesidesort from "@/components/moviesidesort";
-import Comment from "@/components/Comment";
+import Comment from "../components/ccoment/Comment";
 import Menu1 from "@/components/menu1";
 import request from "@/utils/request";
-import article from "../components/article"
+import article from "../components/Article/article"
 import {onMounted, reactive, ref, toRefs} from "vue";
-
+import {useRouter} from "vue-router"
+import {useStore} from "vuex";
+import ArticleList from "@/components/Article/articleList";
+import Footer from "@/components/footer/Footer";
 export default {
   name: "Movie",
-  components: {Menu1, Comment,article, moviesidesort, Star1},
+  components: {Footer, ArticleList, Menu1, Comment,article, moviesidesort, Star1},
   // Vue2语法
   /*这里的data只是显示用，可以全注释掉*/
   /*data() {
@@ -218,6 +224,7 @@ export default {
         },
       ],
       comment:'',
+      articleList:'',
     })
 
 
@@ -240,8 +247,9 @@ export default {
         store.movieIntro = data.intro;
         store.likeCount =data.likeCount;
         store.comment = data.commentDTOList;
+        store.articleList = data.articleDTOList;
         getComment(store.comment)
-        /*console.log(store.comment)*/
+        // console.log(store.comment)
       })
     }
     const getComment =(comment) => {
@@ -249,10 +257,20 @@ export default {
         comment[i]["reply"]=[]
       }
     }
+    /* const router =useRouter();
+     const store1 =useStore();
+   const toArticle =(id) => {
+         router.push({
+           name:"article",
+           params:{
+             id:id
+           }
+         })
+       }*/
+
     onMounted(() => {
       getAbout()
     })
-
     //返回解构数据
     return toRefs(store);
 
@@ -265,7 +283,9 @@ export default {
   width: 75%;
   margin: 0 auto;
 }
+.bodyl {
 
+}
 
 span {
   color: #484849;

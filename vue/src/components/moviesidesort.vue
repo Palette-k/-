@@ -1,14 +1,17 @@
 <template>
-  <h1 style="font-family: 楷体;font-size: x-large">今日排行榜</h1>
+  <div class="box">
+    <h1 style="font-family: 楷体;font-size: x-large">今日排行榜</h1>
 
 
-  <div v-for="sort in message" :key="sort">
-    <el-link href="https://element.eleme.io" target="_blank"
-             style="border-bottom:  solid 1px #e6e6e6;
+    <div v-for="sort in message" :key="sort">
+      <el-link href="https://element.eleme.io" target="_blank"
+               style="border-bottom:  solid 1px #e6e6e6;
                  margin: 10px 10px 10px 10px" >{{sort}}</el-link>
 
 
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -26,6 +29,10 @@ export default {
 </script>
 
 <style scoped>
+.box {
+  position: center;
+  border: #909399 solid 1px;
+}
 .el-link {
   margin-right: 8px;
 }

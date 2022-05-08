@@ -2,7 +2,7 @@
   <div class="upload-container">
     <el-button :style="{background:color,borderColor:color}"  size="mini" type="primary" @click=" dialogVisible=true">
       <el-icon><upload-filled /></el-icon>
-      upload
+      本地上传
     </el-button>
     <el-dialog v-model="dialogVisible">
       <el-upload
@@ -18,14 +18,14 @@
         list-type="picture-card"
       >
         <el-button size="small" type="primary">
-          Click upload
+          点击上传
         </el-button>
       </el-upload>
       <el-button @click="dialogVisible = false">
-        Cancel
+        取消
       </el-button>
       <el-button type="primary" @click="handleSubmit">
-        Confirm
+        确认
       </el-button>
     </el-dialog>
   </div>

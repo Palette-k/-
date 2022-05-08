@@ -1,74 +1,89 @@
 <template>
-  <div class="bg">
-    <el-tabs id="box">
-      <el-tab-pane label="密码登录">
-        <el-form ref="loginForm" :model="user1" :rules="rules1" label-width="60px" class="login-box">
-          <el-form-item label="账号" prop="username">
-            <el-input type="text" placeholder="请输入账号" v-model="user1.username"/>
-          </el-form-item>
-          <el-form-item label="密码" prop="password">
-            <el-input type="password" placeholder="请输入密码" show-password v-model="user1.password"/>
-          </el-form-item>
+  <div class="loginDialog" >
+    <el-dialog
+        v-model="Visible"
+        width="25%"
+    >
+        <div class="bg" style="height: 360px;padding: 20px 5px 20px 20px;">
+          <el-tabs id="box">
+            <el-tab-pane label="密码登录">
+              <el-form ref="loginForm" :model="user1" :rules="rules1" label-width="60px" class="login-box">
+                <el-form-item label="账号" prop="username">
+                  <el-input type="text" placeholder="请输入账号" v-model="user1.username"/>
+                </el-form-item>
+                <el-form-item label="密码" prop="password">
+                  <el-input type="password" placeholder="请输入密码" show-password v-model="user1.password"/>
+                </el-form-item>
 
-            <el-button  class="bt" @click="onSubmit('loginForm')">登录</el-button>
-           <el-link class="forgett" type="info" fontsize="small"  :underline="false">忘记密码？</el-link>
-        </el-form>
-
-
-
-      </el-tab-pane>
-      <el-tab-pane label="注册">
-        <el-form status-icon ref="RegisterForm" :model="user2" :rules="rules2" label-width="80px" class="register-box">
-          <el-form-item label="账号申请" prop="account">
-            <el-input type="text" placeholder="请输入邮箱/手机号" v-model="user2.account"/>
-          </el-form-item>
-          <el-form-item label="用户名" prop="username">
-            <el-input type="text" placeholder="请输入用户名" v-model="user2.username"/>
-          </el-form-item>
-          <el-form-item label="密码" prop="password">
-            <el-input v-model="user2.password" type="password" show-password autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="确认密码" prop="checkPass">
-            <el-input v-model="user2.checkPass" type="password"  autocomplete="off"></el-input>
-          </el-form-item>
-
-            <el-button class="bt" @click="registerSubmit('RegisterForm')" >注册</el-button>
-
-        </el-form>
-
-      </el-tab-pane>
-    </el-tabs>
+                <el-button  class="bt" @click="onSubmit('loginForm')">登录</el-button>
+                <el-link class="forgett" type="info" fontsize="small"  :underline="false">忘记密码？</el-link>
+              </el-form>
 
 
-<!--    <el-dialog title="温馨提示" v-model:visible="dialogVisiable" width="30%" :before-close="handleClose">
-      <span>请输入账号和密码</span>
-      <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button id="loginSubmit" type="primary" @click="dialogVisible = false">确定</el-button>
-      </span>
-      </template>
-    </el-dialog>-->
+
+            </el-tab-pane>
+            <el-tab-pane label="注册">
+              <el-form status-icon ref="RegisterForm" :model="user2" :rules="rules2" label-width="80px" class="register-box">
+                <el-form-item label="账号申请" prop="account">
+                  <el-input type="text" placeholder="请输入邮箱/手机号" v-model="user2.account"/>
+                </el-form-item>
+                <el-form-item label="用户名" prop="username">
+                  <el-input type="text" placeholder="请输入用户名" v-model="user2.username"/>
+                </el-form-item>
+                <el-form-item label="密码" prop="password">
+                  <el-input v-model="user2.password" type="password" show-password autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="确认密码" prop="checkPass">
+                  <el-input v-model="user2.checkPass" type="password"  autocomplete="off"></el-input>
+                </el-form-item>
+
+                <el-button class="bt" @click="registerSubmit('RegisterForm')" >注册</el-button>
+
+              </el-form>
+
+            </el-tab-pane>
+          </el-tabs>
+
+
+          <!--    <el-dialog title="温馨提示" v-model:visible="dialogVisiable" width="30%" :before-close="handleClose">
+                <span>请输入账号和密码</span>
+                <template #footer>
+                <span class="dialog-footer">
+                  <el-button @click="dialogVisible = false">取消</el-button>
+                  <el-button id="loginSubmit" type="primary" @click="dialogVisible = false">确定</el-button>
+                </span>
+                </template>
+              </el-dialog>-->
+        </div>
+
+
+    </el-dialog>
   </div>
+
 </template>
 
 <script>
-
 import request from "@/utils/request";
 import cookie from "js-cookie";
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: "login1",
+  name: "login2",
+  props:["dialogVisible"],
+  emits:['update:dialogVisible'],
+  computed:{
+    Visible() {
+      return this.dialogVisible
+    }
+  },
   data(){
     const validateCheckPass =(rule, value,callback) => {
-          if(!value){
-            callback(new Error("请再次输入密码"));
-          }else if(value !== this.user2.password) {
-            callback(new Error("两次输入的密码不一致"));
-          }else {
-            callback();
-          }
-        }
+      if(!value){
+        callback(new Error("请再次输入密码"));
+      }else if(value !== this.user2.password) {
+        callback(new Error("两次输入的密码不一致"));
+      }else {
+        callback();
+      }
+    }
     return{
       user1:{},
       //表单验证，需要在 el-form-item 元素中增加prop属性
@@ -120,10 +135,10 @@ export default {
   methods:{
     onSubmit(formName){
       //为表单绑定验证功能
-     this.$refs[formName].validate((valid)=>{
+      this.$refs[formName].validate((valid)=>{
         if(valid){
           console.log(this.user1)
-           request.post("/member/user/login",this.user1).then(res=> {
+          request.post("/member/user/login",this.user1).then(res=> {
             if (res.code === 200) {
               console.log(res);
 
@@ -186,16 +201,38 @@ export default {
     },
     //获取id
     getID(name) {
+      console.log(name)
       request.get("/member/user/finduserId?username=" + name).then(res => {
         this.$store.commit('setID',res)
       })
-    }
+    },
+
   }
+
+
 }
 </script>
 
 
 <style lang="less" scoped>
+.loginDialog {
+  display: flex;
+
+  /deep/.el-dialog__header{
+    display: none;
+  }
+  /deep/ .el-dialog__footer {
+    display: none;
+  }
+
+  /deep/ .el-dialog {
+    border-radius: 25px;
+  }
+  /deep/ .el-dialog__wrapper {
+    opacity: 0.2;
+  }
+
+}
 @width:300px;
 @height:380px;
 @color:#7058a3;
@@ -236,7 +273,7 @@ export default {
   }
 
   /deep/ .el-form-item__label {
-    color: @color;
+    color: @color !important;
   }
   /deep/ .el-form-item__label::before {
     display: none;
@@ -246,8 +283,8 @@ export default {
     --el-input-focus-border-color:@color;
   }
   .bt {
-    width: 85%;
-    margin-left: 21px;
+    width: 88%;
+    margin-left: 0px !important;
     text-align: center;
     height: 36px;
     background-color: white;
@@ -273,6 +310,4 @@ export default {
   padding-top: 10px;
 }
 
-
 </style>
-

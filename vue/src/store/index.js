@@ -27,7 +27,7 @@ export const store = createStore({
     },
     plugins:[createPersistedState({
         // 默认是localstorage
-        /*storage: window.sessionStorage,*/
+        storage: window.sessionStorage,
         reducer(val) {
             return {
                 id: val.id

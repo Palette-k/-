@@ -122,7 +122,7 @@ export default {
       type: String,
       default: 'text'
     },
-    value: [String, Number],
+    modelValue: [String, Number],
     placeholder: String,
     readonly: Boolean,
     disabled: Boolean,
@@ -146,7 +146,7 @@ export default {
   },
   data() {
     return {
-      currentValue: this.value,
+      currentValue: this.modelValue,
       focus: false,
       fillPlaceHolder: null
     }
@@ -161,14 +161,14 @@ export default {
     }
   },
   watch: {
-    value(newValue) {
+    modelValue(newValue) {
       this.currentValue = newValue
     }
   },
   methods: {
     handleModelInput(event) {
       const value = event.target.value
-      this.$emit('input', value)
+      this.$emit('update:modelValue', value)
       if (this.$parent.$options.componentName === 'ElFormItem') {
         if (this.validateEvent) {
           this.$parent.$emit('el.form.change', [value])

@@ -1,57 +1,55 @@
 <template>
-    <div class="bg">
-      <!--    <div class="img">-->
-      <!--      <img src="../image/图.png">-->
-      <!--    </div>-->
-      <el-tabs id="box">
-        <el-tab-pane label="密码登录">
-          <el-form ref="loginForm" :model="user1" :rules="rules1" label-width="60px" class="login-box">
-            <el-form-item label="账号" prop="username">
-              <el-input type="text" placeholder="请输入账号" v-model="user1.username"/>
-            </el-form-item>
-            <el-form-item label="密码" prop="password">
-              <el-input type="password" placeholder="请输入密码" show-password v-model="user1.password"/>
-            </el-form-item>
+  <div class="bg">
+    <el-tabs id="box">
+      <el-tab-pane label="密码登录">
+        <el-form ref="loginForm" :model="user1" :rules="rules1" label-width="60px" class="login-box">
+          <el-form-item label="账号" prop="username">
+            <el-input type="text" placeholder="请输入账号" v-model="user1.username"/>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input type="password" placeholder="请输入密码" show-password v-model="user1.password"/>
+          </el-form-item>
 
             <el-button  class="bt" @click="onSubmit('loginForm')">登录</el-button>
-            <el-link class="forgett" type="info" fontsize="small"  :underline="false">忘记密码？</el-link>
-          </el-form>
+           <el-link class="forgett" type="info" fontsize="small"  :underline="false">忘记密码？</el-link>
+        </el-form>
 
 
 
-        </el-tab-pane>
-        <el-tab-pane label="注册">
-          <el-form status-icon ref="RegisterForm" :model="user2" :rules="rules2" label-width="80px" class="register-box">
-            <el-form-item label="账号申请" prop="account">
-              <el-input type="text" placeholder="请输入邮箱/手机号" v-model="user2.account"/>
-            </el-form-item>
-            <el-form-item label="用户名" prop="username">
-              <el-input type="text" placeholder="请输入用户名" v-model="user2.username"/>
-            </el-form-item>
-            <el-form-item label="密码" prop="password">
-              <el-input v-model="user2.password" type="password" show-password autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="确认密码" prop="checkPass">
-              <el-input v-model="user2.checkPass" type="password"  autocomplete="off"></el-input>
-            </el-form-item>
+      </el-tab-pane>
+      <el-tab-pane label="注册">
+        <el-form status-icon ref="RegisterForm" :model="user2" :rules="rules2" label-width="80px" class="register-box">
+          <el-form-item label="账号申请" prop="account">
+            <el-input type="text" placeholder="请输入邮箱/手机号" v-model="user2.account"/>
+          </el-form-item>
+          <el-form-item label="用户名" prop="username">
+            <el-input type="text" placeholder="请输入用户名" v-model="user2.username"/>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input v-model="user2.password" type="password" show-password autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" prop="checkPass">
+            <el-input v-model="user2.checkPass" type="password"  autocomplete="off"></el-input>
+          </el-form-item>
 
             <el-button class="bt" @click="registerSubmit('RegisterForm')" >注册</el-button>
 
-          </el-form>
+        </el-form>
 
-        </el-tab-pane>
-      </el-tabs>
-      <!--    <el-dialog title="温馨提示" v-model:visible="dialogVisiable" width="30%" :before-close="handleClose">
-            <span>请输入账号和密码</span>
-            <template #footer>
-            <span class="dialog-footer">
-              <el-button @click="dialogVisible = false">取消</el-button>
-              <el-button id="loginSubmit" type="primary" @click="dialogVisible = false">确定</el-button>
-            </span>
-            </template>
-          </el-dialog>-->
-    </div>
+      </el-tab-pane>
+    </el-tabs>
 
+
+<!--    <el-dialog title="温馨提示" v-model:visible="dialogVisiable" width="30%" :before-close="handleClose">
+      <span>请输入账号和密码</span>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button id="loginSubmit" type="primary" @click="dialogVisible = false">确定</el-button>
+      </span>
+      </template>
+    </el-dialog>-->
+  </div>
 </template>
 
 <script>
@@ -63,14 +61,14 @@ export default {
   name: "login1",
   data(){
     const validateCheckPass =(rule, value,callback) => {
-      if(!value){
-        callback(new Error("请再次输入密码"));
-      }else if(value !== this.user2.password) {
-        callback(new Error("两次输入的密码不一致"));
-      }else {
-        callback();
-      }
-    }
+          if(!value){
+            callback(new Error("请再次输入密码"));
+          }else if(value !== this.user2.password) {
+            callback(new Error("两次输入的密码不一致"));
+          }else {
+            callback();
+          }
+        }
     return{
       user1:{},
       //表单验证，需要在 el-form-item 元素中增加prop属性
@@ -122,10 +120,10 @@ export default {
   methods:{
     onSubmit(formName){
       //为表单绑定验证功能
-      this.$refs[formName].validate((valid)=>{
+     this.$refs[formName].validate((valid)=>{
         if(valid){
           console.log(this.user1)
-          request.post("/member/user/login",this.user1).then(res=> {
+           request.post("/member/user/login",this.user1).then(res=> {
             if (res.code === 200) {
               console.log(res);
 
@@ -135,7 +133,7 @@ export default {
               this.setCookies(res.data.username);
               this.getID(cookie.get('username'))
               //使用vue-router路由到指定界面，该方式称为编程式导航
-              this.$router.push('/layout');
+              /*this.$router.push('/layout');*/
             } else {
               console.log(res);
               this.$message.error("用户名或密码错误")
@@ -188,6 +186,7 @@ export default {
     },
     //获取id
     getID(name) {
+      console.log(name)
       request.get("/member/user/finduserId?username=" + name).then(res => {
         this.$store.commit('setID',res)
       })
@@ -201,31 +200,19 @@ export default {
 @width:300px;
 @height:380px;
 @color:#7058a3;
+
 // #b0a4e3;
-.bg {
-  //width: 1050px;
-  /*width: fit-content;
-  height: 430px;*/
-  display: flex;
-  /*flex-direction: column;
-  justify-content: center;*/
-  /*box-shadow: 0 0 25px #909399;*/
-}
-img {
-  width: 700px;
-  height: 430px;
-  color: #85ce61;
-  flex: 1;
-}
 #box {
+  display: flex;
   width: @width;
   height: @height;
-  align-items: center;
+  //border: #DCDFE6 solid 1px;
+  //margin: 150px 250px 150px auto;
+  flex-direction: column;
+  justify-content: flex-start;
   border-radius: 5px;
-  border: #DCDFE6 solid 1px;
-  padding: 35px 35px 15px 35px;
-  box-shadow: 0 0 25px #909399;
-  margin: 150px auto;
+  //box-shadow: 0 0 25px #909399;
+  //padding: 35px 35px 15px 35px;
   /deep/ .el-tabs__item {
     color: #c2ccd0;
     font-size: 18px;
@@ -236,7 +223,7 @@ img {
     //padding: 0 18px;
   }
   /deep/ .el-tabs__item.is-active {
-    color: @color ;
+    color: @color;
   }
   /deep/ .el-tabs__nav-wrap {
     margin-bottom: 22px;
@@ -260,8 +247,8 @@ img {
     --el-input-focus-border-color:@color;
   }
   .bt {
-    width: 85%;
-    margin-left: 21px;
+    width: 88%;
+    margin-left: 0px !important;
     text-align: center;
     height: 36px;
     background-color: white;
