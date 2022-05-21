@@ -48,7 +48,7 @@
 
       <el-collapse-transition>
         <div class="commentList" v-show="show(index)">
-          <article-comment v-model:comment="article[index].CommentDTOS" :mid="article[index].id"></article-comment>
+          <article-comment v-model:comment="article[index].commentDTOS" :mid="article[index].id"></article-comment>
         </div>
       </el-collapse-transition>
     </div>

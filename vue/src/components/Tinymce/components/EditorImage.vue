@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import {policy} from './policy'
+import { policy } from './policy'
 import { getUUID } from '@/utils'
 
 export default {

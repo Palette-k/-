@@ -152,10 +152,14 @@
   var tp;
   export default {
     name: "Comment",
+    // 接收父组件的评论列表和电影id
     props: ['comment','mid'],
+    // 自定义更新父组件中的评论列表事件
     emits:['update:comment'],
+    //引入登录弹窗
     components:{login2},
     computed: {
+      //更新子组件中的comments和id
       comments() {
         return this.comment
       },
@@ -165,13 +169,17 @@
     },
     data() {
       return {
+        //用户信息
         user:{
           id:'',
           name: " ",
           authorImg: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
         },
+        //评论框内容
         content: '',
+        //回复框内容
         content1: '',
+        //登录弹窗默认false
         dialogVisible: false,
 
       }
@@ -314,7 +322,8 @@
         if(this.$store.state.id) {
           let zan = {}
           zan.likedPostId =this.$store.state.id
-          zan.likedCommentId = this.comments[index].id
+          zan.likedParentId = this.comments[index].id
+          zan.type = 1
           if(!this.comments[index].liked) {
             this.comments[index].likeCount++
             zan.status = 1
@@ -332,7 +341,8 @@
         if(this.$store.state.id) {
           let zan = {}
           zan.likedPostId =this.$store.state.id
-          zan.likedCommentId = this.comments[index].reply[i].selfId
+          zan.likedParentId = this.comments[index].reply[i].selfId
+          zan.type = 1
           if(!this.comments[index].reply[i].liked) {
             this.comments[index].reply[i].likeCount++
             zan.status = 1

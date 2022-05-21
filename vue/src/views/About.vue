@@ -1,25 +1,24 @@
 <template>
-  <menu1></menu1>
-  <div class="body" :id="id">
 
+  <div class="body" :id="id">
+    <menu1></menu1>
     <div class="by">
-      <el-row :gutter="24">
-        <el-col :span="16">
+<!--      <el-row :gutter="24">
+        <el-col :span="16">-->
          <div class="bodyl">
            <!--    电影名-->
            <h2>{{movieName}}</h2>
       <div class="part1">
 
-        <el-row :gutter="20">
-          <el-col :span="5">
             <el-image class="photo" :src="url" ></el-image>
-          </el-col>
-          <el-col :span="10">
-            <div class="intro1" v-for="item in items" :item="item">
-            <span class="c1" >{{item.title}}: {{item.msg}}</span>
+            <div class="intro1">
+              <div  v-for="item in items" :item="item">
+                <span class="c1" >{{item.title}}: {{item.msg}}</span>
+              </div>
             </div>
-          </el-col>
-          <el-col :span="5">
+
+
+
          <div class="show">
            <p>书影音评分</p>
           <strong> {{movieScore}}</strong>
@@ -29,9 +28,10 @@
            <br/>
            <i>{{likeCount}}人收藏</i>
          </div>
-        </el-col>
-      </el-row>
+
     </div>
+
+           <div class="clear"></div>
         <div class="part2">
 
             <div  style="margin-left:10px;margin-right: 10px;float: left">
@@ -52,7 +52,7 @@
             </div>
             <div style="margin-right: 20px;float: left">
               <el-icon style="vertical-align: middle"><edit-pen /></el-icon>
-              <router-link  :to="{ path:'article', query:{ id: mid ,title:movieName}}" >
+              <router-link :to="{ path:'article', query:{ id: mid ,title:movieName}}" >
                 <span>写影评</span>
               </router-link>
 
@@ -86,16 +86,17 @@
           <article-list :articleList="articleList"></article-list>
         </div>
       </div>
-        </el-col>
-        <el-col :span="8">
+<!--        </el-col>-->
+        <!--el-col :span="8">-->
           <div class="bodyr" >
-        <moviesidesort></moviesidesort>
-      </div>
-        </el-col>
-      </el-row>
+            <moviesidesort></moviesidesort>
+          </div>
+<!--        </el-col>-->
+<!--      </el-row>-->
     </div>
+    <Footer></Footer>
   </div>
-  <Footer></Footer>
+
 </template>
 <script>
 import Star1 from "@/components/Star/Star1";
@@ -249,10 +250,11 @@ export default {
         store.comment = data.commentDTOList;
         store.articleList = data.articleDTOList;
         getComment(store.comment)
-        // console.log(store.comment)
+        console.log(store)
       })
     }
     const getComment =(comment) => {
+      //对接收的评论数据格式处理，增加二级评论
       for(let i in comment) {
         comment[i]["reply"]=[]
       }
@@ -280,23 +282,57 @@ export default {
 
 <style scoped>
 .body {
+  max-width: 100%;
+}
+.by {
   width: 75%;
   margin: 0 auto;
 }
-.bodyl {
-
+.by {
+  display: flex;
 }
+.bodyl {
+  width: 70%;
+}
+.bodyr {
+  flex: 1;
+  flex-direction: row;
+}
+@media (max-width: 600px) {
+  .by {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .bodyl {
+    width: 100%;
 
+  }
+  .photo {
+    margin-right: 0px !important;
+  }
+  .show {
+    margin-left: 0px !important;
+  }
+  .bodyr {
+    display: none;
+  }
+}
 span {
   color: #484849;
 }
 
-
 .photo {
-
+  float: left;
   height: 190px;
+  padding: 5px 10px;
+  margin-right: 20px;
+}
+.intro1{
+  float: left;
 }
 .show {
+  float: left;
+  margin-left: 50px;
   border-left: solid 1px var(--el-border-color-base);
   padding-left: 8px;
   font-size: 12px;
@@ -321,14 +357,14 @@ span {
   color: #909399;
 }
 .c1 {
-
   line-height: 1.5;
 }
 .clear{
   clear: both;
 }
 .part2 {
-  margin-top: 25px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 .part3 p{
   text-align: justify;

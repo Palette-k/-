@@ -148,7 +148,8 @@ export default {
               this.setCookies(res.data.username);
               this.getID(cookie.get('username'))
               //使用vue-router路由到指定界面，该方式称为编程式导航
-              this.$router.push('/layout');
+              /*this.$router.push('/layout');*/
+              /*window.location.reload()*/
             } else {
               console.log(res);
               this.$message.error("用户名或密码错误")
@@ -176,7 +177,7 @@ export default {
                this.$message.error(data.msg) //返回错误信息，即CommonResult里的msg
              }
            })*/
-          request.post("/user/register", this.user2).then(data => {
+          request.post("/member/user/register", this.user2).then(data => {
             if (data.code === 200) {
               console.log(data);
               localStorage.setItem('token', data.data.token)
@@ -203,7 +204,7 @@ export default {
     getID(name) {
       console.log(name)
       request.get("/member/user/finduserId?username=" + name).then(res => {
-        this.$store.commit('setID',res)
+        this.$store.commit('setID',res.data)
       })
     },
 

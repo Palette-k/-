@@ -134,8 +134,14 @@ export default {
               // this.$store.commit('setID',res.data.username);
               this.setCookies(res.data.username);
               this.getID(cookie.get('username'))
-              //使用vue-router路由到指定界面，该方式称为编程式导航
-              this.$router.push('/layout');
+
+              if(res.data.admin === 1) {
+                this.$router.push('/admin');
+              }else {
+                //使用vue-router路由到指定界面，该方式称为编程式导航
+                this.$router.push('/layout');
+              }
+
             } else {
               console.log(res);
               this.$message.error("用户名或密码错误")
@@ -189,7 +195,7 @@ export default {
     //获取id
     getID(name) {
       request.get("/member/user/finduserId?username=" + name).then(res => {
-        this.$store.commit('setID',res)
+        this.$store.commit('setID',res.data)
       })
     }
   }

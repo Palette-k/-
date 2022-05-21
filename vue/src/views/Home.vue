@@ -1,14 +1,15 @@
 <template>
   <div  class="body">
   <div class="background">
-  <div class="content">
-    <h1 style="font-size: 60px;margin-bottom: 0" >PING书影音</h1>
-    <p style="font-size: 20px">{{msg}}
-    <br>
-      {{msg1}}
-    </p>
+    <div class="content">
+      <h1 style="font-size: 60px;margin-bottom: 0" >PING书影音</h1>
+      <p style="font-size: 20px">{{msg}}
+        <br>
+        {{msg1}}
+      </p>
+    </div>
   </div>
-  </div>
+
     <a href="/layout" target="_self">Start</a>
   </div>
 </template>
@@ -38,14 +39,13 @@ export default {
   z-index: -1;
   background-repeat: no-repeat;
 }
-
 .content {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
+  /*display: flex;
+  flex-direction: column;*/
+ /* position: absolute;
   left: 35%;
-  bottom: 20%;
-
+  bottom: 20%;*/
+  margin: 30% auto;
   line-height: 1.6;
   color: #ffffff;
   text-shadow: 2px 2px 4px #000000;
