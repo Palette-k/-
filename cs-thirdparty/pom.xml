@@ -55,6 +55,21 @@
             <optional>true</optional>
         </dependency>
 
+        <!--对配置文件中的敏感信息加密-->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>3.0.4</version>
+        </dependency>
+
+        <!--test-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
     </dependencies>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

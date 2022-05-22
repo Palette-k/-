@@ -3,6 +3,7 @@ import { store } from '@/store'
 import App from './App.vue'
 import'lib-flexible/flexible.js'
 import '@/utils/rem'
+import '@/assets/css/icon/iconfont.css';
 
 //配置路由
 import {router} from "@/router";

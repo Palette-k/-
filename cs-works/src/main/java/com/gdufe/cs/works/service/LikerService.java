@@ -19,11 +19,11 @@ public interface LikerService extends IService<Liker> {
 
     /**
      * 根据被点赞人的id查询点赞列表（即查询都谁给这个人点赞过）
-     * @param likedCommentId 被点赞人的id
+     * @param likedParentId 被点赞人的id
      * @param pageable
      * @return
      */
-    Page<Liker> getLikedListBylikedCommentId(Long likedCommentId, Pageable pageable);
+    Page<Liker> getLikedListBylikedCommentId(Long likedParentId, Pageable pageable);
 
     /**
      * 根据点赞人的id查询点赞列表（即查询这个人都给谁点赞过）
@@ -34,12 +34,12 @@ public interface LikerService extends IService<Liker> {
     Page<Liker> getLikedListByLikedPostId(Long likedPostId, Pageable pageable);
 
     /**
-     * 通过被点赞人和点赞人id查询是否存在点赞记录
-     * @param likedCommentId
+     * 通过被点赞人(被收藏的作品)和点赞人（收藏者）id、like类型查询是否存在点赞（收藏）记录
+     * @param likedParentId
      * @param likedPostId
      * @return
      */
-    Liker getBylikedCommentIdAndLikedPostId(Long likedCommentId, Long likedPostId);
+    Liker getBylikedParentIdAndLikedPostId(Long likedParentId, Long likedPostId,Integer type);
 
     /**
      * 将Redis里的点赞数据存入数据库中
@@ -50,4 +50,6 @@ public interface LikerService extends IService<Liker> {
      * 将Redis中的点赞数量数据存入数据库
      */
     void transLikedCountFromRedis2DB();
+
+    void updateLikedStatusByType(Long likedParentId, Long likedPostId, Integer type);
 }

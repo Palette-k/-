@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdufe.cs.dto.WorkscategoryDTO;
 import com.gdufe.cs.entities.Tagcategory;
+import com.gdufe.cs.entities.Works;
 import com.gdufe.cs.entities.Workscategory;
 import com.gdufe.cs.works.mapper.TagcategoryMapper;
 import com.gdufe.cs.works.mapper.WorkscategoryMapper;
+import com.gdufe.cs.works.service.WorksService;
 import com.gdufe.cs.works.service.WorkscategoryService;
 import org.redisson.api.RLock;
 import org.redisson.api.RReadWriteLock;
@@ -35,6 +37,9 @@ public class WorkscategoryImpl extends ServiceImpl<WorkscategoryMapper, Workscat
 
     @Autowired
     private TagcategoryMapper tagcategoryMapper;
+
+    @Autowired
+    private WorksService worksService;
 
     @Override
     public List<WorkscategoryDTO> showCateTree() {
@@ -105,6 +110,16 @@ public class WorkscategoryImpl extends ServiceImpl<WorkscategoryMapper, Workscat
 
     @Override
     public void deleteMenuByIds(List<Long> deleteIds) {
+
         this.baseMapper.deleteBatchIds(deleteIds);
+
+        //找到含有该被删除的作品形式的作品，将其作品形式的id置为null
+        for (Long deleteId : deleteIds) {
+            QueryWrapper<Works> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("workscate_id",deleteId);
+            Works works = worksService.getOne(queryWrapper);
+            works.setWorkscateId(null);
+        }
+
     }
 }

@@ -47,6 +47,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         map.put("username",username);
         String token = JwtHelper.createToken(user1.getId(),username);
         map.put("token",token);
+        map.put("admin",user1.getAdmin());
 
         return map;
     }

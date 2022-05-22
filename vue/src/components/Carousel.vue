@@ -3,17 +3,17 @@
         <el-carousel style="
                     margin: 0 auto;
                     height: 50%;
-                    width: 50%;
+                    width: 60%;
                     text-align: center"
         >
             <el-carousel-item
-                    v-for="item in pictureurls"
+                    v-for="item in picture"
                     :key="item.id"
                     style="width: 100%;
                                  height: 100%">
                 <el-image style="height: 100%;
                                              width: 100%"
-                          :src=" item.idviews"
+                          :src=" item.img"
                 ></el-image>
             </el-carousel-item>
         </el-carousel>
@@ -21,19 +21,29 @@
 </template>
 
 <script>
-    import * as carousel from '@element-plus/icons-vue'
+    import request from "@/utils/request";
     export default {
         name: "carousel-1",
-        components:carousel,
+
         data (){
 
             return{
-                pictureurls: [{id: 0, idviews: require('../assets/gallery/image1.jpg')},
-                    {id: 1, idviews: require('../assets/gallery/image2.jpg')},
-                    {id: 2, idviews: require('../assets/gallery/image3.jpg')},
-                    {id: 3, idviews: require('../assets/gallery/image4.jpg')},
-                    {id: 4, idviews: require('../assets/gallery/image1.jpg')},],
+                picture:[]
             }
+        },
+        methods:{
+            carouselpicture(){
+                request.get("/works/carousel/showPostImgs").then(response=>{
+                    const data=response.data;
+                    console.log(data)
+                    this.picture=data;
+                })
+            }
+
+
+        },
+        created() {
+            this.carouselpicture()
         }
     }
 </script>

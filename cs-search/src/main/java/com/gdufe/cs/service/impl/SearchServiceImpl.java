@@ -277,8 +277,8 @@ public class SearchServiceImpl implements SearchService {
 
             HighlightBuilder highlightBuilder = new HighlightBuilder();
             highlightBuilder.field("worksName");
-            highlightBuilder.preTags("<b style='color:red'>");
-            highlightBuilder.postTags("</b>");
+            highlightBuilder.preTags("<span class=\"highlights-text\">");
+            highlightBuilder.postTags("</span>");
 
             searchSourceBuilder.highlighter(highlightBuilder);
         }

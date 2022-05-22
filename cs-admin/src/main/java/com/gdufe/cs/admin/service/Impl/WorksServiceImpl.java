@@ -81,7 +81,8 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
         works.setCommentCount(0);
         works.setName(adminWorksDTO.getName());
         works.setCreateTime(adminWorksDTO.getCreateTime());
-        works.setLikeCount(0);
+        works.setHaveCount(0);
+        works.setWantCount(0);
         works.setScore(0);
         works.setCatelogId(catelogId);
         works.setWorkscateId(adminWorksDTO.getWorkscateId());

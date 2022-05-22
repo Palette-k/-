@@ -35,10 +35,10 @@
             <div class="part2">
 
               <div  style="margin-left:10px;margin-right: 10px;float: left">
-                <el-button size="small" >想看</el-button>
+                <el-button  size="small" @click="getWantOrHave(2)">想看</el-button>
               </div>
               <div  style="float: left">
-                <el-button size="small" >看过</el-button>
+                <el-button size="small" @click="getWantOrHave(3)">看过</el-button>
               </div>
               <div>
                 <Star1 :mid="mid"></Star1>
@@ -81,7 +81,7 @@
 
             <div class="part5">
               <h3>{{movieName}}的影评· · · · · ·</h3>
-
+              <article-list :articleList="articleList"></article-list>
             </div>
           </div>
         </el-col>
@@ -95,17 +95,18 @@
   </div>
 </template>
 <script>
-import Star1 from "@/components/Star1";
+import Star1 from "@/components/Star/Star1";
 import moviesidesort from "@/components/moviesidesort";
-import Comment from "@/components/Comment";
+import Comment from "@/components/comment/Comment";
 import Menu1 from "@/components/menu1";
 import request from "@/utils/request";
-import article from "../components/article"
+import article from "../components/Article/article"
 import {onMounted, reactive, ref, toRefs} from "vue";
-
+import { useRoute} from 'vue-router';
+import ArticleList from "@/components/Article/articleList";
 export default {
   name: "Movie",
-  components: {Menu1, Comment,article, moviesidesort, Star1},
+  components: {Menu1, Comment,article, moviesidesort, Star1,ArticleList},
   // Vue2语法
   /*这里的data只是显示用，可以全注释掉*/
   /*data() {
@@ -149,36 +150,37 @@ export default {
     }
   },*/
 
-  /*  methods: {
-    getAbout() {
-      request.get("/works/1514991077867692034").then(res => {
-        const data =res.data;
-        this.id = data.id;
-        this.movieName = data.name;
-        this.url = data.path;
-        this.comment = data.commentDTOList;
-        this.movieScore =data.score;
-        this.items[0].msg = data.producerName;
-        for(let i = 0; i<data.tagList.length; i++) {
-         this.items[3].msg += data.tagList[i];
-         if(i<data.tagList.length-1) {
-           this.items[3].msg += " | ";
-         }
+    methods: {
+
+
+      // 看过或想看
+     getWantOrHave(type){
+
+        if(this.$store.state.id){
+
+          let wantOrhave = {}
+          wantOrhave.likedPostId = this.$store.state.id  //:1501205574206914561,
+          wantOrhave.likedParentId = this.$route.query.id  //:1514982695127523330,
+          wantOrhave.status = 1 //:1,
+          wantOrhave.type = type //:2
+
+          console.log(wantOrhave)
+
+          /*        request.get("/works/auth/like", wantOrhave ).then(res => {
+                      //reload
+                  })*/
         }
-        this.items[4].msg = data.country;
-        this.items[6].msg = data.creatTime;
-        this.movieIntro = data.intro;
-        this.likeCount =data.likeCount;
-        console.log(data.commentDTOList);
-      })
-    }
-  },*/
+
+
+      }
+  },
   // mounted() {
   //   this.getAbout();
   // },
 
   //Vue3语法
   setup() {
+
     //reactive获取响应式数据，ref也是（不过ref只能用于基本数据类型数据）
     const store = reactive({
       mid:'',
@@ -218,11 +220,13 @@ export default {
         },
       ],
       comment:'',
+      articleList:'',
     })
-
-
+    const route = useRoute()
+    let id = route.query.id;
     const getAbout =() => {
-      request.get("/works/1514991077867692034").then(res => {
+
+      request.get("/works/" + id).then(res => {
         const data =res.data;
         store.mid = data.id;
         store.movieName = data.name;
@@ -240,6 +244,7 @@ export default {
         store.movieIntro = data.intro;
         store.likeCount =data.likeCount;
         store.comment = data.commentDTOList;
+        store.articleList = data.articleDTOList;
         getComment(store.comment)
         /*console.log(store.comment)*/
       })
@@ -249,6 +254,8 @@ export default {
         comment[i]["reply"]=[]
       }
     }
+
+
     onMounted(() => {
       getAbout()
     })
@@ -257,6 +264,7 @@ export default {
     return toRefs(store);
 
   }
+
 }
 </script>
 

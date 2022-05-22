@@ -165,7 +165,8 @@ export default {
             if(this.$store.state.id) {
                 let zan = {}
                 zan.likedPostId =this.$store.state.id
-                zan.likedCommentId = this.comments[index].id
+                zan.likedParentId = this.comments[index].id
+                zan.type = 1
                 if(!this.comments[index].liked) {
                     this.comments[index].likeCount++
                     zan.status = 1
@@ -183,7 +184,8 @@ export default {
             if(this.$store.state.id) {
                 let zan = {}
                 zan.likedPostId =this.$store.state.id
-                zan.likedCommentId = this.comments[index].reply[i].selfId
+                zan.likedParentId = this.comments[index].reply[i].selfId
+                zan.type = 1
                 if(!this.comments[index].reply[i].liked) {
                     this.comments[index].reply[i].likeCount++
                     zan.status = 1

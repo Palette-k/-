@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @Author: wzq
@@ -24,12 +27,21 @@ public class PostImgsController {
     @Autowired
     private PostImgsService postImgsService;
 
-    @GetMapping("/showPostImgs")
-    public ResultDTO showPostImgs(){
+    @Autowired
+    private ThreadPoolExecutor executor;
 
-        QueryWrapper<PostImgs> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("show_status",1).eq("type", PostImgsTypeEnum.CAROUSEL.getCode());
-        List<PostImgs> postImgs = postImgsService.list(queryWrapper);
+    @GetMapping("/showPostImgs")
+    public ResultDTO showPostImgs() throws ExecutionException, InterruptedException {
+
+        CompletableFuture<List<PostImgs>> postImgsCompletableFuture = CompletableFuture.supplyAsync(()->{
+            QueryWrapper<PostImgs> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("show_status",1).eq("type", PostImgsTypeEnum.CAROUSEL.getCode());
+            List<PostImgs> postImgs = postImgsService.list(queryWrapper);
+            return postImgs;
+        }, executor);
+
+        List<PostImgs> postImgs = postImgsCompletableFuture.get();
+
 
         return ResultDTO.ok(postImgs);
     }

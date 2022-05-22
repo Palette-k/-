@@ -8,7 +8,9 @@ package com.gdufe.cs.enums;
 public enum CommentTypeEnum {
 
     MOVIE(1),
-    COMMENT(2);
+    COMMENT(2),
+    ARTICLE_COMMENT(3),
+    ARTICLE_REPLY(4);
 
     private Integer type;
 

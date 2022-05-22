@@ -10,6 +10,7 @@ import com.gdufe.cs.entities.Score;
 import com.gdufe.cs.entities.User;
 import com.gdufe.cs.enums.NotificationTypeEnum;
 import com.gdufe.cs.exception.CustomizeException;
+import com.gdufe.cs.works.config.MyRabbitMQConfig;
 import com.gdufe.cs.works.enums.CommentTypeEnum;
 import com.gdufe.cs.works.feign.MemberFeignService;
 import com.gdufe.cs.works.mapper.LikerMapper;
@@ -18,6 +19,9 @@ import com.gdufe.cs.exception.CustomizeErrorCode;
 import com.gdufe.cs.works.service.LikerService;
 import com.gdufe.cs.works.service.RedisLikeService;
 import com.gdufe.cs.works.service.ScoreService;
+import com.rabbitmq.client.Channel;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,8 +44,8 @@ public class CommentController {
     @Autowired
     private MemberFeignService memberFeignService;
 
-    @Autowired
-    private ScoreService scoreService;
+
+
 
     @PostMapping("/auth/comment/{userId}")
    public ResultDTO postComment(@RequestBody CommentDTO commentDto,
@@ -68,23 +72,30 @@ public class CommentController {
    public ResultDTO getLike(@RequestBody Liker liker){
 
         if(liker.getStatus() == 1){
-            redisLikeService.saveLiked2Redis(liker.getLikedCommentId(),liker.getLikedPostId());
-            redisLikeService.incrementLikedCount(liker.getLikedCommentId());
+            //存入缓存
+            redisLikeService.saveLiked2Redis(liker.getLikedParentId(),liker.getLikedPostId(),liker.getType());
+            redisLikeService.incrementLikedCount(liker.getLikedParentId(),liker.getType());
 
-            Comment comment = commentService.getById(liker.getLikedCommentId());
-            User user = memberFeignService.findUserById(liker.getLikedPostId());
+            //如果是点赞
+            if(liker.getType() == 1){
+                Comment comment = commentService.getById(liker.getLikedParentId());
+                User user = memberFeignService.findUserById(liker.getLikedPostId());
 
-            boolean notify = commentService.createNotify(comment, comment.getCommentator(), user.getUsername(),
-                    comment.getContent(), NotificationTypeEnum.LIKE, comment.getId());
-            if(notify == true){
-                return ResultDTO.ok();
-            }else{
-                return ResultDTO.error(CustomizeErrorCode.ADD_LIKE_ERROR);
+                boolean notify = commentService.createNotify(comment, comment.getCommentator(), user.getUsername(),
+                        comment.getContent(), NotificationTypeEnum.LIKE, comment.getId());
+                if(notify == true){
+                    return ResultDTO.ok();
+                }else{
+                    return ResultDTO.error(CustomizeErrorCode.ADD_LIKE_ERROR);
+                }
             }
 
-        }else{
-            redisLikeService.deleteLikedFromRedis(liker.getLikedCommentId(),liker.getLikedPostId());
-            redisLikeService.decrementLikedCount(liker.getLikedCommentId());
+
+        }else if(liker.getStatus() == 0){
+            //从缓存中删除  如果此时已经存入数据库？(已解决)
+            redisLikeService.deleteLikedFromRedis(liker.getLikedParentId(),liker.getLikedPostId(),liker.getType());
+            redisLikeService.decrementLikedCount(liker.getLikedParentId(),liker.getType());
+
         }
 
 

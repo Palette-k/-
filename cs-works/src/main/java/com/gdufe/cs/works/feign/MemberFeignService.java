@@ -1,6 +1,7 @@
 package com.gdufe.cs.works.feign;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.gdufe.cs.dto.ResultDTO;
 import com.gdufe.cs.entities.Notification;
 import com.gdufe.cs.entities.User;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -33,7 +34,7 @@ public interface MemberFeignService {
     public List<User> selectUserList(QueryWrapper<User> queryWrapper);
 
     @RequestMapping("/member/user/finduserId")
-    public Long finduserId(@RequestParam("username") String username);
+    public ResultDTO finduserId(@RequestParam("username") String username);
 
     @RequestMapping("/member/user/findUserById")
     public User findUserById(@RequestParam("userId")Long userId);

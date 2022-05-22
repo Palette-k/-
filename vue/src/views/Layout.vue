@@ -21,7 +21,7 @@
                    <movie></movie>
                 </el-main>
                 <el-aside  class="el-aside-2"
-                        style="">
+                        >
                     <sidesort></sidesort>
                     </el-aside>
 
@@ -74,24 +74,27 @@
    import book from "../components/book";
    import booksidepart from "../components/book-sidepart";
    import booksidesort from "../components/book-sidesort"
-   import Movie from "@/views/Movie";
     export default {
         name: "layout-1",
         components: {
-          Movie,
-
-            menu1,movie,sidesort,sidepart,carousel,music,musicsidepart,
-           musicsidesort,book,booksidepart,booksidesort}
-
-
-
+             menu1,
+            movie,sidesort,sidepart,carousel,music,musicsidepart,
+           musicsidesort,book,booksidepart,booksidesort},
+        //将自定义的body边距改为0px
+        beforeCreate: function () {
+            document.querySelector('body').setAttribute('style', 'margin:0;')
+        },
     }
 </script>
 
 <style scoped>
 .common-layout {
-
+ display: flex;
   margin: 0 auto;
+    min-width: 1300px;
+    max-width: 1300px;
+    border-bottom: solid 1px #e6e6e6;
+
 }
 
 

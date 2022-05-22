@@ -13,12 +13,12 @@
     <select id="findBylikedCommentIdAndStatus" resultType="com.gdufe.cs.entities.Liker">
         select *
         from liker
-        where liked_comment_id = #{likedCommentId} and  status = #{code}
+        where liked_parent_id = #{likedParentId} and  status = #{code}
     </select>
 
-    <select id="findBylikedCommentIdAndLikedPostId" resultType="com.gdufe.cs.entities.Liker">
+    <select id="findBylikedParentIdAndLikedPostIdAndType" resultType="com.gdufe.cs.entities.Liker">
         select *
         from liker
-        where liked_comment_id = #{likedCommentId} and liked_post_id = #{likedPostId}
+        where liked_parent_id = #{likedParentId} and liked_post_id = #{likedPostId} and type = #{type}
     </select>
 </mapper>

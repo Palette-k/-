@@ -1,27 +1,12 @@
 <template>
+  <!--头部菜单-->
+  <el-header>
+    <menu1 style="width: 100%"></menu1>
+  </el-header>
   <div class="nav-container page-component">
-  <!--左侧导航 #start -->
-<!--  <div class="nav left-nav">
-    <div class="nav-item selected">
-        <span
-            class="v-link selected dark"
-            onclick="javascript:window.location='/userInfo'"
-        >修改账户信息
-        </span>
-    </div>
-    <div class="nav-item">
-        <span
-            class="v-link clickable dark"
-            onclick="javascript:window.location='/notification'"
-        >消息通知
-        </span>
-    </div>
-    <div class="nav-item">
-      <span class="v-link clickable dark"> 意见反馈 </span>
-    </div>
-  </div>-->
+
     <user-aside class="left-nav"></user-aside>
-  <!-- 左侧导航 #end -->
+
 <!--右侧内容 start-->
     <div class="page-container">
       <div>
@@ -55,11 +40,12 @@ import request from "@/utils/request";
 import "@/assets/css/hospital_personal.css";
 import "@/assets/css/hospital.css";
 import "@/assets/css/personal.css";
+import menu1 from "@/components/menu1";
 import UserAside from "@/components/member/UserAside";
 
 export default {
   name: "notification",
-  components: {UserAside},
+  components: {menu1,UserAside},
   data() {
     return {
       notifications:{

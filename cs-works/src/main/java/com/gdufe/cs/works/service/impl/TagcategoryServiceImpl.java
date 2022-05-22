@@ -1,8 +1,11 @@
 package com.gdufe.cs.works.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.gdufe.cs.entities.Attr;
 import com.gdufe.cs.entities.Tagcategory;
 import com.gdufe.cs.works.mapper.TagcategoryMapper;
+import com.gdufe.cs.works.service.AttrService;
 import com.gdufe.cs.works.service.TagcategoryService;
 import org.redisson.api.RLock;
 import org.redisson.api.RReadWriteLock;
@@ -25,6 +28,9 @@ public class TagcategoryServiceImpl extends ServiceImpl<TagcategoryMapper, Tagca
 
     @Autowired
     private RedissonClient redissonClient;
+
+    @Autowired
+    private AttrService attrService;
 
     @Override
     public List<Tagcategory> showCateTree() {
@@ -77,7 +83,16 @@ public class TagcategoryServiceImpl extends ServiceImpl<TagcategoryMapper, Tagca
 
     @Override
     public void deleteMenuByIds(List<Long> deleteIds) {
+
           this.baseMapper.deleteBatchIds(deleteIds);
+
+          //删除关联表中含有该标签的数据
+        for (Long deleteId : deleteIds) {
+            QueryWrapper<Attr> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("tag_id",deleteId);
+            attrService.remove(queryWrapper);
+        }
+
     }
 
     private List<Tagcategory> getChildrens(Tagcategory root, List<Tagcategory> all) {

@@ -1,5 +1,6 @@
 package com.gdufe.cs.works;
 
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -12,7 +13,7 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
  * @Description: TODO
  * @DateTime: 2022/3/27 14:53
  **/
-@EnableOpenApi
+@EnableRabbit
 @EnableCaching
 @EnableFeignClients("com.gdufe.cs.works.feign")
 @EnableDiscoveryClient

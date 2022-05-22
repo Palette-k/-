@@ -61,15 +61,17 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
     @Override
     public IndexDTO indexPage(Integer pageCurrent,Integer pageSize) throws ExecutionException, InterruptedException {
         IndexDTO indexDTO = new IndexDTO();
-        Page<Works> page = new Page<>(pageCurrent,pageSize);
+
+
+        indexDTO.setPageSize(pageSize);
+        indexDTO.setPageCurrent(pageCurrent);
 
         CompletableFuture<Void> movieFuture = CompletableFuture.runAsync(() -> {
+            Page<Works> page = new Page<>(pageCurrent,pageSize);
             QueryWrapper queryWrapper1 = new QueryWrapper();
             queryWrapper1.eq("catelog_id", 40);
             queryWrapper1.eq("status", 1);
             worksMapper.selectPage(page, queryWrapper1);
-            indexDTO.setPageSize(pageSize);
-            indexDTO.setPageCurrent(pageCurrent);
 
             indexDTO.setMovieTotal(page.getTotal());
             indexDTO.setMovie(page.getRecords());
@@ -77,6 +79,7 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
         }, executor);
 
         CompletableFuture<Void> musicFuture = CompletableFuture.runAsync(() -> {
+            Page<Works> page = new Page<>(pageCurrent,pageSize);
             QueryWrapper queryWrapper2 = new QueryWrapper();
             queryWrapper2.eq("catelog_id", 41);
             queryWrapper2.eq("status", 1);
@@ -88,6 +91,7 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
 
 
         CompletableFuture<Void> bookFuture = CompletableFuture.runAsync(() -> {
+            Page<Works> page = new Page<>(pageCurrent,pageSize);
             QueryWrapper queryWrapper3 = new QueryWrapper();
             queryWrapper3.eq("catelog_id", 42);
             queryWrapper3.eq("status", 1);
@@ -101,7 +105,6 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
         return indexDTO;
 
     }
-
 
 
 
@@ -174,7 +177,8 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
             worksDTO.setCreatTime(works.getCreateTime());
             worksDTO.setScore(works.getScore());
             worksDTO.setCountry(works.getCountry());
-            worksDTO.setLikeCount(works.getLikeCount());
+            worksDTO.setWantCount(works.getWantCount());
+            worksDTO.setHaveCount(works.getHaveCount());
             worksDTO.setCommentCount(works.getCommentCount());
             worksDTO.setCommentDTOList(comments);
             worksDTO.setArticleDTOList(articleDTOList);

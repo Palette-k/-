@@ -1,0 +1,16 @@
+{
+  "id": "3401540",
+  "name": "pingshu'ying'y",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "122304",
+      "name": "表情",
+      "font_class": "biaoqing",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    }
+  ]
+}

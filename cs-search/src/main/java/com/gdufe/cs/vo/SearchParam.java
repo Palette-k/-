@@ -23,7 +23,7 @@ public class SearchParam {
     * 标记最多
     * 评分最高
     * 最新上映*/
-    private String sort; //排序条件 形式是 createTime_desc/asc  score_desc/asc
+    private String sort; //排序条件 形式是 createTime_desc/asc  score_desc/asc hotScore_desc hotScore_asc
 
     /*其他筛选过滤条件
     * 我没看过

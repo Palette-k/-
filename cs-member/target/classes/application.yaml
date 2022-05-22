@@ -23,14 +23,22 @@ spring:
         server-addr: 127.0.0.1:8848
   application:
     name: cs-member
+  redis:
+    host: 192.168.170.10
+    port: 6379
+    database: 1
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 10
+        min-idle: 5
+      shutdown-timeout: 100ms
 
 
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  global-config:
-    db-config:
-      id-type: auto #主键自增
   type-aliases-package: com.gdufe.cs.entities
 
 

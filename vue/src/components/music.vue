@@ -1,70 +1,124 @@
 <template>
     <div class="demo-image">
-        <el-row style="margin-top: 10%">
+        <el-row  >
             <el-col v-for="it in pictureurls"
                     :key="it.id"
                     :span="6"
-                    :offset="it.id>0?3:0">
-                <el-card :body-style="{ padding: '0px' }">
+                    :offset="it.id>0?2:0"
+                    class="musiccard"
+            >
+              <router-link :to="{path:'about',query:{id: it.id}}">
+                <el-card  >
                     <img
-                            :src="it.idviews"
+                            :src="it.path"
                             class="block"
                     />
-                    <span class="demonstration">{{it.id}}</span>
-                    <el-rate  v-model="it.value"
-                              show-score
-                              score-template="{value} "
-                              disabled/>
+                    <span class="demonstration">{{it.name}}</span>
                 </el-card>
+              </router-link>
             </el-col>
         </el-row>
-        <el-row style="margin-top: 10%">
-            <el-col v-for="it in pictureurls"
-                    :key="it.id"
-                    :span="6"
-                    :offset="it.id>0?3:0">
-                <el-card :body-style="{ padding: '0px' }">
-                    <img
-                            :src="it.idviews"
-                            class="block"
-                    />
-                    <span class="demonstration">{{it.id}}</span>
-                    <el-rate  v-model="it.value"
-
-                              show-score
-                              score-template="{value} "
-                              disabled/>
-                </el-card>
-
-            </el-col>
-        </el-row>
+        <div >
+            <el-pagination
+                    v-model:currentPage="pageCurrent"
+                    v-model:page-size="pageSize"
+                    layout="prev, pager, next, jumper"
+                    :total="musictotal"
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    class="demo-pagination-block"
+            />
+            <div class="demonstration">共{{musicPages}}页，共有{{ musictotal}}首音乐</div>
+        </div>
     </div>
 </template>
 
 <script>
-    import * as book from "@element-plus/icons-vue"
-    import {ref} from "vue";
+
+    import request from "@/utils/request";
+
+
+
     export default {
-        name: "book-1",
-        components:book,
+
+        name: "mid-pic",
+
         data(){
             return{
-                pictureurls: [{id: 0,value:ref(2), idviews: require('../assets/gallery/image1.jpg'),},
-                    {id: 1, value:ref(3.5),idviews: require('../assets/gallery/image2.jpg'),},
-                    {id: 2, value:ref(4),idviews: require('../assets/gallery/image3.jpg'),},
-                    /*{id: 3,value:ref(2), idviews: require('../assets/gallery/image4.jpg'),},
-                    {id: 4, value:ref(4),idviews: require('../assets/gallery/image1.jpg'),},*/],
+
+                pictureurls:[],
+
+                //总数据条数
+
+
+                //当前页码
+                pageCurrent:1,
+                //每页条数
+                pageSize: 6,
+                //总页数
+                musicPages:2,
+                musictotal:'',
+
 
             }
-        }
+        },
+
+
+        methods:{
+            getInfo(){      //首页展示影片
+
+                request.get("/works/indexshow?pageCurrent=" + this.pageCurrent + "&pageSize=" + this.pageSize).then(data =>{
+                    const res = data.data;
+                    console.log(data.data)
+                    const musicURL = res.music;
+                    console.log(res.music)
+                    this.pictureurls = musicURL;
+                    this.musicPages = res.musicPages;
+                    this.musictotal=res.musicTotal;
+
+                })
+            },
+
+
+            handleCurrentChange(page){
+                this.currentPage = page;
+                console.log(this.currentPage);
+                this.getInfo();
+            },
+
+            handleSizeChange(size){
+                this.pageSize = size;
+                console.log(this.pageSize);
+                this.getInfo();
+            },
+
+
+
+
+
+        },
+
+        //生命周期：挂载完成，可以访问当前this实例
+        mounted() {
+            this.getInfo();
+            //  this.getImage();
+        },
+
+
     }
 </script>
 
 <style scoped>
+    .demo-image{
+        margin: 0 auto;
+        padding-left: 20px;
+    }
     .demo-image .block {
         display: inline-block;
-        width: 100%;
+        width: 160px;
         object-fit: scale-down;
+        height: 170px;
+
     }
     .demo-image .demonstration {
         display: block;
@@ -74,6 +128,15 @@
         margin-top: 20px;
         margin-bottom: 20px;
     }
+    .demo-pagination-block{
+        margin: auto;
+        width: 40%;
+        position: relative;
 
+
+    }
+    .musiccard{
+        margin-left: 20px;
+    }
 
 </style>

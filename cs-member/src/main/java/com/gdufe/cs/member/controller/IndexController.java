@@ -59,6 +59,8 @@ public class IndexController {
     public ResultDTO register(@RequestBody User user){
         Map<String,Object> map = new HashMap<>();
         if(!StringUtils.isEmpty(user.getUsername()) && !StringUtils.isEmpty(user.getPassword())){
+            //注册默认为普通用户
+            user.setAdmin(0);
             userService.save(user);
             String token = JwtHelper.createToken(user.getId(), user.getUsername());
             map.put("username",user.getUsername());
@@ -108,12 +110,13 @@ public class IndexController {
     }
 
     @RequestMapping("/user/finduserId")
-    public Long finduserId(@RequestParam("username") String username){
+    public ResultDTO finduserId(@RequestParam("username") String username){
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username",username);
         User user = userService.getOne(queryWrapper);
-        return user.getId();
+
+        return ResultDTO.ok(user.getId());
     }
 
     @RequestMapping("/user/findUserById")

@@ -16,8 +16,11 @@ import category from "@/views/category.vue";
 import workscate from "@/views/workscate"
 import carousel from "@/views/carousel.vue"
 import userInfo from "@/components/member/UserInfo"
-import article from "../components/article"
+import article from "../components/Article/article"
 import notification from "@/components/member/notification"
+import movieclassify from "@/views/movie-classify"
+import chat from "@/components/chat/chat"
+import simpleChat from '@/components/chat/simpleChat'
 //import Login1 from "@/components/Login1";
 //使用
 //Vue.use(VueRouter);
@@ -57,6 +60,20 @@ const routes = [
         component: notification,
     },
     {
+        path:'/movie',
+        component:movieclassify
+
+    },
+
+    {
+        path: '/chat',
+        component: chat
+    },
+    {
+      path: '/simpleChat',
+      component: simpleChat
+    },
+    {
         path: '/admin',
         component: Manage,
 
@@ -71,9 +88,6 @@ const routes = [
             {path: '/admin/carousel',name: '轮播图',component: carousel}
 
         ]
-    },
-    {
-
     },
     {
         path: '/about',

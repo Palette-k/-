@@ -3,41 +3,59 @@
                               font-size: x-large;
                               text-align: center;color: #b88230">音乐分区</h1>
     <div style="margin:0 auto">
-        <el-link href="https://element.eleme.io" target="_blank" style="margin: 2px 2px 2px 2px">纯音乐</el-link>
-        <el-link type="primary" style="margin: 2px 2px 2px 2px">民谣</el-link>
-        <el-link type="success" style="margin: 2px 2px 2px 2px">hip-hop</el-link>
-        <el-link type="warning" style="margin: 2px 2px 2px 2px">pop</el-link>
+      <div>
+
+        <ul v-for="item in children"
+            :key="item.id"
+            class="tagul">
+
+          <router-link :to="{path:'movie',query:{tagcatelogId: item.id,catelogId:item.catelogId}}">
+            <el-link type="success"
+                     style="margin: 2px 2px 2px 2px"
+            >
+              {{ item.tagName }}
+            </el-link>
+          </router-link>
+
+        </ul>
+
+
+      </div>
     </div>
-    <div
-            style="margin: 0 auto">
-        <el-link href="https://element.eleme.io" target="_blank" style="margin: 2px 2px 2px 2px">jazz</el-link>
-        <el-link type="primary" style="margin: 2px 2px 2px 2px">OST</el-link>
-        <el-link type="success" style="margin: 2px 2px 2px 2px">电影原声</el-link>
-        <el-link type="warning" style="margin: 2px 2px 2px 2px">古典</el-link>
-    </div>
-    <div
-            style="margin: 0 auto">
-        <el-link href="https://element.eleme.io" target="_blank" style="margin: 2px 2px 2px 2px">摇滚</el-link>
-        <el-link type="primary" style="margin: 2px 2px 2px 2px">电子</el-link>
-        <el-link type="success" style="margin: 2px 2px 2px 2px">newage</el-link>
-        <el-link type="warning" style="margin: 2px 2px 2px 2px">Soul</el-link>
-    </div>
+
 
 </template>
 
 <script>
     import * as mleftside from '@element-plus/icons-vue'
+    import request from "@/utils/request";
     export default {
         name: "musicside-part",
         components:mleftside,
         data(){
             return{
-                message:"恐怖"
+              children:{}
             }
-        }
+        },
+        methods:{
+          getMusicTag(){
+            request.get("/works/tagcategory/showCateTree").then(res => {
+              let data = res.data[1]
+              this.children = data.children
+
+              console.log("数据",this.children)
+            })
+          }
+        },
+      created() {
+          this.getMusicTag()
+      }
     }
 </script>
 
 <style scoped>
-
+.tagul{
+  display: inline-block;
+  text-align: center;
+}
 </style>

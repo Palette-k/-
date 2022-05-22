@@ -29,7 +29,8 @@ public class WorksDTO {
     private String producerName;
 
     private Integer commentCount; //评论数
-    private Integer likeCount; //收藏数
+    private Integer haveCount; //看过
+    private Integer wantCount; //想看
 
     private List<CommentDTO> commentDTOList;
     private List<ArticleDTO> articleDTOList;

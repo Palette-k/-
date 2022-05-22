@@ -20,14 +20,16 @@ public class Liker {
 
     private Long id;
     private Long likedPostId;
-    private Long likedCommentId;
+    private Long likedParentId;
     private Long gmtCreate;
+    private Integer type;
     //点赞的状态.默认未点赞
     private Integer status = LikedStatusEnum.UNLIKE.getCode();
 
-    public Liker(Long likedCommentId, Long likedPostId, Integer status) {
-        this.likedCommentId = likedCommentId;
+    public Liker(Long likedParentId, Long likedPostId, Integer type,Integer status) {
+        this.likedParentId = likedParentId;
         this.likedPostId = likedPostId;
+        this.type = type;
         this.status = status;
     }
 

@@ -29,6 +29,7 @@ public class Works {
     private Long pid; //作者id
 
     private Integer commentCount; //评论数
-    private Integer likeCount; //收藏数
+    private Integer haveCount; //看过
+    private Integer wantCount; //想看
     private Integer scoreCount; //评分数
 }

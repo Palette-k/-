@@ -15,36 +15,36 @@ public interface RedisLikeService {
 
     /**
      * 点赞。状态为1
-     * @param likedCommentId
+     * @param likedParentId
      * @param likedPostId
      */
-    void saveLiked2Redis(Long likedCommentId, Long likedPostId);
+    void saveLiked2Redis(Long likedParentId, Long likedPostId,Integer type);
 
     /**
      * 取消点赞。将状态改变为0
-     * @param likedCommentId
+     * @param likedParentId
      * @param likedPostId
      */
-    void unlikeFromRedis(Long likedCommentId, Long likedPostId);
+    void unlikeFromRedis(Long likedParentId, Long likedPostId,Integer type);
 
     /**
      * 从Redis中删除一条点赞数据
-     * @param likedCommentId
+     * @param likedParentId
      * @param likedPostId
      */
-    void deleteLikedFromRedis(Long likedCommentId, Long likedPostId);
+    void deleteLikedFromRedis(Long likedParentId, Long likedPostId,Integer type);
 
     /**
      * 该评论的点赞数加1
-     * @param likedCommentId
+     * @param likedParentId
      */
-    void incrementLikedCount(Long likedCommentId);
+    void incrementLikedCount(Long likedParentId,Integer type);
 
     /**
      * 该评论的点赞数减1
-     * @param likedCommentId
+     * @param likedParentId
      */
-    void decrementLikedCount(Long likedCommentId);
+    void decrementLikedCount(Long likedParentId,Integer type);
 
     /**
      * 获取Redis中存储的所有点赞数据

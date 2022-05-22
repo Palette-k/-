@@ -18,7 +18,7 @@ public interface LikerMapper extends BaseMapper<Liker> {
 
     Page<Liker> findByLikedPostIdAndStatus(@Param("likedPostId") Long likedPostId, @Param("code") Integer code, Pageable pageable);
 
-    Page<Liker> findBylikedCommentIdAndStatus(@Param("likedCommentId") Long likedCommentId,@Param("code") Integer code, Pageable pageable);
+    Page<Liker> findBylikedCommentIdAndStatus(@Param("likedParentId") Long likedParentId,@Param("code") Integer code, Pageable pageable);
 
-    Liker findBylikedCommentIdAndLikedPostId(@Param("likedCommentId") Long likedCommentId, @Param("likedPostId") Long likedPostId);
+    Liker findBylikedParentIdAndLikedPostIdAndType(@Param("likedParentId") Long likedParentId, @Param("likedPostId") Long likedPostId,@Param("type")Integer type);
 }

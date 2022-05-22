@@ -5,12 +5,16 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdufe.cs.dto.LikedCountDTO;
 import com.gdufe.cs.entities.Comment;
 import com.gdufe.cs.entities.Liker;
+import com.gdufe.cs.entities.Works;
 import com.gdufe.cs.enums.LikedStatusEnum;
+import com.gdufe.cs.works.config.MyRabbitMQConfig;
 import com.gdufe.cs.works.mapper.LikerMapper;
 import com.gdufe.cs.works.service.CommentService;
 import com.gdufe.cs.works.service.LikerService;
 import com.gdufe.cs.works.service.RedisLikeService;
+import com.gdufe.cs.works.service.WorksService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +43,12 @@ public class LikerServiceImpl extends ServiceImpl<LikerMapper, Liker> implements
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    WorksService worksService;
+
+    @Autowired
+    RabbitTemplate rabbitTemplate;
+
 
 
     @Override
@@ -52,8 +62,8 @@ public class LikerServiceImpl extends ServiceImpl<LikerMapper, Liker> implements
     }
 
     @Override
-    public Liker getBylikedCommentIdAndLikedPostId(Long likedCommentId, Long likedPostId) {
-        return likerMapper.findBylikedCommentIdAndLikedPostId(likedCommentId, likedPostId);
+    public Liker getBylikedParentIdAndLikedPostId(Long likedParentId, Long likedPostId,Integer type) {
+        return likerMapper.findBylikedParentIdAndLikedPostIdAndType(likedParentId, likedPostId,type);
     }
 
     @Override
@@ -61,15 +71,25 @@ public class LikerServiceImpl extends ServiceImpl<LikerMapper, Liker> implements
     public void transLikedFromRedis2DB() {
         List<Liker> list = redisLikeService.getLikedDataFromRedis();
         for (Liker like : list) {
-            Liker ul = getBylikedCommentIdAndLikedPostId(like.getLikedCommentId(), like.getLikedPostId());
+            Liker ul = getBylikedParentIdAndLikedPostId(like.getLikedParentId(), like.getLikedPostId(),like.getType());
             if (ul == null){
                 //没有记录，直接存入
                 likerMapper.insert(like);
+                //如果想看
+                if(like.getStatus() == 1 && like.getType()==2) {
+                    //给MQ发送信息
+                    rabbitTemplate.convertAndSend(MyRabbitMQConfig.LIKED_EVENT_EXCHANGE, MyRabbitMQConfig.LIKED_CREATE_WANT, like);
+                }
+
             }else{
                 //有记录，需要更新
                 ul.setStatus(like.getStatus());
                 ul.setGmtCreate(System.currentTimeMillis());
-                likerMapper.insert(ul);
+                likerMapper.updateById(ul);
+                if(ul.getStatus() == 1 && ul.getType()==2){
+                    //给MQ发送信息
+                    rabbitTemplate.convertAndSend(MyRabbitMQConfig.LIKED_EVENT_EXCHANGE,MyRabbitMQConfig.LIKED_CREATE_WANT,ul);
+                }
             }
         }
     }
@@ -79,14 +99,41 @@ public class LikerServiceImpl extends ServiceImpl<LikerMapper, Liker> implements
     public void transLikedCountFromRedis2DB() {
         List<LikedCountDTO> list = redisLikeService.getLikedCountFromRedis();
         for (LikedCountDTO dto : list) {
-            Comment comment = commentService.getById(dto.getKey());
-            //点赞数量属于无关紧要的操作，出错无需抛异常
-            if (comment != null){
-                Integer likeNum = comment.getLikeCount() + dto.getValue();
-                comment.setLikeCount(likeNum);
-                //更新点赞数量
-                commentService.saveOrUpdate(comment);
+            if(dto.getType() == 1){
+                Comment comment = commentService.getById(dto.getLikedParentId());
+                //点赞数量属于无关紧要的操作，出错无需抛异常
+                if (comment != null){
+                    Integer likeNum = comment.getLikeCount() + dto.getValue();
+                    comment.setLikeCount(likeNum);
+                    //更新点赞数量
+                    commentService.saveOrUpdate(comment);
+                }
+            }else if(dto.getType() == 2) {
+
+                Works works = worksService.getById(dto.getLikedParentId());
+                if(null != works){
+                    Integer likeNum = works.getWantCount() + dto.getValue();
+                    works.setWantCount(likeNum);
+                    worksService.saveOrUpdate(works);
+
+                }
+
+            }else if(dto.getType() == 3) {
+                Works works = worksService.getById(dto.getLikedParentId());
+                if(null != works){
+                    Integer likeNum = works.getHaveCount() + dto.getValue();
+                    works.setHaveCount(likeNum);
+                    worksService.saveOrUpdate(works);
+                }
             }
+
         }
+    }
+
+    @Override
+    public void updateLikedStatusByType(Long likedParentId, Long likedPostId, Integer type) {
+        Liker ul = getBylikedParentIdAndLikedPostId(likedParentId,likedPostId,type);
+        ul.setStatus(LikedStatusEnum.UNLIKE.getCode());
+        likerMapper.updateById(ul);
     }
 }

@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LikedCountDTO {
-    private Long key;
+    private Long likedParentId;
+    private Integer type;
     private Integer value;
 }
