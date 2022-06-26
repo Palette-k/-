@@ -2,7 +2,6 @@
 
     <div class="demo-image">
 
-
         <el-col v-for="it in pictureurls"
                 :key="it.id"
                 :span="6"

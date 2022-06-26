@@ -1,10 +1,5 @@
 spring:
   cloud:
-    alicloud:
-      access-key: ENC(RKrPF1Wwi4JpN+OjfWffgY1ao/gNrr9a8f7FZtarOFIlTCIKbJTteHHROUuc6klsLqedtS1D0Mbg8hKEuPDPwA==)
-      secret-key: ENC(9IpKJc5hHGWDRsj8Hb/SfrJP+kY42Ywr3IEnAqdZwNLQxgSvQx0x/RZ3xdqS886nfzbPAekUjfMWQ+8D8o4G+A==)
-      oss:
-        endpoint: oss-cn-shenzhen.aliyuncs.com
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848

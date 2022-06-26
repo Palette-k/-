@@ -35,6 +35,8 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode{
     UPDATE_IMG_ERROR(425,"更改图片失败"),
     DELETE_ARTICLE_ERROR(426,"删除文章失败"),
     DELETE_SCORE_ERROR(427,"删除评分失败"),
+    WANT_NOT_FOUND(428,"没找到您的想看标记"),
+    HAVE_NOT_FOUND(429,"没找到您的看过标记")
     ;
 
 

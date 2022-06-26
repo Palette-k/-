@@ -24,7 +24,7 @@
       </template>
       <el-menu-item-group>
         <el-menu-item index="/admin/comment">历史评论</el-menu-item>
-        <el-menu-item index="1-2">历史评分</el-menu-item>
+<!--        <el-menu-item index="1-2">历史评分</el-menu-item>-->
       </el-menu-item-group>
         <el-menu-item index="/admin/user">个人资料</el-menu-item>
     </el-sub-menu>

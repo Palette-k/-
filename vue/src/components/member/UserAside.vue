@@ -15,16 +15,16 @@
         </el-menu-item>
         <el-menu-item index="/notification">
           <template #title>
-            <el-icon><chat-dot-round /></el-icon>
+            <el-icon><message /></el-icon>
           <span>消息中心</span>
           </template>
         </el-menu-item>
-<!--        <el-menu-item index="/advice">
+        <el-menu-item index="/chat">
           <template #title>
-            <el-icon><message /></el-icon>
-            <span>意见反馈</span>
+            <el-icon><chat-dot-round /></el-icon>
+            <span>聊天记录</span>
           </template>
-        </el-menu-item>-->
+        </el-menu-item>
       </el-menu>
     </el-col>
 

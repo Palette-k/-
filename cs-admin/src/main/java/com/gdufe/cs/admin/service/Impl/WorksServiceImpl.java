@@ -12,6 +12,8 @@ import com.gdufe.cs.entities.*;
 import com.gdufe.cs.enums.WorksStatusEnum;
 import com.gdufe.cs.es.esModel;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
  * @DateTime: 2022/4/5 14:18
  **/
 @Service
+@Slf4j
 public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements WorksService {
 
     @Autowired
@@ -55,27 +58,29 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
     @Transactional(rollbackFor = Exception.class)
     public int saveWorksList(AdminWorksDTO adminWorksDTO) {
 
-
+        Works works = new Works();
         QueryWrapper<Producer> queryWrapper1 = new QueryWrapper<>();
         queryWrapper1.eq("name",adminWorksDTO.getProducerName());
         Producer producer = producerMapper.selectOne(queryWrapper1);
         if(null == producer){
 
-            producer.setName(adminWorksDTO.getProducerName());
+         //  log.info("创作者名字{}",adminWorksDTO.getProducerName());
+            Producer producer1 = new Producer();
+            producer1.setName(adminWorksDTO.getProducerName());
 
 
             //给创作者表插入一条数据
-            int producerInsert = producerMapper.insert(producer);
+            int producerInsert = producerMapper.insert(producer1);
             if(producerInsert != 1){
                 throw new RuntimeException("producer插入失败");
             }
+            works.setPid(producer1.getId());
+        }else{
+            works.setPid(producer.getId());
         }
 
 
 
-        Works works = new Works();
-
-        works.setPid(producer.getId());
         works.setCountry(adminWorksDTO.getCountry());
         works.setIntro(adminWorksDTO.getIntro());
         works.setCommentCount(0);
@@ -219,7 +224,10 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
 
         List<AdminWorksDTO> adminWorksDTOList = new ArrayList<>();
 
-        List<Works> worksList = worksMapper.selectList(null);
+        QueryWrapper<Works> queryWrapper2 = new QueryWrapper<>();
+        queryWrapper2.orderByDesc("id");
+        List<Works> worksList = worksMapper.selectList(queryWrapper2);
+
         for (Works works : worksList) {
             AdminWorksDTO adminWorksDTO = new AdminWorksDTO();
             adminWorksDTO.setId(works.getId());
@@ -280,6 +288,77 @@ public class WorksServiceImpl extends ServiceImpl<WorksMapper, Works> implements
         
 
     }
+
+    @Override
+    @Transactional
+    public void del(Long id){
+        QueryWrapper<Works> worksQueryWrapper = new QueryWrapper<>();
+        worksQueryWrapper.eq("id", id);
+        Works works = worksMapper.selectOne(worksQueryWrapper);
+        if (works == null){
+            throw new RuntimeException("works不存在");
+        }
+
+        worksMapper.deleteById(id);
+        QueryWrapper<Attr> attrQueryWrapper = new QueryWrapper<>();
+        attrQueryWrapper.eq("works_id", works.getId());
+        attrMapper.delete(attrQueryWrapper);
+    }
+
+    @Override
+    public void update(AdminWorksDTO dto){
+        Works works=new Works();
+        BeanUtils.copyProperties(dto,works);
+
+        QueryWrapper<Producer> pr=new QueryWrapper<>();
+        pr.eq("name", dto.getProducerName());
+        Producer one = producerMapper.selectOne(pr);
+        if(one == null){
+            Producer producer=new Producer();
+            producer.setName(dto.getProducerName());
+            int producerInsert = producerMapper.insert(producer);
+            if(producerInsert != 1){
+                throw new RuntimeException("producer插入失败");
+            }
+            QueryWrapper<Producer> queryWrapper1 = new QueryWrapper<>();
+            queryWrapper1.eq("name", dto.getProducerName());
+            Producer producer1 = producerMapper.selectOne(queryWrapper1);
+            works.setPid(producer1.getId());
+        }else{
+            works.setPid(one.getId());
+        }
+
+
+        worksMapper.updateById(works);
+
+        //删除workId对应的attr
+        QueryWrapper<Attr> attrQueryWrapper = new QueryWrapper<>();
+        attrQueryWrapper.eq("works_id", works.getId());
+        attrMapper.delete(attrQueryWrapper);
+
+        //新增新的attr
+        List<String> tagList = dto.getTagList();
+        if (tagList != null && !tagList.isEmpty()){
+            for (int i = 0; i < tagList.size(); i++) {
+                Attr attr = new Attr();
+                attr.setWorksId(works.getId());
+
+                String tag = tagList.get(i);
+                QueryWrapper<Tagcategory> queryWrapper = new QueryWrapper<>();
+                queryWrapper.select("id").eq("tag_name",tag);
+                Tagcategory tagcategory = tagcategoryMapper.selectOne(queryWrapper);
+                attr.setTagId(tagcategory.getId());
+                int attrInsert = attrMapper.insert(attr);
+                //判断是否插入了一条数据
+                if(attrInsert != 1){
+                    throw new RuntimeException("attr插入失败");
+                }
+            }
+        }
+
+
+    }
+
 
     private List<Tagcategory> getParent_cid(List<Tagcategory> selectList,Long catelogId){
         List<Tagcategory> tagcategoryList =

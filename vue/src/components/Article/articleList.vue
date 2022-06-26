@@ -1,5 +1,7 @@
 <template>
   <div class="articleList-container">
+    <p v-if="articleList===''" style="font-size: larger;color: #909399;text-align: center;margin-bottom: 50px">暂无影评，我来发表第一条影评!</p>
+    <div v-else>
     <div class="article-list" v-for="(item,index) in article" :index="index">
       <div class="author-info">
         <el-avatar :src="item.user.img"  shape="square" :size="24"/>
@@ -51,6 +53,7 @@
           <article-comment v-model:comment="article[index].CommentDTOS" :mid="article[index].id"></article-comment>
         </div>
       </el-collapse-transition>
+    </div>
     </div>
   </div>
 </template>

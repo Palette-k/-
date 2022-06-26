@@ -4,7 +4,7 @@
      <span :class="collapseBtnClass" style="cursor: pointer;font-size:18px" @click="collapse"></span>
        <el-breadcrumb separator="/" style="display: inline-block;margin-left:10px">
          <el-breadcrumb-item :to="{path:'item.path'}" v-for="item in paths" :key="item.name">{{item.name}}</el-breadcrumb-item>
-         <el-breadcrumb-item>用户资料-历史评论</el-breadcrumb-item>
+<!--         <el-breadcrumb-item>用户资料-历史评论</el-breadcrumb-item>-->
        </el-breadcrumb>
    </div>
 

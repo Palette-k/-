@@ -203,22 +203,34 @@ export default {
 
 
 <style lang="less" scoped>
-@width:22%;
+@width:350px;
 @height:380px;
 @color:#7058a3;
-
-
-#box {
+// #b0a4e3;
+.bg {
+  //width: 1050px;
+  /*width: fit-content;
+  height: 430px;*/
   display: flex;
+  /*flex-direction: column;
+  justify-content: center;*/
+  /*box-shadow: 0 0 25px #909399;*/
+}
+img {
+  width: 700px;
+  height: 430px;
+  color: #85ce61;
+  flex: 1;
+}
+#box {
   width: @width;
   height: @height;
-  border: #DCDFE6 solid 1px;
-  margin: 150px 250px 150px auto;
-  flex-direction: column;
-  justify-content: flex-start;
+  align-items: center;
   border-radius: 5px;
-  box-shadow: 0 0 25px #909399;
+  border: #DCDFE6 solid 1px;
   padding: 35px 35px 15px 35px;
+  box-shadow: 0 0 25px #909399;
+  margin: 150px auto;
   /deep/ .el-tabs__item {
     color: #c2ccd0;
     font-size: 18px;
@@ -226,10 +238,10 @@ export default {
     line-height: 25px;
     text-align: center;
     width: 100%;
-  //  padding:0px 10px;
+    //padding: 0 18px;
   }
   /deep/ .el-tabs__item.is-active {
-    color: @color;
+    color: @color ;
   }
   /deep/ .el-tabs__nav-wrap {
     margin-bottom: 22px;
@@ -243,7 +255,7 @@ export default {
   }
 
   /deep/ .el-form-item__label {
-    color: @color;
+    color: @color !important;
   }
   /deep/ .el-form-item__label::before {
     display: none;
@@ -282,4 +294,3 @@ export default {
 
 
 </style>
-

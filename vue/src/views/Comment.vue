@@ -165,7 +165,7 @@ export default {
       this.dialogFormVisible = true
     },
     del(row) {
-      request.delete("/admin/comment/" + row.id).then(res => {
+      request.delete("/works/auth/comment/del/" + row.id).then(res => {
         if (res) {
           this.$message.success("删除成功")
           this.load()

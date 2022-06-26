@@ -45,6 +45,8 @@ public class CommentController {
     private MemberFeignService memberFeignService;
 
 
+    @Autowired
+    private LikerService likerService;
 
 
     @PostMapping("/auth/comment/{userId}")
@@ -102,6 +104,27 @@ public class CommentController {
         return ResultDTO.ok();
    }
 
+    @PostMapping("/showWantStatus")
+    public ResultDTO showWantStatus(@RequestBody Liker liker){
+        //type = 2
+        Liker want = likerService.getBylikedParentIdAndLikedPostId(liker.getLikedParentId(), liker.getLikedPostId(), liker.getType());
+        if(null != want){
+            return ResultDTO.ok("您想看这部作品");
+        }
+       return ResultDTO.error(CustomizeErrorCode.WANT_NOT_FOUND);
+    }
+
+    @PostMapping("/showHaveStatus")
+    public ResultDTO showHaveStatus(@RequestBody Liker liker){
+        //type = 3
+        Liker have = likerService.getBylikedParentIdAndLikedPostId(liker.getLikedParentId(), liker.getLikedPostId(), liker.getType());
+
+        if(null != have){
+            return ResultDTO.ok("您看过这部作品");
+        }
+        return ResultDTO.error(CustomizeErrorCode.HAVE_NOT_FOUND);
+    }
+
    //罗列二级评论
    @GetMapping("/comment/{id}")
    public ResultDTO<List<CommentDTO>> comments(@PathVariable("id") Long id){
@@ -121,6 +144,7 @@ public class CommentController {
         }
         return ResultDTO.error(CustomizeErrorCode.DELETE_COMMENT_ERROR);
     }
+
 
 
 

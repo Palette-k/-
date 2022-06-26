@@ -23,7 +23,7 @@
     </div>
     <!--评论区-->
     <div class="cc-box" >
-      <p v-if="!comments" style="font-size: larger;color: #909399;text-align: center;margin-bottom: 50px">暂无评论，我来发表第一条评论!</p>
+      <p v-if="!comment" style="font-size: larger;color: #909399;text-align: center;margin-bottom: 50px">暂无评论，我来发表第一条评论!</p>
       <div v-else>
         <!--父评论-->
         <div class="comment" v-for="(item,index) in comments" :index="index">
@@ -420,6 +420,7 @@
     },
     mounted() {
       this.getUser()
+
     },
 
   }

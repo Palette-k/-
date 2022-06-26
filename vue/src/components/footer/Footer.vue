@@ -27,6 +27,8 @@ export default {
   background-color: #7058a3;
   opacity: 50%;
   text-align: center;
+  flex: 1;
+
   .c {
     padding: 20px 10px;
     text-align: center;

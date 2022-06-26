@@ -27,10 +27,10 @@
     </div>
 
     <el-table :data="tableData" border stripe :header-cell-class-name="headerBg"  @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="id" label="id" width="80"></el-table-column>
-      <el-table-column prop="name" label="名称" width="120"></el-table-column>
-      <el-table-column prop="intro" label="简介" width="400" ></el-table-column>
+      <el-table-column type="selection" width="55" align="center"></el-table-column>
+      <el-table-column prop="id" label="id" width="80" align="center"></el-table-column>
+      <el-table-column prop="name" label="名称" width="120" align="center"></el-table-column>
+      <el-table-column prop="intro" label="简介" width="300" align="center"></el-table-column>
       <el-table-column prop="path" label="海报" width="200">
               <!--    显示图片   -->
         <template #default="scope">
@@ -44,12 +44,12 @@
         </template>
 
       </el-table-column>
-      <el-table-column prop="country" label="制作国家" width="90" align="center"></el-table-column>
-      <el-table-column prop="createTime" label="发行时间" width="90" align="center"></el-table-column>
-      <el-table-column prop="catelogName" label="作品形式" width="90"></el-table-column>
-      <el-table-column prop="tagList" label="作品标签" width="120"></el-table-column>
-      <el-table-column prop="producerName" label="创作者" width="90"></el-table-column>
-      <el-table-column prop="status" label="状态" width="100">
+      <el-table-column prop="country" label="制作国家" width="70" align="center"></el-table-column>
+      <el-table-column prop="createTime" label="发行时间" width="70" align="center"></el-table-column>
+      <el-table-column prop="catelogName" label="作品形式" width="70" align="center"></el-table-column>
+      <el-table-column prop="tagList" label="作品标签" width="100" align="center"></el-table-column>
+      <el-table-column prop="producerName" label="创作者" width="70" align="center"></el-table-column>
+      <el-table-column prop="status" label="状态" width="70" align="center">
         <template #default="scope">
           <span v-if="scope.row.status === 0">未上架</span>
           <span v-if="scope.row.status === 1">已上架</span>
@@ -59,19 +59,17 @@
       <el-table-column label="操作"   align="center">
 
         <template v-slot="scope">
-          <el-button type="primary" @click="handleUp(scope.row)">上架</el-button>
-          <el-button type="success" @click="handleEdit(scope.row)">编辑 <i class="el-icon-edit"></i></el-button>
-          <el-popconfirm
+          <el-button style="margin-bottom: 1px" type="primary" @click="handleUp(scope.row)">上架</el-button>
+          <el-button style="margin-bottom: 1px" type="success" @click="handleEdit(scope.row)">编辑 <i class="el-icon-edit"></i></el-button>
+          <el-button  style="margin-bottom: 1px" type="danger" @click="del(scope.row)">删除</el-button>
+<!--          <el-popconfirm
               confirm-button-text="确定"
               cancel-button-text="我再想想"
               icon-color="red"
               title="您确定删除这些数据吗？"
               @confirm="del"
           ><info-filled></info-filled>
-            <template #reference>
-              <el-button type="danger">删除</el-button>
-            </template>
-          </el-popconfirm>
+          </el-popconfirm>-->
 
         </template>
 
@@ -156,7 +154,7 @@
       <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="save">确 定</el-button>
+        <el-button type="primary" @click="submitData()">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -227,7 +225,8 @@ export default {
       isCollapse: false,
       sideWidth: 200,
       logoTextShow: true,
-      headerBg: 'headerBg'
+      headerBg: 'headerBg',
+      dialogType:"",
     }
   },
   mounted(){
@@ -275,9 +274,18 @@ export default {
        //  this.total = res.total;
       })
     },
+    submitData(){
+      if (this.dialogType == "add") {
+        this.save();
+      }
+      if (this.dialogType == "edit") {
+        this.update();
+      }
+    },
     save() {
 
       request.post("/admin/works/insert", this.form).then(res => {
+        console.log(this.form);
         if (res.code == 200) {
           this.$message.success("保存成功")
           this.dialogFormVisible = false
@@ -291,13 +299,26 @@ export default {
       console.log("进入新增方法");
       this.dialogFormVisible = true
       this.form = {}
+      this.dialogType = "add"
     },
     handleEdit(row) {
-      request.post("/admin/works/update").then(res=>{
-        this.form = row
-        this.dialogFormVisible = true
-      })
+      console.log(row)
+      this.dialogFormVisible = true
+      this.form = row
+      this.dialogType = "edit"
 
+    },
+    update(){
+      request.post("/admin/works/update",this.form).then(res=>{
+        if (res.code === 200){
+          this.$message.success("修改成功")
+          this.dialogFormVisible = false
+          this.load()
+        } else {
+          this.$message.error("修改失败")
+        }
+
+      })
     },
     //作品上架
     handleUp(row){
@@ -312,14 +333,21 @@ export default {
           }
         })
     },
-    del(id) {
-      request.delete("admin/works/del" + id).then(res => {
-        if (res) {
-          this.$message.success("删除成功")
-          this.load()
-        } else {
-          this.$message.error("删除失败")
-        }
+    del(row) {
+      console.log(row)
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        request.get("/admin/works/del/" + row.id).then(res => {
+          if (res.code == 200) {
+            this.$message.success("删除成功")
+            this.load()
+          } else {
+            this.$message.error("删除失败")
+          }
+        })
       })
     },
     handleSelectionChange(val) {

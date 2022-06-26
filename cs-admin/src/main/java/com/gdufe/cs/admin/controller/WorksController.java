@@ -98,4 +98,22 @@ public class WorksController {
         return new CommonResult(200,"作品开分成功");
     }
 
+    @PostMapping("/update")
+    public CommonResult update(@RequestBody AdminWorksDTO adminWorksDTO){
+
+        adminWorksDTO.setWorkscateId(workscateId);
+        worksService.update(adminWorksDTO);
+
+        return new CommonResult(200,"作品修改成功");
+
+    }
+
+    @GetMapping("/del/{worksId}")
+    public CommonResult del(@PathVariable("worksId") Long worksId)  {
+
+        worksService.del(worksId);
+
+        return new CommonResult(200,"作品删除成功");
+    }
+
 }

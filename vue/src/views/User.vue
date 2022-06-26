@@ -27,7 +27,20 @@
 
     <el-table :data="tableData" border stripe :header-cell-class-name="headerBg"  @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="id" label="id" width="80"></el-table-column>
+      <el-table-column prop="id" label="id" width="100"></el-table-column>
+      <el-table-column prop="img" label="头像" width="80">
+        <!--    显示图片   -->
+        <template #default="scope">
+          <el-image
+              style="width: 50px; height: 50px"
+              :src="scope.row.img"
+
+              fit="cover"
+          />
+          <!--          :preview-src-list="[scope.row.path]"-->
+        </template>
+
+      </el-table-column>
       <el-table-column prop="username" label="用户名称" width="140"></el-table-column>
       <el-table-column prop="account" label="账号" width="300"></el-table-column>
       <el-table-column prop="gender" label="性别" width="80"></el-table-column>
@@ -41,7 +54,7 @@
               cancel-button-text="我再想想"
               icon-color="red"
               title="您确定删除这些数据吗？"
-              @confirm="del"
+              @confirm="del(scope.row.id)"
           ><info-filled></info-filled>
             <template #reference>
               <el-button type="danger">删除</el-button>
@@ -62,8 +75,12 @@
       </el-pagination>
     </div>
 
-    <el-dialog title="个人资料" v-model:visible="dialogFormVisible" width="30%" >
+    <el-dialog title="个人资料" v-model="dialogFormVisible" width="30%" >
       <el-form label-width="80px" size="small">
+        <el-form-item label="头像">
+          <!--          <el-input  autocomplete="off"></el-input>-->
+          <single-upload v-model="form.img"></single-upload>
+        </el-form-item>
         <el-form-item label="用户名">
           <el-input v-model="form.username" autocomplete="off"></el-input>
         </el-form-item>
@@ -93,9 +110,10 @@
 
 <script>
 import request from "@/utils/request";
-
+import singleUpload from "@/components/upload/singleUpload";
 export default {
   name: "User",
+  components: {singleUpload},
   data(){
     return{
       tableData: [],
@@ -122,16 +140,16 @@ export default {
   },
   methods:{
     load() {
-      fetch("/member/user/page?pageNum="+this.pageNum+"&pageSize=" + this.pageSize )
-          .then(res => res.json()).then(res => {
-        console. log(res)
+      request.get("/member/user/page?pageNum="+this.pageNum+"&pageSize=" + this.pageSize )
+          .then(res => {
+        console.log(res)
         console.log(res.records);
         this.tableData = res.records
         this.total = res.total
       })
     },
     save() {
-      request.post("/member/user/", this.form).then(res => {
+      request.post("/member/user/save", this.form).then(res => {
         if (res) {
           this.$message.success("保存成功")
           this.dialogFormVisible = false
@@ -144,13 +162,16 @@ export default {
     handleAdd() {
       this.dialogFormVisible = true
       this.form = {}
+
     },
     handleEdit(row) {
       this.form = row
       this.dialogFormVisible = true
+
+
     },
     del(id) {
-      request.delete("/member/user/" + id).then(res => {
+      request.delete("/member/user/del/" + id).then(res => {
         if (res) {
           this.$message.success("删除成功")
           this.load()
