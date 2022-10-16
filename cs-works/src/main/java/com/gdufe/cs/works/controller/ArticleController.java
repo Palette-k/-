@@ -76,6 +76,7 @@ public class ArticleController {
 
             boolean b = scoreService.addScore(score);
 
+            System.out.println("aaaa");
             if(b == false){
                 throw new CustomizeException(CustomizeErrorCode.USER_SCORE_ERROR);
             }
